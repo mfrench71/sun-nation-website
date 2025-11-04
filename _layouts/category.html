@@ -3,19 +3,21 @@ layout: default
 ---
 
 <div class="category-archive">
-  {%- comment -%} Show breadcrumb navigation {%- endcomment -%}
-  {% include category-breadcrumbs.html category=page.category %}
+  <div class="page-header-section">
+    {%- comment -%} Show breadcrumb navigation {%- endcomment -%}
+    {% include category-breadcrumbs.html category=page.category %}
 
-  <h1 class="page-heading">
-    <i class="fas fa-folder category-icon"></i>
-    {{ page.title }}
-  </h1>
+    <h1 class="page-heading">
+      <i class="fas fa-folder category-icon"></i>
+      {{ page.title }}
+    </h1>
 
-  {% if page.description %}
-    <p class="category-description">{{ page.description }}</p>
-  {% endif %}
+    {% if page.description %}
+      <p class="category-description">{{ page.description }}</p>
+    {% endif %}
 
-  <p class="post-count-info">{{ site.categories[page.category] | size }} posts in this category</p>
+    <p class="post-count-info">{{ site.categories[page.category] | size }} posts in this category</p>
+  </div>
 
   {%- comment -%} Check if this is a parent category with children {%- endcomment -%}
   {%- assign has_children = false -%}

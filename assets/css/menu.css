@@ -61,6 +61,15 @@ body {
   opacity: 0.8;
 }
 
+/* Site Title Color Split */
+.site-title-sun {
+  color: var(--orange-primary);
+}
+
+.site-title-nation {
+  color: #ffffff;
+}
+
 .site-logo {
   flex-shrink: 0;
   transition: transform 0.2s ease;

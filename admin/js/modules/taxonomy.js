@@ -312,8 +312,7 @@ export function renderCategories() {
   const countBadge = document.getElementById('categories-count-badge');
 
   if (!tbody || !countBadge) {
-    logger.error('renderCategories: Missing tbody or countBadge elements');
-    return;
+    return; // Silently return if elements don't exist (not on taxonomy page)
   }
 
   const categoriesTree = window.categoriesTree || [];

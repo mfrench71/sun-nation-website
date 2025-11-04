@@ -36,7 +36,7 @@ async function parseWordPressXML(xmlPath) {
   const parser = new xml2js.Parser({
     explicitArray: false,
     mergeAttrs: true,
-    xmlns: true
+    tagNameProcessors: [xml2js.processors.stripPrefix]
   });
 
   const result = await parser.parseStringPromise(xmlContent);
@@ -44,22 +44,53 @@ async function parseWordPressXML(xmlPath) {
 }
 
 /**
+ * Build attachment ID to filename map
+ */
+function buildAttachmentMap(items) {
+  const attachmentMap = {};
+
+  items.forEach(item => {
+    const postType = item.post_type;
+    const postId = item.post_id;
+    const attachmentUrl = item.attachment_url;
+
+    if (postType === 'attachment' && postId && attachmentUrl) {
+      // Extract filename from URL and convert to Cloudinary format
+      const filename = path.basename(attachmentUrl).replace(/(-\d+x\d+)?(\.\w+)$/, '$2');
+      const cloudinaryUrl = `https://res.cloudinary.com/${CLOUDINARY_CLOUD_NAME}/image/upload/q_auto,f_auto/${CLOUDINARY_FOLDER}/${filename}`;
+      attachmentMap[postId] = cloudinaryUrl;
+    }
+  });
+
+  return attachmentMap;
+}
+
+/**
  * Extract post/page data from WordPress item
  */
-function extractPostData(item, namespaces) {
-  // Get WordPress-specific fields
-  const wpNs = namespaces.wp || 'wp';
-  const contentNs = namespaces.content || 'content';
-  const excerptNs = namespaces.excerpt || 'excerpt';
-
-  const postType = item[`${wpNs}:post_type`] || 'post';
-  const status = item[`${wpNs}:status`] || 'publish';
-  const postId = item[`${wpNs}:post_id`] || '';
-  const postName = item[`${wpNs}:post_name`] || '';
+function extractPostData(item, namespaces, attachmentMap) {
+  // Get WordPress-specific fields (namespaces are stripped by parser)
+  const postType = item.post_type || 'post';
+  const status = item.status || 'publish';
+  const postId = item.post_id || '';
+  const postName = item.post_name || '';
   const pubDate = item.pubDate || new Date().toISOString();
   const title = item.title || 'Untitled';
-  const content = item[`${contentNs}:encoded`] || '';
-  const excerpt = item[`${excerptNs}:encoded`] || '';
+
+  // Handle encoded fields - with stripPrefix, both content:encoded and excerpt:encoded become 'encoded'
+  // xml2js creates an array if there are multiple elements with same name when explicitArray is false
+  const encodedFields = item.encoded;
+  let content = '';
+  let excerpt = '';
+
+  if (Array.isArray(encodedFields) && encodedFields.length >= 2) {
+    content = encodedFields[0] || '';
+    excerpt = encodedFields[1] || '';
+  } else if (typeof encodedFields === 'string') {
+    content = encodedFields;
+  } else if (encodedFields) {
+    content = String(encodedFields);
+  }
 
   // Extract categories and tags
   let categories = [];
@@ -78,14 +109,16 @@ function extractPostData(item, namespaces) {
 
   // Extract featured image
   let featuredImage = '';
-  const postMeta = item[`${wpNs}:postmeta`];
+  const postMeta = item.postmeta;
   if (postMeta) {
     const metaArray = Array.isArray(postMeta) ? postMeta : [postMeta];
     const thumbnailMeta = metaArray.find(meta =>
-      meta[`${wpNs}:meta_key`] === '_thumbnail_id'
+      meta.meta_key === '_thumbnail_id'
     );
     if (thumbnailMeta) {
-      featuredImage = thumbnailMeta[`${wpNs}:meta_value`];
+      const thumbnailId = thumbnailMeta.meta_value;
+      // Resolve attachment ID to Cloudinary URL
+      featuredImage = attachmentMap[thumbnailId] || '';
     }
   }
 
@@ -255,6 +288,11 @@ async function importWordPress(xmlPath) {
     // Get all items
     const items = Array.isArray(channel.item) ? channel.item : [channel.item];
 
+    // Build attachment map first
+    console.log('Building attachment map...');
+    const attachmentMap = buildAttachmentMap(items);
+    console.log(`Found ${Object.keys(attachmentMap).length} attachments`);
+
     // Detect namespaces
     const namespaces = {
       wp: 'wp',
@@ -267,7 +305,7 @@ async function importWordPress(xmlPath) {
     let pagesCount = 0;
 
     items.forEach(item => {
-      const data = extractPostData(item, namespaces);
+      const data = extractPostData(item, namespaces, attachmentMap);
 
       // Only import published posts and pages
       if (data.status === 'publish' && (data.postType === 'post' || data.postType === 'page')) {

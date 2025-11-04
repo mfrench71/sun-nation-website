@@ -29,9 +29,14 @@
   min-width: 0; /* Prevent content overflow */
 }
 
+/* Ensure post-meta-footer is full width outside the two-column container */
+.post-two-column .post-meta-footer {
+  margin-top: 32px;
+  margin-bottom: 40px;
+}
+
 /* Fix related posts section */
 .post-two-column .related-posts {
-  grid-column: 1 / -1;
   margin-top: 40px;
 }
 

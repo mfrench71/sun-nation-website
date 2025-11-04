@@ -41,27 +41,27 @@ layout: default
       <div class="post-content e-content" itemprop="articleBody">
         {{ content | inject_cloudinary_folder | auto_gallery }}
       </div>
-
-      <div class="post-meta-footer">
-        {%- if page.categories.size > 0 -%}
-        <div class="post-categories-footer">
-          <strong>Categories:</strong>
-          {%- for category in page.categories -%}
-            <a href="{{ site.baseurl }}/category/{{ category | slugify }}/" class="category-badge badge-{{ category | slugify }}">{{ category }}</a>
-          {%- endfor -%}
-        </div>
-        {%- endif -%}
-
-        {%- if page.tags.size > 0 -%}
-        <div class="post-tags-footer">
-          <strong>Tags:</strong>
-          {%- for tag in page.tags -%}
-            <a href="{{ site.baseurl }}/tag/{{ tag | slugify }}/" class="post-tag">{{ tag }}</a>
-          {%- endfor -%}
-        </div>
-        {%- endif -%}
-      </div>
     </div>
+  </div>
+
+  <div class="post-meta-footer">
+    {%- if page.categories.size > 0 -%}
+    <div class="post-categories-footer">
+      <strong>Categories:</strong>
+      {%- for category in page.categories -%}
+        <a href="{{ site.baseurl }}/category/{{ category | slugify }}/" class="category-badge badge-{{ category | slugify }}">{{ category }}</a>
+      {%- endfor -%}
+    </div>
+    {%- endif -%}
+
+    {%- if page.tags.size > 0 -%}
+    <div class="post-tags-footer">
+      <strong>Tags:</strong>
+      {%- for tag in page.tags -%}
+        <a href="{{ site.baseurl }}/tag/{{ tag | slugify }}/" class="post-tag">{{ tag }}</a>
+      {%- endfor -%}
+    </div>
+    {%- endif -%}
   </div>
 
   {%- comment -%}

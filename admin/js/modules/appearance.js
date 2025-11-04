@@ -7,6 +7,8 @@ import logger from '../core/logger.js';
 
 // Curated list of popular Google Fonts
 const GOOGLE_FONTS = [
+  'Bebas Neue',
+  'Roboto Condensed',
   'Open Sans',
   'Roboto',
   'Lato',

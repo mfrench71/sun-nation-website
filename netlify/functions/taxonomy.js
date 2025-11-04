@@ -22,7 +22,7 @@ const yaml = require('js-yaml');
 
 // GitHub API configuration
 const GITHUB_OWNER = 'mfrench71';
-const GITHUB_REPO = 'circleseven-website';
+const GITHUB_REPO = 'sun-nation-website';
 const GITHUB_BRANCH = 'main';
 const FILE_PATH = '_data/taxonomy.yml';
 

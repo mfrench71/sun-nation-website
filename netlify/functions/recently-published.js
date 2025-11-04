@@ -10,7 +10,7 @@ const https = require('https');
 
 // GitHub API configuration
 const GITHUB_OWNER = 'mfrench71';
-const GITHUB_REPO = 'circleseven-website';
+const GITHUB_REPO = 'sun-nation-website';
 
 /**
  * Makes authenticated requests to the GitHub API

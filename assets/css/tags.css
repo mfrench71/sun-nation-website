@@ -11,22 +11,22 @@
 .page-header {
   margin-bottom: 40px;
   padding-bottom: 20px;
-  border-bottom: 2px solid #e8e8e8;
+  border-bottom: 2px solid #3a3836;
 }
 
 .page-title {
   font-size: 32px;
   margin-bottom: 10px;
-  color: #111;
+  color: #e8e6e3;
 }
 
 .tag-icon {
   margin-right: 10px;
-  color: #20b2aa;
+  color: #c5641c;
 }
 
 .page-description {
-  color: #666;
+  color: #a8a6a3;
   font-size: 16px;
   margin: 0;
 }
@@ -35,7 +35,7 @@
 .tag-cloud {
   margin: 40px 0;
   padding: 30px;
-  background: #f9f9f9;
+  background: #2a2826;
   border-radius: 8px;
   line-height: 2.5;
   text-align: center;
@@ -45,21 +45,21 @@
   display: inline-block;
   margin: 5px 8px;
   padding: 6px 14px;
-  background: white;
-  border: 1px solid #e0e0e0;
+  background: #1a1816;
+  border: 1px solid #3a3836;
   border-radius: 20px;
   text-decoration: none;
-  color: #333;
+  color: #e8e6e3;
   transition: all 0.2s ease;
   font-weight: 500;
 }
 
 .tag-cloud-item:hover {
-  background: #2a7ae2;
+  background: #c5641c;
   color: white;
-  border-color: #2a7ae2;
+  border-color: #c5641c;
   transform: translateY(-2px);
-  box-shadow: 0 2px 8px rgba(42, 122, 226, 0.3);
+  box-shadow: 0 2px 8px rgba(197, 100, 28, 0.3);
 }
 
 /* Tag sizes based on post count */
@@ -91,23 +91,23 @@
 }
 
 .tag-section h2 {
-  border-bottom: 2px solid #e8e8e8;
+  border-bottom: 2px solid #3a3836;
   padding-bottom: 10px;
   margin-bottom: 20px;
   font-size: 24px;
 }
 
 .tag-section h2 a {
-  color: #111;
+  color: #e8e6e3;
   text-decoration: none;
 }
 
 .tag-section h2 a:hover {
-  color: #2a7ae2;
+  color: #c5641c;
 }
 
 .tag-section h2 .count {
-  color: #666;
+  color: #a8a6a3;
   font-size: 18px;
   font-weight: normal;
   margin-left: 8px;
@@ -119,19 +119,19 @@
 }
 
 .tag-description {
-  color: #666;
+  color: #a8a6a3;
   font-size: 16px;
 }
 
 .all-tags-link {
   margin-top: 40px;
   padding-top: 20px;
-  border-top: 1px solid #e8e8e8;
+  border-top: 1px solid #3a3836;
   text-align: center;
 }
 
 .all-tags-link a {
-  color: #2a7ae2;
+  color: #c5641c;
   text-decoration: none;
   font-weight: 500;
   padding: 10px 20px;
@@ -141,7 +141,7 @@
 }
 
 .all-tags-link a:hover {
-  background: #f0f0f0;
+  background: #2a2826;
 }
 
 /* Tag badges in post listings */
@@ -155,16 +155,16 @@
 .post-tag {
   display: inline-block;
   padding: 2px 8px;
-  background: #f0f0f0;
+  background: #2a2826;
   border-radius: 3px;
   font-size: 12px;
   text-decoration: none;
-  color: #555;
+  color: #e8e6e3;
   transition: all 0.2s;
 }
 
 .post-tag:hover {
-  background: #2a7ae2;
+  background: #c5641c;
   color: white;
 }
 
@@ -179,8 +179,8 @@
 
 .post-tags-footer {
   padding: 20px;
-  background: #fafafa;
-  border-left: 4px solid #667eea;
+  background: transparent;
+  border-left: 4px solid #a0501a;
   display: flex;
   align-items: center;
   gap: 10px;
@@ -188,7 +188,7 @@
 }
 
 .post-tags-footer strong {
-  color: #666;
+  color: #a8a6a3;
   font-weight: 600;
   font-size: 13px;
   text-transform: uppercase;
@@ -200,32 +200,32 @@
   font-family: 'Font Awesome 6 Free';
   font-weight: 900;
   margin-right: 6px;
-  color: #667eea;
+  color: #a0501a;
 }
 
 .post-tags-footer .post-tag {
-  background: #fff;
+  background: #2a2826;
   padding: 5px 12px;
   border-radius: 4px;
-  border: 1px solid #ddd;
+  border: 1px solid #3a3836;
   font-size: 13px;
   text-decoration: none;
-  color: #444;
+  color: #e8e6e3;
   transition: all 0.2s ease;
   font-weight: 500;
 }
 
 .post-tags-footer .post-tag:hover {
-  background: #667eea;
+  background: #a0501a;
   color: white;
-  border-color: #667eea;
+  border-color: #a0501a;
 }
 
 /* Widget Styles */
 .widget {
   margin-bottom: 30px;
   padding: 20px;
-  background: #f9f9f9;
+  background: #2a2826;
   border-radius: 8px;
 }
 
@@ -233,8 +233,8 @@
   font-size: 18px;
   margin: 0 0 15px 0;
   padding-bottom: 10px;
-  border-bottom: 2px solid #e8e8e8;
-  color: #111;
+  border-bottom: 2px solid #3a3836;
+  color: #e8e6e3;
 }
 
 .tag-cloud-widget .tag-cloud {

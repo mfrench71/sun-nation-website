@@ -149,9 +149,9 @@ h6 code {
   right: 8px;
   padding: 4px 8px;
   font-size: 0.75rem;
-  background: #ffffff;
-  color: #24292f;
-  border: 1px solid #d0d7de;
+  background: #2a2826;
+  color: #e8e6e3;
+  border: 1px solid #3a3836;
   border-radius: 4px;
   cursor: pointer;
   opacity: 0;
@@ -163,16 +163,16 @@ h6 code {
 }
 
 .copy-code-button:hover {
-  background: #f3f4f6;
-  border-color: #afb8c1;
+  background: #3a3836;
+  border-color: #c5641c;
 }
 
 .copy-code-button:active {
-  background: #eaeef2;
+  background: #222220;
 }
 
 .copy-code-button.copied {
-  background: #2da44e;
+  background: #c5641c;
   color: #ffffff;
-  border-color: #2da44e;
+  border-color: #c5641c;
 }

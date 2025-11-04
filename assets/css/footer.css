@@ -4,9 +4,9 @@
    ============================================ */
 
 .site-footer {
-  border-top: 1px solid #e8e8e8;
+  border-top: 1px solid #3a3836;
   padding: 30px 0;
-  background: #f9f9f9;
+  background: #1a1816;
 }
 
 .footer-col-wrapper {
@@ -19,14 +19,14 @@
 /* Subscribe and Contact Links */
 .feed-subscribe a,
 .contact-list a {
-  color: #20b2aa;
+  color: #c5641c;
   text-decoration: none;
   transition: color 0.2s ease;
 }
 
 .feed-subscribe a:hover,
 .contact-list a:hover {
-  color: #1a9991;
+  color: #a0501a;
   text-decoration: underline;
 }
 
@@ -41,7 +41,7 @@
   display: flex;
   justify-content: center;
   padding: 20px 0;
-  border-top: 1px solid #e8e8e8;
+  border-top: 1px solid #3a3836;
 }
 
 .social-media-list {
@@ -67,19 +67,19 @@
   justify-content: center;
   width: 44px;
   height: 44px;
-  background: white;
-  border: 1px solid #e0e0e0;
+  background: #2a2826;
+  border: 1px solid #3a3836;
   border-radius: 50%;
   text-decoration: none;
-  color: #666;
+  color: #a8a6a3;
   transition: all 0.2s ease;
   position: relative;
 }
 
 .social-media-list a:hover {
-  background: #20b2aa;
+  background: #c5641c;
   color: white;
-  border-color: #20b2aa;
+  border-color: #c5641c;
 }
 
 .social-media-list svg {

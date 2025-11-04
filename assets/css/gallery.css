@@ -307,7 +307,7 @@ body.glightbox-open {
 .gallery img[loading="lazy"],
 .post-content img[loading="lazy"],
 .page-content img[loading="lazy"] {
-  background: linear-gradient(90deg, #f0f0f0 25%, #e8e8e8 50%, #f0f0f0 75%);
+  background: linear-gradient(90deg, #2a2826 25%, #3a3836 50%, #2a2826 75%);
   background-size: 200% 100%;
   animation: shimmer 1.5s infinite;
 }

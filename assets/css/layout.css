@@ -6,7 +6,7 @@
 /* Site Logo (Gravatar in header) */
 .site-logo {
   border-radius: 50%;
-  box-shadow: 0 0 0 2px white, 0 0 0 4px #14b8a6;
+  box-shadow: 0 0 0 2px #1a1816, 0 0 0 4px #c5641c;
   width: 32px;
   height: 32px;
 }

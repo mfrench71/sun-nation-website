@@ -10,113 +10,16 @@
     <nav class="site-nav" aria-label="Main navigation">
       <!-- Desktop Navigation -->
       <ul class="nav-list">
-        <!-- Digital Art and Technology Mega Menu -->
-        <li class="nav-item has-dropdown">
-          <a class="nav-link" href="{{ site.baseurl }}/category/digital-art-and-technology/">Digital Art & Technology</a>
-          <div class="mega-menu">
-            <div class="mega-menu-content">
-              {% assign dat_categories = "" | split: "," %}
-              {% assign year1_cats = "" | split: "," %}
-              {% assign year2_cats = "" | split: "," %}
-              {% assign year3_cats = "" | split: "," %}
-
-              {% for category in site.categories %}
-                {% assign cat_name = category[0] %}
-                {% if cat_name contains "DAT" or cat_name contains "INDE" %}
-                  {% if cat_name contains "DAT4" %}
-                    {% assign year1_cats = year1_cats | push: category %}
-                  {% elsif cat_name contains "DAT5" or cat_name contains "INDE6" %}
-                    {% assign year2_cats = year2_cats | push: category %}
-                  {% elsif cat_name contains "DAT6" %}
-                    {% assign year3_cats = year3_cats | push: category %}
-                  {% endif %}
-                {% endif %}
-              {% endfor %}
-
-              {% if year1_cats.size > 0 %}
-              <div class="mega-menu-section">
-                <h3><i class="fas fa-graduation-cap"></i> Year 1 Modules</h3>
-                <ul class="mega-menu-links">
-                  {% for category in year1_cats %}
-                    <li>
-                      <a href="{{ site.baseurl }}/category/{{ category[0] | slugify }}/">
-                        <span class="link-text">{{ category[0] }}</span>
-                        <span class="post-count">{{ category[1] | size }}</span>
-                      </a>
-                    </li>
-                  {% endfor %}
-                </ul>
-              </div>
-              {% endif %}
-
-              {% if year2_cats.size > 0 %}
-              <div class="mega-menu-section">
-                <h3><i class="fas fa-laptop-code"></i> Year 2 Modules</h3>
-                <ul class="mega-menu-links">
-                  {% for category in year2_cats %}
-                    <li>
-                      <a href="{{ site.baseurl }}/category/{{ category[0] | slugify }}/">
-                        <span class="link-text">{{ category[0] }}</span>
-                        <span class="post-count">{{ category[1] | size }}</span>
-                      </a>
-                    </li>
-                  {% endfor %}
-                </ul>
-              </div>
-              {% endif %}
-
-              {% if year3_cats.size > 0 %}
-              <div class="mega-menu-section">
-                <h3><i class="fas fa-rocket"></i> Year 3 Modules</h3>
-                <ul class="mega-menu-links">
-                  {% for category in year3_cats %}
-                    <li>
-                      <a href="{{ site.baseurl }}/category/{{ category[0] | slugify }}/">
-                        <span class="link-text">{{ category[0] }}</span>
-                        <span class="post-count">{{ category[1] | size }}</span>
-                      </a>
-                    </li>
-                  {% endfor %}
-                </ul>
-              </div>
-              {% endif %}
-            </div>
-          </div>
+        <li class="nav-item">
+          <a class="nav-link" href="{{ site.baseurl }}/category/events/">Events</a>
         </li>
 
-        <!-- Projects Mega Menu -->
-        <li class="nav-item has-dropdown">
-          <a class="nav-link" href="{{ site.baseurl }}/category/projects/">Projects</a>
-          <div class="mega-menu">
-            <div class="mega-menu-content">
-              {% assign project_categories = "" | split: "," %}
-              {% for category in site.categories %}
-                {% assign cat_name = category[0] %}
-                {% assign cat_lower = cat_name | downcase %}
-                {% if cat_lower == "photography" or cat_lower == "motion graphics" or cat_lower == "retro computing" or cat_lower == "projects" %}
-                  {% unless cat_lower == "projects" %}
-                    {% assign project_categories = project_categories | push: category %}
-                  {% endunless %}
-                {% endif %}
-              {% endfor %}
+        <li class="nav-item">
+          <a class="nav-link" href="{{ site.baseurl }}/category/set-list/">Set List</a>
+        </li>
 
-              {% if project_categories.size > 0 %}
-              <div class="mega-menu-section">
-                <h3><i class="fas fa-folder-open"></i> Project Categories</h3>
-                <ul class="mega-menu-links">
-                  {% for category in project_categories %}
-                    <li>
-                      <a href="{{ site.baseurl }}/category/{{ category[0] | slugify }}/">
-                        <span class="link-text">{{ category[0] }}</span>
-                        <span class="post-count">{{ category[1] | size }}</span>
-                      </a>
-                    </li>
-                  {% endfor %}
-                </ul>
-              </div>
-              {% endif %}
-            </div>
-          </div>
+        <li class="nav-item">
+          <a class="nav-link" href="{{ site.baseurl }}/category/the-lineup/">The Lineup</a>
         </li>
 
         <li class="nav-item">
@@ -124,7 +27,7 @@
         </li>
 
         <li class="nav-item">
-          <a class="nav-link" href="{{ site.baseurl }}/contact/">Contact</a>
+          <a class="nav-link" href="{{ site.baseurl }}/contact/">Contact Us</a>
         </li>
       </ul>
 
@@ -173,60 +76,16 @@
 
   <!-- Mobile Navigation -->
   <ul class="mobile-nav-list">
-    <!-- Digital Art & Technology Accordion -->
     <li class="mobile-nav-item">
-      <button class="mobile-accordion-toggle" aria-expanded="false">
-        Digital Art & Technology
-      </button>
-      <div class="mobile-accordion-content">
-        <ul class="mobile-accordion-links">
-          <li><a href="{{ site.baseurl }}/category/digital-art-and-technology/">View All</a></li>
-          {% assign mobile_dat_cats = "" | split: "," %}
-          {% for category in site.categories %}
-            {% assign cat_name = category[0] %}
-            {% if cat_name contains "DAT" or cat_name contains "INDE" %}
-              {% assign mobile_dat_cats = mobile_dat_cats | push: category %}
-            {% endif %}
-          {% endfor %}
-          {% assign sorted_dat = mobile_dat_cats | sort %}
-          {% for category in sorted_dat %}
-            <li>
-              <a href="{{ site.baseurl }}/category/{{ category[0] | slugify }}/">
-                <span class="link-text">{{ category[0] }}</span>
-                <span class="post-count">{{ category[1] | size }}</span>
-              </a>
-            </li>
-          {% endfor %}
-        </ul>
-      </div>
+      <a class="mobile-nav-link" href="{{ site.baseurl }}/category/events/">Events</a>
     </li>
 
-    <!-- Projects Accordion -->
     <li class="mobile-nav-item">
-      <button class="mobile-accordion-toggle" aria-expanded="false">
-        Projects
-      </button>
-      <div class="mobile-accordion-content">
-        <ul class="mobile-accordion-links">
-          <li><a href="{{ site.baseurl }}/category/projects/">View All Projects</a></li>
-          {% assign mobile_project_cats = "" | split: "," %}
-          {% for category in site.categories %}
-            {% assign cat_name = category[0] %}
-            {% assign cat_lower = cat_name | downcase %}
-            {% if cat_lower == "photography" or cat_lower == "motion graphics" or cat_lower == "retro computing" %}
-              {% assign mobile_project_cats = mobile_project_cats | push: category %}
-            {% endif %}
-          {% endfor %}
-          {% for category in mobile_project_cats %}
-            <li>
-              <a href="{{ site.baseurl }}/category/{{ category[0] | slugify }}/">
-                <span class="link-text">{{ category[0] }}</span>
-                <span class="post-count">{{ category[1] | size }}</span>
-              </a>
-            </li>
-          {% endfor %}
-        </ul>
-      </div>
+      <a class="mobile-nav-link" href="{{ site.baseurl }}/category/set-list/">Set List</a>
+    </li>
+
+    <li class="mobile-nav-item">
+      <a class="mobile-nav-link" href="{{ site.baseurl }}/category/the-lineup/">The Lineup</a>
     </li>
 
     <li class="mobile-nav-item">
@@ -234,7 +93,7 @@
     </li>
 
     <li class="mobile-nav-item">
-      <a class="mobile-nav-link" href="{{ site.baseurl }}/contact/">Contact</a>
+      <a class="mobile-nav-link" href="{{ site.baseurl }}/contact/">Contact Us</a>
     </li>
   </ul>
 </div>

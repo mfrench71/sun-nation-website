@@ -34,6 +34,7 @@ import logger from '../core/logger.js';
 
 // Cache configuration
 const PAGES_CACHE_KEY = 'admin_pages_cache';
+const CACHE_DURATION_MS = 5 * 60 * 1000; // 5 minutes
 
 // Initialization flag to prevent false dirty flag during page load
 let isInitializingPage = false;
@@ -46,7 +47,15 @@ function getCache(key) {
     const cached = localStorage.getItem(key);
     if (!cached) return null;
 
-    const { data } = JSON.parse(cached);
+    const { data, timestamp } = JSON.parse(cached);
+
+    // Invalidate cache if expired (older than CACHE_DURATION_MS)
+    const age = Date.now() - timestamp;
+    if (age > CACHE_DURATION_MS) {
+      localStorage.removeItem(key);
+      return null;
+    }
+
     return data;
   } catch (error) {
     logger.warn('Cache read error:', error);

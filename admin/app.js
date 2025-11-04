@@ -66,7 +66,7 @@ const API_BASE = '/.netlify/functions';
 window.API_BASE = API_BASE; // Expose for ES6 modules
 
 // GitHub repository
-const GITHUB_REPO = 'mfrench71/circleseven-website';
+const GITHUB_REPO = 'mfrench71/sun-nation-website';
 window.GITHUB_REPO = GITHUB_REPO; // Expose for ES6 modules
 
 // Default constants (will be overridden by admin settings if they exist)

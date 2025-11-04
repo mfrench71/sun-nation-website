@@ -412,7 +412,7 @@ table .btn-link {
    AUTH GATE - PREVENT FLASH OF CONTENT
    ============================================ */
 #auth-gate {
-  display: none !important;
+  display: flex !important; /* Temporarily always show for debugging */
 }
 
 #auth-gate.show-auth {

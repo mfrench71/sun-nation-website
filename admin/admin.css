@@ -4,39 +4,22 @@
  */
 
 /* ============================================
-   GOOGLE FONTS
-   ============================================ */
-@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Roboto+Condensed:ital,wght@0,400;0,700;1,400;1,700&display=swap');
-
-/* ============================================
-   FONT APPLICATION
-   ============================================ */
-body {
-  font-family: "Roboto Condensed", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif !important;
-}
-
-h1, h2, h3, h4, h5, h6,
-.h1, .h2, .h3, .h4, .h5, .h6 {
-  font-family: "Bebas Neue", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif !important;
-}
-
-/* ============================================
    BRAND COLORS & BOOTSTRAP OVERRIDES
    ============================================ */
 :root {
-  --bs-primary: #c5641c;
-  --bs-primary-rgb: 197, 100, 28;
-  --bs-orange: #c5641c;
+  --bs-primary: #0d9488;
+  --bs-primary-rgb: 13, 148, 136;
+  --bs-teal: #0d9488;
 }
 
 .btn-primary {
-  background-color: var(--bs-orange);
-  border-color: var(--bs-orange);
+  background-color: var(--bs-teal);
+  border-color: var(--bs-teal);
 }
 
 .btn-primary:hover {
-  background-color: #a0501a;
-  border-color: #a0501a;
+  background-color: #0f766e;
+  border-color: #0f766e;
 }
 
 /* ============================================
@@ -101,7 +84,7 @@ body.sidebar-collapsed #main-content-wrapper {
 }
 
 .sidebar-nav-item.active {
-  background-color: #c5641c;
+  background-color: #0d9488;
   color: white !important;
   border-radius: 0;
 }
@@ -150,7 +133,7 @@ body.sidebar-collapsed .sidebar-collapse-icon {
 }
 
 .sidebar-flyout-menu a.active {
-  background-color: #c5641c;
+  background-color: #0d9488;
   color: white;
 }
 
@@ -180,12 +163,12 @@ body.sidebar-collapsed .sidebar-flyout-menu {
 }
 
 .row-actions a {
-  color: var(--bs-orange);
+  color: var(--bs-teal);
   text-decoration: none;
 }
 
 .row-actions a:hover {
-  color: #a0501a;
+  color: #0f766e;
   text-decoration: underline;
 }
 
@@ -193,14 +176,14 @@ body.sidebar-collapsed .sidebar-flyout-menu {
   background: none;
   border: none;
   padding: 0;
-  color: var(--bs-orange);
+  color: var(--bs-teal);
   cursor: pointer;
   font-size: inherit;
   line-height: inherit;
 }
 
 .row-actions button:hover {
-  color: #a0501a;
+  color: #0f766e;
   text-decoration: underline;
 }
 
@@ -290,7 +273,7 @@ table .btn-link {
 }
 
 .taxonomy-suggestion-item.active {
-  background-color: #c5641c;
+  background-color: #0d9488;
   color: white;
 }
 
@@ -403,7 +386,7 @@ table .btn-link {
 }
 
 .chooser-image-btn:hover {
-  border-color: #c5641c;
+  border-color: #0d9488;
   transform: translateY(-2px);
 }
 
@@ -458,7 +441,7 @@ table .btn-link {
 }
 
 .table tr.bg-primary > td {
-  background-color: #c5641c !important;
+  background-color: #0d9488 !important;
 }
 
 .table tr.bg-warning > td {
@@ -511,7 +494,7 @@ table .btn-link {
 
 /* Card Headers */
 .card-header-gradient {
-  background: linear-gradient(135deg, #c5641c 0%, #d4752a 100%);
+  background: linear-gradient(135deg, #0d9488 0%, #14b8a6 100%);
 }
 
 /* Image Preview Component */

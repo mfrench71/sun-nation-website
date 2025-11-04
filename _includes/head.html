@@ -68,11 +68,13 @@
   <!-- Google Fonts -->
   {% assign fonts_to_load = "" %}
   {% if site.google_fonts.body_font and site.google_fonts.body_font != "" %}
-    {% assign fonts_to_load = fonts_to_load | append: "family=" | append: site.google_fonts.body_font | append: ":ital,wght@0,400;0,700;1,400;1,700" %}
+    {% assign body_font_encoded = site.google_fonts.body_font | replace: " ", "+" %}
+    {% assign fonts_to_load = fonts_to_load | append: "family=" | append: body_font_encoded | append: ":ital,wght@0,400;0,700;1,400;1,700" %}
   {% endif %}
   {% if site.google_fonts.heading_font and site.google_fonts.heading_font != "" %}
     {% if fonts_to_load != "" %}{% assign fonts_to_load = fonts_to_load | append: "&" %}{% endif %}
-    {% assign fonts_to_load = fonts_to_load | append: "family=" | append: site.google_fonts.heading_font | append: ":wght@400;700" %}
+    {% assign heading_font_encoded = site.google_fonts.heading_font | replace: " ", "+" %}
+    {% assign fonts_to_load = fonts_to_load | append: "family=" | append: heading_font_encoded | append: ":wght@400;700" %}
   {% endif %}
   {% if fonts_to_load != "" %}
   <link href="https://fonts.googleapis.com/css2?{{ fonts_to_load }}&display=swap" rel="stylesheet">

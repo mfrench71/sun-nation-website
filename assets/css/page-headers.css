@@ -1,0 +1,136 @@
+/* ============================================
+   PAGE HEADER SECTIONS - GRUNGE BACKGROUND
+   Dark, textured backgrounds for page titles
+   ============================================ */
+
+/* Page header sections for category, tag, and post pages */
+.page-header-section,
+.page-header,
+.post-header {
+  background: linear-gradient(180deg, #1a1816 0%, #0f0e0d 100%);
+  padding: 60px 0 40px 0;
+  margin-left: calc(-50vw + 50%);
+  margin-right: calc(-50vw + 50%);
+  margin-bottom: 48px;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Add subtle grunge texture overlay */
+.page-header-section::before,
+.page-header::before,
+.post-header::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image:
+    repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(197, 100, 28, 0.03) 2px, rgba(197, 100, 28, 0.03) 4px),
+    repeating-linear-gradient(90deg, transparent, transparent 2px, rgba(197, 100, 28, 0.03) 2px, rgba(197, 100, 28, 0.03) 4px);
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+/* Add bottom border accent */
+.page-header-section::after,
+.page-header::after,
+.post-header::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg,
+    transparent 0%,
+    #c5641c 25%,
+    #c5641c 75%,
+    transparent 100%
+  );
+  box-shadow: 0 1px 8px rgba(197, 100, 28, 0.3);
+}
+
+/* Ensure content is above pseudo-elements */
+.page-header-section > *,
+.page-header > *,
+.post-header > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* Center content within the full-width background */
+.page-header-section,
+.page-header,
+.post-header {
+  padding-left: max(20px, calc((100vw - 1400px) / 2));
+  padding-right: max(20px, calc((100vw - 1400px) / 2));
+}
+
+/* Adjust heading colors for dark background */
+.page-header-section .page-heading,
+.page-header .page-heading,
+.post-header .post-title {
+  color: #e8e6e3 !important;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+/* Adjust description/meta colors */
+.page-header-section .category-description,
+.page-header .tag-description,
+.post-header .post-meta {
+  color: #a8a6a3 !important;
+}
+
+/* Category and tag icons */
+.page-header-section .category-icon,
+.page-header .tag-icon {
+  color: #c5641c !important;
+}
+
+/* Breadcrumbs styling for dark background */
+.page-header-section .breadcrumbs,
+.page-header .breadcrumbs,
+.post-header .breadcrumbs {
+  margin-bottom: 20px;
+}
+
+.page-header-section .breadcrumbs a,
+.page-header .breadcrumbs a,
+.post-header .breadcrumbs a {
+  color: #c5641c;
+}
+
+.page-header-section .breadcrumbs a:hover,
+.page-header .breadcrumbs a:hover,
+.post-header .breadcrumbs a:hover {
+  color: #d4752a;
+}
+
+.page-header-section .breadcrumbs,
+.page-header .breadcrumbs,
+.post-header .breadcrumbs {
+  color: #a8a6a3;
+}
+
+/* Responsive adjustments */
+@media (max-width: 900px) {
+  .page-header-section,
+  .page-header,
+  .post-header {
+    padding: 40px 20px 30px 20px;
+    margin-left: -20px;
+    margin-right: -20px;
+  }
+}
+
+@media (max-width: 600px) {
+  .page-header-section,
+  .page-header,
+  .post-header {
+    padding: 30px 16px 24px 16px;
+    margin-left: -16px;
+    margin-right: -16px;
+  }
+}

@@ -3,7 +3,7 @@ title: "Personal Jesus - Depeche Mode"
 date: 2023-02-24T12:00:56.000Z
 categories:
   - Set List
-featured_image: MV5BYTkxNzlhZGUtM2E5YS00NzJhLTllMGQtOTYwOTcwNTRhNTNiXkEyXkFqcGdeQXVyODYwMTExNg@@._V1_FMjpg_UX506_-e1677240043542.jpg
+featured_image: MV5BYTkxNzlhZGUtM2E5YS00NzJhLTllMGQtOTYwOTcwNTRhNTNiXkEyXkFqcGdeQXVyODYwMTExNg._V1_FMjpg_UX506_
 ---
 "Personal Jesus" is a song by English electronic music band Depeche Mode. It was released as the lead single from their seventh studio album, Violator (1990), in 1989. It reached No. 13 on the UK Singles Chart and No. 28 on the Billboard Hot 100. The single was their first to make the US Top 40 since 1984's "People Are People", and was their first gold-certified single in the US (quickly followed by its successor, "Enjoy the Silence"). In Germany, "Personal Jesus" is one of the band's longest-charting songs, staying on the singles chart for 23 weeks.
 

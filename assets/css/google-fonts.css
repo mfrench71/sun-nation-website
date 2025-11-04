@@ -1,0 +1,23 @@
+---
+---
+/* ============================================
+   GOOGLE FONTS APPLICATION
+   Applies selected Google Fonts from _config.yml
+   ============================================ */
+
+{% if site.google_fonts.enabled %}
+  {% if site.google_fonts.body_font and site.google_fonts.body_font != "" %}
+/* Apply body font */
+body {
+  font-family: "{{ site.google_fonts.body_font }}", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif !important;
+}
+  {% endif %}
+
+  {% if site.google_fonts.heading_font and site.google_fonts.heading_font != "" %}
+/* Apply heading font */
+h1, h2, h3, h4, h5, h6,
+.site-title {
+  font-family: "{{ site.google_fonts.heading_font }}", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif !important;
+}
+  {% endif %}
+{% endif %}

@@ -1,0 +1,68 @@
+plugins:
+  - jekyll-feed
+  - jekyll-seo-tag
+  - jekyll-sitemap
+  - jekyll-paginate
+cloudinary_cloud_name: circleseven
+include:
+  - admin
+theme: minima
+gravatar_hash: c7c96a67607f30615596030dc2c3faf7
+author: Administrator
+permalink: /:title/
+paginate_path: /page/:num/
+sass:
+  style: compressed
+lang: en-GB
+markdown: kramdown
+description: Sun Nation - Description goes here.
+url: https://sun-nation.co.uk
+related_posts_count: 4
+github_username: mfrench71
+cloudinary_base_url: https://res.cloudinary.com/circleseven/image/upload
+defaults:
+  - scope:
+      path: ''
+      type: posts
+    values:
+      layout: post
+  - scope:
+      path: ''
+      type: pages
+    values:
+      layout: page
+collections:
+  pages:
+    output: true
+    permalink: /:path/
+paginate: 12
+title: Sun Nation
+timezone: Europe/London
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - node_modules
+  - vendor/bundle/
+  - vendor/cache/
+  - vendor/gems/
+  - vendor/ruby/
+  - README.md
+  - scripts/
+  - docs/
+email: info@sun-nation.co.uk
+baseurl: ''
+google_fonts:
+  enabled: false
+  body_font: Open Sans
+  heading_font: Open Sans
+cloudinary_default_folder: sun-nation
+
+# Instagram settings
+instagram_username: sun_nation
+# instagram_access_token: YOUR_INSTAGRAM_ACCESS_TOKEN_HERE
+# To get an Instagram access token:
+# 1. Create a Facebook App at https://developers.facebook.com/
+# 2. Add Instagram Basic Display product
+# 3. Create an Instagram Test User
+# 4. Generate a User Token
+# 5. Add the token to Netlify environment variables as INSTAGRAM_ACCESS_TOKEN

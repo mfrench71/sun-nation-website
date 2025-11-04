@@ -1,0 +1,101 @@
+{% if page.layout == "post" %}
+{%- assign cloudinary_url = site.cloudinary_base_url -%}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "{{ page.title | escape }}",
+  "datePublished": "{{ page.date | date_to_xmlschema }}",
+  "dateModified": "{{ page.last_modified_at | default: page.date | date_to_xmlschema }}",
+  {% if page.featured_image %}
+  {%- assign featured_img = page.featured_image | remove: '.jpg' | remove: '.png' | remove: '.gif' | remove: '.webp' | remove: '.jpeg' -%}
+  {%- if featured_img contains '/' -%}
+    {%- assign full_path = featured_img -%}
+  {%- elsif site.cloudinary_default_folder and site.cloudinary_default_folder != '' -%}
+    {%- assign full_path = site.cloudinary_default_folder | append: '/' | append: featured_img -%}
+  {%- else -%}
+    {%- assign full_path = featured_img -%}
+  {%- endif -%}
+  "image": {
+    "@type": "ImageObject",
+    "url": "{{ cloudinary_url }}/q_auto,f_auto/{{ full_path }}",
+    "width": 1200,
+    "height": 630
+  },
+  {% elsif page.image %}
+  "image": "{{ page.image | absolute_url }}",
+  {% endif %}
+  "author": {
+    "@type": "Person",
+    "name": "{{ site.author | default: 'Matthew French' }}",
+    "url": "{{ site.url }}{{ site.baseurl }}/about/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "{{ site.title }}",
+    "url": "{{ site.url }}{{ site.baseurl }}",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "{{ site.url }}{{ site.baseurl }}/assets/images/favicon.svg",
+      "width": 512,
+      "height": 512
+    }
+  },
+  "description": "{{ page.description | default: page.excerpt | strip_html | strip_newlines | truncate: 160 | escape }}",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "{{ page.url | absolute_url }}"
+  },
+  "url": "{{ page.url | absolute_url }}",
+  "inLanguage": "{{ site.lang | default: 'en-GB' }}"{% if page.categories %},
+  "articleSection": "{{ page.categories | first }}"{% endif %}{% if page.tags %},
+  "keywords": "{{ page.tags | join: ', ' }}"{% endif %}{% if page.content %},
+  "wordCount": {{ page.content | number_of_words }}{% endif %}
+}
+</script>
+
+{% if page.categories.size > 0 %}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "{{ site.url }}{{ site.baseurl }}/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "{{ page.categories | first }}",
+      "item": "{{ site.url }}{{ site.baseurl }}/category/{{ page.categories | first | slugify }}/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "{{ page.title | escape }}",
+      "item": "{{ page.url | absolute_url }}"
+    }
+  ]
+}
+</script>
+{% endif %}
+{% endif %}
+
+{% if page.layout == "page" or page.layout == "default" %}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "{{ site.title }}",
+  "url": "{{ site.url }}{{ site.baseurl }}",
+  "description": "{{ site.description | escape }}",
+  "author": {
+    "@type": "Person",
+    "name": "{{ site.author | default: 'Matthew French' }}"
+  }
+}
+</script>
+{% endif %}

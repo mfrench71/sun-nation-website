@@ -1,0 +1,269 @@
+/* ============================================
+   TAGS SYSTEM STYLES
+   Tag cloud, tag pages, and tag navigation
+   ============================================ */
+
+/* Tags Page */
+.tags-page {
+  max-width: 100%;
+}
+
+.page-header {
+  margin-bottom: 40px;
+  padding-bottom: 20px;
+  border-bottom: 2px solid #e8e8e8;
+}
+
+.page-title {
+  font-size: 32px;
+  margin-bottom: 10px;
+  color: #111;
+}
+
+.tag-icon {
+  margin-right: 10px;
+  color: #20b2aa;
+}
+
+.page-description {
+  color: #666;
+  font-size: 16px;
+  margin: 0;
+}
+
+/* Tag Cloud */
+.tag-cloud {
+  margin: 40px 0;
+  padding: 30px;
+  background: #f9f9f9;
+  border-radius: 8px;
+  line-height: 2.5;
+  text-align: center;
+}
+
+.tag-cloud-item {
+  display: inline-block;
+  margin: 5px 8px;
+  padding: 6px 14px;
+  background: white;
+  border: 1px solid #e0e0e0;
+  border-radius: 20px;
+  text-decoration: none;
+  color: #333;
+  transition: all 0.2s ease;
+  font-weight: 500;
+}
+
+.tag-cloud-item:hover {
+  background: #2a7ae2;
+  color: white;
+  border-color: #2a7ae2;
+  transform: translateY(-2px);
+  box-shadow: 0 2px 8px rgba(42, 122, 226, 0.3);
+}
+
+/* Tag sizes based on post count */
+.tag-small {
+  font-size: 13px;
+  padding: 4px 10px;
+}
+
+.tag-medium {
+  font-size: 15px;
+  padding: 6px 14px;
+}
+
+.tag-large {
+  font-size: 17px;
+  padding: 8px 16px;
+  font-weight: 600;
+}
+
+.tag-cloud-item .count {
+  font-size: 0.85em;
+  opacity: 0.7;
+  margin-left: 4px;
+}
+
+/* Tag Sections */
+.tag-section {
+  margin-bottom: 50px;
+}
+
+.tag-section h2 {
+  border-bottom: 2px solid #e8e8e8;
+  padding-bottom: 10px;
+  margin-bottom: 20px;
+  font-size: 24px;
+}
+
+.tag-section h2 a {
+  color: #111;
+  text-decoration: none;
+}
+
+.tag-section h2 a:hover {
+  color: #2a7ae2;
+}
+
+.tag-section h2 .count {
+  color: #666;
+  font-size: 18px;
+  font-weight: normal;
+  margin-left: 8px;
+}
+
+/* Tag Page */
+.tag-page .page-header {
+  margin-bottom: 30px;
+}
+
+.tag-description {
+  color: #666;
+  font-size: 16px;
+}
+
+.all-tags-link {
+  margin-top: 40px;
+  padding-top: 20px;
+  border-top: 1px solid #e8e8e8;
+  text-align: center;
+}
+
+.all-tags-link a {
+  color: #2a7ae2;
+  text-decoration: none;
+  font-weight: 500;
+  padding: 10px 20px;
+  border-radius: 4px;
+  display: inline-block;
+  transition: background 0.2s;
+}
+
+.all-tags-link a:hover {
+  background: #f0f0f0;
+}
+
+/* Tag badges in post listings */
+.post-tags {
+  margin-top: 10px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.post-tag {
+  display: inline-block;
+  padding: 2px 8px;
+  background: #f0f0f0;
+  border-radius: 3px;
+  font-size: 12px;
+  text-decoration: none;
+  color: #555;
+  transition: all 0.2s;
+}
+
+.post-tag:hover {
+  background: #2a7ae2;
+  color: white;
+}
+
+/* Post Meta Footer (Categories + Tags) */
+.post-meta-footer {
+  margin-top: 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  font-size: 14px;
+}
+
+.post-tags-footer {
+  padding: 20px;
+  background: #fafafa;
+  border-left: 4px solid #667eea;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.post-tags-footer strong {
+  color: #666;
+  font-weight: 600;
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.post-tags-footer strong::before {
+  content: '\f02b';
+  font-family: 'Font Awesome 6 Free';
+  font-weight: 900;
+  margin-right: 6px;
+  color: #667eea;
+}
+
+.post-tags-footer .post-tag {
+  background: #fff;
+  padding: 5px 12px;
+  border-radius: 4px;
+  border: 1px solid #ddd;
+  font-size: 13px;
+  text-decoration: none;
+  color: #444;
+  transition: all 0.2s ease;
+  font-weight: 500;
+}
+
+.post-tags-footer .post-tag:hover {
+  background: #667eea;
+  color: white;
+  border-color: #667eea;
+}
+
+/* Widget Styles */
+.widget {
+  margin-bottom: 30px;
+  padding: 20px;
+  background: #f9f9f9;
+  border-radius: 8px;
+}
+
+.widget-title {
+  font-size: 18px;
+  margin: 0 0 15px 0;
+  padding-bottom: 10px;
+  border-bottom: 2px solid #e8e8e8;
+  color: #111;
+}
+
+.tag-cloud-widget .tag-cloud {
+  margin: 0;
+  padding: 0;
+  background: transparent;
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+  .tag-cloud {
+    padding: 20px;
+  }
+
+  .tag-cloud-item {
+    margin: 4px;
+    font-size: 13px !important;
+    padding: 5px 12px !important;
+  }
+
+  .page-title {
+    font-size: 26px;
+  }
+
+  .widget {
+    padding: 15px;
+  }
+
+  .widget-title {
+    font-size: 16px;
+  }
+}

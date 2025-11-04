@@ -1,0 +1,804 @@
+/* ============================================
+   MEGA MENU STYLES - Desktop & Mobile
+   ============================================ */
+
+/* CSS Variables */
+:root {
+  --header-height: 60px;
+  --teal-primary: #20b2aa;
+  --teal-light: #e0f7f6;
+  --teal-hover: #1a9991;
+}
+
+/* Body Padding for Fixed Header */
+body {
+  padding-top: var(--header-height);
+  overflow-x: hidden;
+}
+
+/* Header Container */
+.site-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: var(--header-height);
+  border-top: none;
+  border-bottom: 2px solid var(--teal-primary);
+  background: white;
+  z-index: 1000;
+  box-shadow: 0 2px 8px rgba(32, 178, 170, 0.1);
+  box-sizing: border-box;
+}
+
+.site-header .wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 100%;
+  padding: 0 20px;
+  max-width: 1400px;
+  margin: 0 auto;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Site Title */
+.site-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 18px;
+  font-weight: 700;
+  text-decoration: none;
+  color: var(--teal-primary);
+  white-space: nowrap;
+  letter-spacing: 0.3px;
+  transition: opacity 0.2s ease;
+}
+
+.site-title:hover {
+  opacity: 0.8;
+}
+
+.site-logo {
+  flex-shrink: 0;
+  transition: transform 0.2s ease;
+}
+
+.site-title:hover .site-logo {
+  transform: rotate(5deg);
+}
+
+/* ============================================
+   DESKTOP NAVIGATION
+   ============================================ */
+
+.site-nav {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin-left: auto;
+}
+
+.nav-list {
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  align-items: center;
+  gap: 2px;
+}
+
+.nav-item {
+  position: relative;
+}
+
+.nav-link {
+  display: inline-flex;
+  align-items: center;
+  padding: 0 12px;
+  text-decoration: none;
+  color: #333;
+  font-size: 14px;
+  font-weight: 500;
+  transition: background 0.2s ease, color 0.2s ease;
+  white-space: nowrap;
+  height: var(--header-height);
+}
+
+.nav-link:hover {
+  background: var(--teal-primary);
+  color: white;
+  text-decoration: none;
+}
+
+/* Has Dropdown Indicator */
+.has-dropdown > .nav-link::after {
+  content: "\f078";
+  font-family: 'Font Awesome 6 Free';
+  font-weight: 900;
+  font-size: 10px;
+  margin-left: 6px;
+  opacity: 0.5;
+}
+
+/* ============================================
+   MEGA MENU DROPDOWN
+   ============================================ */
+
+.mega-menu {
+  position: fixed;
+  top: var(--header-height);
+  left: 50%;
+  transform: translateX(-50%) translateY(0);
+  min-width: 600px;
+  max-width: 800px;
+  background: white;
+  border: 1px solid #e0e0e0;
+  border-top: 2px solid var(--teal-primary);
+  border-radius: 0 0 6px 6px;
+  box-shadow: 0 4px 16px rgba(32, 178, 170, 0.15);
+  padding: 12px;
+  z-index: 999;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 0.2s cubic-bezier(0.4, 0, 0.2, 1),
+              visibility 0s linear 0.2s;
+  transform: translateX(-50%) translateZ(0);
+  -webkit-font-smoothing: antialiased;
+  backface-visibility: hidden;
+}
+
+/* Comprehensive reset for all elements inside mega menu */
+.mega-menu * {
+  line-height: inherit !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+.mega-menu ul {
+  list-style: none !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+.mega-menu li {
+  list-style: none !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+.nav-item.has-dropdown:hover .mega-menu,
+.nav-item.has-dropdown.active .mega-menu {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  transition: opacity 0.2s cubic-bezier(0.4, 0, 0.2, 1),
+              visibility 0s linear 0s;
+}
+
+.mega-menu-content {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 14px;
+}
+
+.mega-menu-section {
+  min-width: 0;
+}
+
+.mega-menu-section h3 {
+  font-size: 11px !important;
+  font-weight: 700 !important;
+  color: var(--teal-primary) !important;
+  text-transform: uppercase !important;
+  margin: 0 0 6px 0 !important;
+  padding: 0 0 3px 0 !important;
+  letter-spacing: 1px !important;
+  line-height: 1.2 !important;
+  border-bottom: 1px solid var(--teal-light) !important;
+}
+
+.mega-menu-section h3 i {
+  margin-right: 6px;
+  opacity: 0.9;
+  font-size: 11px;
+}
+
+.mega-menu-links {
+  list-style: none !important;
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+.mega-menu-links li {
+  margin: 0 !important;
+  padding: 0 !important;
+  line-height: 1 !important;
+  list-style: none !important;
+}
+
+.mega-menu-links a {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  padding: 4px 6px !important;
+  margin: 0 !important;
+  text-decoration: none !important;
+  color: #444 !important;
+  border-radius: 3px !important;
+  transition: all 0.2s ease !important;
+  font-size: 13px !important;
+  line-height: 1.35 !important;
+  font-weight: 400 !important;
+}
+
+.mega-menu-links a .link-text {
+  display: flex !important;
+  align-items: flex-start !important;
+  flex: 1 !important;
+  min-width: 0 !important;
+}
+
+.mega-menu-links a .link-text::before {
+  content: "\f105";
+  font-family: 'Font Awesome 6 Free';
+  font-weight: 900;
+  margin-right: 6px;
+  margin-top: 1px;
+  color: var(--teal-primary);
+  opacity: 0;
+  transition: opacity 0.2s ease;
+  font-size: 10px;
+  flex-shrink: 0;
+}
+
+.mega-menu-links a:hover {
+  background: var(--teal-light);
+  color: var(--teal-hover);
+}
+
+.mega-menu-links a:hover .link-text::before {
+  opacity: 1;
+}
+
+.post-count {
+  font-size: 10px;
+  color: #666;
+  margin-left: 8px;
+  font-weight: 600;
+  background: #f0f0f0;
+  padding: 2px 7px;
+  border-radius: 10px;
+  flex-shrink: 0;
+  min-width: 22px;
+  text-align: center;
+}
+
+/* ============================================
+   SEARCH BOX IN NAV
+   ============================================ */
+
+.nav-search {
+  margin-left: 8px;
+  flex-shrink: 0;
+  display: flex;
+  gap: 4px;
+}
+
+.nav-search input {
+  padding: 7px 12px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 13px;
+  width: 180px;
+  background: #fafafa;
+  transition: border-color 0.2s ease, background-color 0.2s ease;
+  box-sizing: border-box;
+}
+
+.nav-search input:focus {
+  outline: none;
+  border-color: var(--teal-primary);
+  background-color: white;
+}
+
+.nav-search input::placeholder {
+  color: #999;
+  font-size: 13px;
+}
+
+.nav-search button {
+  padding: 7px 10px;
+  background: var(--teal-primary);
+  border: none;
+  border-radius: 4px;
+  color: white;
+  cursor: pointer;
+  transition: background 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.nav-search button:hover {
+  background: var(--teal-hover);
+}
+
+.nav-search button:focus {
+  outline: 2px solid var(--teal-primary);
+  outline-offset: 2px;
+}
+
+/* ============================================
+   MOBILE MENU TOGGLE
+   ============================================ */
+
+.mobile-menu-toggle {
+  display: none;
+  background: none !important;
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+  cursor: pointer;
+  padding: 0;
+  margin-left: 6px;
+  margin-right: 6px;
+  flex-shrink: 0;
+  width: 32px;
+  height: 32px;
+  min-width: 32px;
+  min-height: 32px;
+  align-items: center;
+  justify-content: center;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+
+/* Visible focus indicator for keyboard navigation */
+.mobile-menu-toggle:focus-visible {
+  outline: 2px solid #2a7ae2;
+  outline-offset: 2px;
+}
+
+/* Hide outline only when not using keyboard */
+.mobile-menu-toggle:focus:not(:focus-visible) {
+  outline: none;
+}
+
+.mobile-menu-toggle:hover,
+.mobile-menu-toggle:active {
+  outline: none !important;
+  border: none !important;
+  box-shadow: none !important;
+  background: none !important;
+}
+
+.hamburger {
+  display: block;
+  width: 24px;
+  height: 2px;
+  background: #111;
+  position: relative;
+  margin: 0;
+  transition: background 0.3s;
+}
+
+.hamburger::before,
+.hamburger::after {
+  content: '';
+  display: block;
+  width: 24px;
+  height: 2px;
+  background: #111;
+  position: absolute;
+  transition: transform 0.3s;
+}
+
+.hamburger::before {
+  top: -8px;
+}
+
+.hamburger::after {
+  top: 8px;
+}
+
+.mobile-menu-toggle.active .hamburger {
+  background: transparent;
+}
+
+.mobile-menu-toggle.active .hamburger::before {
+  transform: rotate(45deg) translate(6px, 6px);
+}
+
+.mobile-menu-toggle.active .hamburger::after {
+  transform: rotate(-45deg) translate(6px, -6px);
+}
+
+/* ============================================
+   MOBILE DRAWER OVERLAY
+   ============================================ */
+
+.mobile-drawer-overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0,0,0,0.5);
+  z-index: 2000;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.mobile-drawer-overlay.active {
+  display: block;
+  opacity: 1;
+}
+
+.mobile-drawer {
+  position: fixed;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: white;
+  z-index: 2001;
+  overflow-y: auto;
+  overflow-x: hidden;
+  transition: left 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: none;
+  box-sizing: border-box;
+}
+
+.mobile-drawer.active {
+  left: 0;
+  box-shadow: 4px 0 16px rgba(32, 178, 170, 0.15);
+}
+
+.mobile-drawer-header {
+  position: sticky;
+  top: 0;
+  background: white;
+  z-index: 10;
+  margin: 0;
+  border-bottom: 2px solid var(--teal-primary);
+  box-shadow: 0 2px 8px rgba(32, 178, 170, 0.1);
+  display: flex;
+  align-items: center;
+  height: var(--header-height);
+  padding: 0 12px;
+  gap: 8px;
+}
+
+.mobile-drawer-title {
+  padding: 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.mobile-drawer-header h2 {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--teal-primary);
+}
+
+.mobile-drawer-close {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  margin: 0;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  order: 2;
+  position: relative;
+}
+
+.mobile-drawer-close .hamburger {
+  display: block;
+  width: 24px;
+  height: 2px;
+  background: transparent;
+  position: relative;
+  margin: 0;
+  transition: background 0.3s;
+}
+
+.mobile-drawer-close .hamburger::before,
+.mobile-drawer-close .hamburger::after {
+  content: '';
+  display: block;
+  width: 24px;
+  height: 2px;
+  background: #111;
+  position: absolute;
+  transition: transform 0.3s, background 0.3s;
+}
+
+.mobile-drawer-close .hamburger::before {
+  transform: rotate(45deg);
+  top: 0;
+}
+
+.mobile-drawer-close .hamburger::after {
+  transform: rotate(-45deg);
+  top: 0;
+}
+
+.mobile-drawer-close:hover .hamburger::before,
+.mobile-drawer-close:hover .hamburger::after {
+  background: var(--teal-primary);
+}
+
+.mobile-nav-list {
+  list-style: none;
+  padding: 12px;
+  margin: 0;
+}
+
+.mobile-nav-item {
+  border-bottom: none;
+  margin-bottom: 2px;
+}
+
+.mobile-nav-link {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 6px 10px;
+  text-decoration: none;
+  color: #444;
+  font-size: 13px;
+  font-weight: 400;
+  background: transparent;
+  border-radius: 3px;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  white-space: normal;
+  transition: all 0.2s;
+}
+
+.mobile-nav-link:hover,
+.mobile-nav-link:active {
+  background: var(--teal-light);
+  color: var(--teal-hover);
+}
+
+/* Mobile Accordion */
+.mobile-accordion-toggle {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 10px 12px;
+  background: transparent;
+  border: none;
+  border-radius: 3px;
+  text-align: left;
+  font-size: 14px;
+  color: #444;
+  cursor: pointer;
+  font-weight: 500;
+  transition: all 0.2s;
+}
+
+.mobile-accordion-toggle:hover,
+.mobile-accordion-toggle:active {
+  background: var(--teal-light);
+  color: var(--teal-hover);
+}
+
+.mobile-accordion-toggle::after {
+  content: "\f078";
+  font-family: 'Font Awesome 6 Free';
+  font-weight: 900;
+  font-size: 11px;
+  transition: transform 0.2s ease;
+  color: var(--teal-primary);
+  opacity: 0.7;
+}
+
+.mobile-accordion-toggle.active::after {
+  transform: rotate(180deg);
+  opacity: 1;
+}
+
+.mobile-accordion-content {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease-out;
+  background: transparent;
+}
+
+.mobile-accordion-content.active {
+  max-height: 1000px;
+  transition: max-height 0.5s ease-in;
+  padding-top: 2px;
+}
+
+.mobile-accordion-links {
+  list-style: none;
+  padding: 0 0 0 8px;
+  margin: 0;
+}
+
+.mobile-accordion-links li {
+  border-top: none;
+  margin-bottom: 2px;
+}
+
+.mobile-accordion-links a {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 6px 10px;
+  text-decoration: none;
+  color: #444;
+  font-size: 13px;
+  font-weight: 400;
+  background: transparent;
+  border-radius: 3px;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  white-space: normal;
+  transition: all 0.2s;
+}
+
+.mobile-accordion-links a .link-text {
+  display: flex;
+  align-items: flex-start;
+  flex: 1;
+  min-width: 0;
+}
+
+.mobile-accordion-links a .link-text::before {
+  content: "\f105";
+  font-family: 'Font Awesome 6 Free';
+  font-weight: 900;
+  margin-right: 6px;
+  margin-top: 1px;
+  color: var(--teal-primary);
+  opacity: 0;
+  transition: opacity 0.2s ease;
+  font-size: 10px;
+  flex-shrink: 0;
+}
+
+.mobile-accordion-links a:hover,
+.mobile-accordion-links a:active {
+  background: var(--teal-light);
+  color: var(--teal-hover);
+}
+
+.mobile-accordion-links a:hover .link-text::before,
+.mobile-accordion-links a:active .link-text::before {
+  opacity: 1;
+}
+
+.mobile-accordion-links .post-count {
+  font-size: 10px;
+  color: #666;
+  margin-left: 6px;
+  font-weight: 600;
+  background: #f0f0f0;
+  padding: 2px 6px;
+  border-radius: 10px;
+  flex-shrink: 0;
+  min-width: 20px;
+  text-align: center;
+}
+
+.mobile-search {
+  flex: 1;
+  box-sizing: border-box;
+  margin: 0;
+  order: 1;
+}
+
+.mobile-search form {
+  display: flex;
+  gap: 4px;
+  width: 100%;
+}
+
+.mobile-search input {
+  flex: 1;
+  padding: 7px 12px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 13px;
+  box-sizing: border-box;
+  background: #fafafa;
+  transition: all 0.2s;
+}
+
+.mobile-search input:focus {
+  outline: none;
+  border-color: var(--teal-primary);
+  background: white;
+}
+
+.mobile-search button {
+  padding: 7px 10px;
+  background: var(--teal-primary);
+  border: none;
+  border-radius: 4px;
+  color: white;
+  cursor: pointer;
+  transition: background 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.mobile-search button:hover {
+  background: var(--teal-hover);
+}
+
+.mobile-search button:focus {
+  outline: 2px solid var(--teal-primary);
+  outline-offset: 2px;
+}
+
+/* ============================================
+   RESPONSIVE BREAKPOINTS
+   ============================================ */
+
+@media (max-width: 900px) {
+  .site-nav .nav-list {
+    display: none;
+  }
+
+  .nav-search {
+    display: none;
+  }
+
+  .mobile-menu-toggle {
+    display: flex;
+  }
+}
+
+@media (max-width: 600px) {
+  .site-header .wrapper {
+    padding: 0 12px;
+    justify-content: flex-start;
+  }
+
+  .site-title {
+    font-size: 18px;
+    flex: 0 0 auto;
+    white-space: nowrap;
+  }
+
+  .site-nav {
+    margin-left: auto;
+  }
+
+  .mobile-accordion-links a {
+    font-size: 13px;
+    padding: 6px 10px;
+  }
+
+  .mobile-accordion-toggle {
+    font-size: 13px;
+    padding: 6px 10px;
+  }
+
+  .mobile-nav-link {
+    font-size: 13px;
+    padding: 6px 10px;
+  }
+}

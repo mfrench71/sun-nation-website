@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ES6 Modules Test</title>
+  <style>
+    body {
+      font-family: system-ui, -apple-system, sans-serif;
+      max-width: 800px;
+      margin: 2rem auto;
+      padding: 0 1rem;
+    }
+    .notification {
+      padding: 1rem;
+      margin: 1rem 0;
+      border-radius: 0.5rem;
+      display: none;
+    }
+    .notification.visible {
+      display: block;
+    }
+    .notification.error {
+      background-color: #fee;
+      border: 1px solid #fcc;
+      color: #c33;
+    }
+    .notification.success {
+      background-color: #efe;
+      border: 1px solid #cfc;
+      color: #3c3;
+    }
+    button {
+      padding: 0.5rem 1rem;
+      margin: 0.5rem 0.5rem 0.5rem 0;
+      border: none;
+      border-radius: 0.25rem;
+      background-color: #0d9488;
+      color: white;
+      cursor: pointer;
+      font-size: 1rem;
+    }
+    button:hover {
+      background-color: #0f766e;
+    }
+    button:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+    .test-section {
+      margin: 2rem 0;
+      padding: 1rem;
+      border: 1px solid #ddd;
+      border-radius: 0.5rem;
+    }
+    h2 {
+      margin-top: 0;
+    }
+    #output {
+      margin-top: 1rem;
+      padding: 1rem;
+      background-color: #f5f5f5;
+      border-radius: 0.25rem;
+      font-family: monospace;
+      min-height: 50px;
+    }
+  </style>
+</head>
+<body>
+  <h1>ES6 Modules Test - Custom Admin</h1>
+  <p>Testing extracted core utilities and UI notifications modules.</p>
+
+  <!-- Notification containers (required for notifications module) -->
+  <div id="error" class="notification error hidden">
+    <p></p>
+  </div>
+  <div id="success" class="notification success hidden">
+    <p></p>
+  </div>
+
+  <!-- Test Sections -->
+  <div class="test-section">
+    <h2>1. Debounce Test</h2>
+    <p>Type in the input below. The output will update 300ms after you stop typing.</p>
+    <input type="text" id="debounce-input" placeholder="Type something..." style="padding: 0.5rem; width: 100%; font-size: 1rem;">
+    <div id="output">Waiting for input...</div>
+  </div>
+
+  <div class="test-section">
+    <h2>2. Notifications Test</h2>
+    <button id="show-error-btn">Show Error</button>
+    <button id="show-success-btn">Show Success</button>
+    <button id="hide-messages-btn">Hide Messages</button>
+  </div>
+
+  <div class="test-section">
+    <h2>3. Button Loading State Test</h2>
+    <button id="loading-test-btn">Simulate Save</button>
+  </div>
+
+  <div class="test-section">
+    <h2>4. Utility Functions Test</h2>
+    <button id="test-escape-html">Test escapeHtml()</button>
+    <button id="test-url-validation">Test isValidUrl()</button>
+    <div id="utility-output" style="margin-top: 1rem; padding: 1rem; background: #f5f5f5; border-radius: 0.25rem;"></div>
+  </div>
+
+  <div class="test-section">
+    <h2>5. Async Handler Test</h2>
+    <button id="async-success-btn">Async Success</button>
+    <button id="async-error-btn">Async Error (triggers error handler)</button>
+  </div>
+
+  <script type="module">
+    // Import modules
+    import {
+      debounce,
+      setButtonLoading,
+      escapeHtml,
+      isValidUrl,
+      asyncHandler,
+      DEBOUNCE_DELAY
+    } from './core/utils.js';
+
+    import {
+      initNotifications,
+      showError,
+      showSuccess,
+      hideMessages
+    } from './ui/notifications.js';
+
+    // Initialize
+    initNotifications();
+
+    // Make showError available globally for asyncHandler
+    window.showError = showError;
+
+    // Test 1: Debounce
+    const input = document.getElementById('debounce-input');
+    const output = document.getElementById('output');
+
+    const debouncedUpdate = debounce((value) => {
+      const timestamp = new Date().toLocaleTimeString();
+      output.textContent = `[${timestamp}] You typed: "${value}"`;
+    }, DEBOUNCE_DELAY);
+
+    input.addEventListener('input', (e) => {
+      debouncedUpdate(e.target.value);
+    });
+
+    // Test 2: Notifications
+    document.getElementById('show-error-btn').addEventListener('click', () => {
+      showError('This is a test error message!');
+    });
+
+    document.getElementById('show-success-btn').addEventListener('click', () => {
+      showSuccess('This is a test success message!');
+    });
+
+    document.getElementById('hide-messages-btn').addEventListener('click', () => {
+      hideMessages();
+    });
+
+    // Test 3: Button Loading State
+    document.getElementById('loading-test-btn').addEventListener('click', async () => {
+      const btn = document.getElementById('loading-test-btn');
+      setButtonLoading(btn, true, 'Saving...');
+
+      // Simulate async operation
+      await new Promise(resolve => setTimeout(resolve, 2000));
+
+      setButtonLoading(btn, false);
+      showSuccess('Save complete!');
+    });
+
+    // Test 4: Utility Functions
+    document.getElementById('test-escape-html').addEventListener('click', () => {
+      const dangerous = '<script>alert("XSS")</script>';
+      const safe = escapeHtml(dangerous);
+      document.getElementById('utility-output').innerHTML = `
+        <strong>Input:</strong> ${dangerous}<br>
+        <strong>Escaped:</strong> ${safe}
+      `;
+    });
+
+    document.getElementById('test-url-validation').addEventListener('click', () => {
+      const tests = [
+        'https://circleseven.co.uk',
+        'http://example.com',
+        'not a url',
+        'ftp://files.example.com'
+      ];
+
+      const results = tests.map(url => {
+        const valid = isValidUrl(url);
+        return `<div>${url}: <strong>${valid ? '✓ Valid' : '✗ Invalid'}</strong></div>`;
+      }).join('');
+
+      document.getElementById('utility-output').innerHTML = results;
+    });
+
+    // Test 5: Async Handler
+    document.getElementById('async-success-btn').addEventListener('click',
+      asyncHandler(async () => {
+        await new Promise(resolve => setTimeout(resolve, 500));
+        showSuccess('Async operation completed successfully!');
+      })
+    );
+
+    document.getElementById('async-error-btn').addEventListener('click',
+      asyncHandler(async () => {
+        await new Promise(resolve => setTimeout(resolve, 500));
+        throw new Error('Simulated async error - this should be caught!');
+      })
+    );
+
+    console.log('✓ All modules loaded successfully!');
+    console.log('✓ DEBOUNCE_DELAY:', DEBOUNCE_DELAY);
+  </script>
+</body>
+</html>

@@ -1,0 +1,181 @@
+---
+layout: default
+---
+
+<div class="category-archive">
+  {%- comment -%} Show breadcrumb navigation {%- endcomment -%}
+  {% include category-breadcrumbs.html category=page.category %}
+
+  <h1 class="page-heading">
+    <i class="fas fa-folder category-icon"></i>
+    {{ page.title }}
+  </h1>
+
+  {% if page.description %}
+    <p class="category-description">{{ page.description }}</p>
+  {% endif %}
+
+  {%- comment -%} Check if this is a parent category with children {%- endcomment -%}
+  {%- assign has_children = false -%}
+  {%- assign child_categories = nil -%}
+  {%- for parent in site.data.taxonomy.categories -%}
+    {%- if parent.item == page.category -%}
+      {%- if parent.children and parent.children.size > 0 -%}
+        {%- assign has_children = true -%}
+        {%- assign child_categories = parent.children -%}
+      {%- endif -%}
+      {%- break -%}
+    {%- endif -%}
+  {%- endfor -%}
+
+  {%- if has_children -%}
+  <details class="subcategories-collapsible">
+    <summary class="subcategories-summary">
+      <i class="fas fa-folder-tree"></i> Subcategories ({{ child_categories.size }})
+      <i class="fas fa-chevron-down chevron-icon"></i>
+    </summary>
+    <div class="subcategories-content">
+      <ul class="subcategories-list">
+        {%- for child in child_categories -%}
+          {%- assign child_slug = child.slug | default: child.item | slugify -%}
+          {%- assign child_posts = site.categories[child.item] | size -%}
+          <li>
+            <a href="{{ site.baseurl }}/category/{{ child_slug }}/">
+              {{ child.item }}
+              <span class="subcategory-post-count">({{ child_posts }})</span>
+            </a>
+          </li>
+        {%- endfor -%}
+      </ul>
+    </div>
+  </details>
+  {%- endif -%}
+
+  <p class="post-count-info">{{ site.categories[page.category] | size }} posts in this category</p>
+
+  <div class="post-grid">
+    {% for post in site.categories[page.category] %}
+      <article class="post-card" data-post-index="{{ forloop.index0 }}">
+        <!-- Card Image -->
+        <div class="post-card-image">
+          <a href="{{ post.url | relative_url }}">
+            {% include post-card-image.html post=post %}
+          </a>
+        </div>
+
+        <!-- Card Content -->
+        <div class="post-card-content">
+          <!-- Category Badge -->
+          {% if post.categories.size > 0 %}
+            {% assign display_category = post.categories | first %}
+            <a href="{{ site.baseurl }}/category/{{ display_category | slugify }}/" class="category-badge badge-{{ display_category | slugify }}">
+              {{ display_category }}
+            </a>
+          {% endif %}
+
+          <!-- Title -->
+          <h2 class="post-card-title">
+            <a href="{{ post.url | relative_url }}">{{ post.title | escape }}</a>
+          </h2>
+
+          <!-- Excerpt -->
+          {% if post.excerpt %}
+            <p class="post-card-excerpt">{{ post.excerpt | strip_html | strip_newlines | truncatewords: 30 }}</p>
+          {% endif %}
+
+          <!-- Author & Meta -->
+          <div class="post-card-meta">
+            <img src="{% include gravatar-url.html email=site.email size=64 %}"
+                 alt="{{ site.author | escape }}"
+                 class="post-author-avatar"
+                 loading="lazy"
+                 onerror="this.src='{{ '/assets/images/default-avatar.svg' | relative_url }}'">
+            <div class="post-meta-info">
+              <span class="post-author-name">{{ site.author | escape }}</span>
+              <span class="post-date-reading">
+                <i class="far fa-calendar calendar-icon" aria-hidden="true"></i>
+                {{ post.date | date: "%b %-d, %Y" }}
+                {%- if post.content -%}
+                  · {% include reading-time.html %}
+                {%- endif -%}
+              </span>
+            </div>
+          </div>
+        </div>
+      </article>
+    {% endfor %}
+  </div>
+
+</div><!-- /.category-archive -->
+
+<style>
+.subcategories-collapsible {
+  background: #f8f9fa;
+  border: 1px solid #dee2e6;
+  border-radius: 0.375rem;
+  margin-bottom: 1.5rem;
+  padding: 0;
+}
+
+.subcategories-summary {
+  cursor: pointer;
+  padding: 1rem;
+  font-weight: 600;
+  color: #333;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  user-select: none;
+  list-style: none;
+}
+
+.subcategories-summary::-webkit-details-marker {
+  display: none;
+}
+
+.subcategories-summary i.fas {
+  color: #20b2aa;
+}
+
+.chevron-icon {
+  margin-left: auto;
+  transition: transform 0.2s;
+}
+
+details[open] .chevron-icon {
+  transform: rotate(180deg);
+}
+
+.subcategories-content {
+  padding: 0 1rem 1rem 1rem;
+}
+
+.subcategories-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 0.5rem;
+}
+
+.subcategories-list li a {
+  display: block;
+  padding: 0.5rem 0.75rem;
+  color: #20b2aa;
+  text-decoration: none;
+  border-radius: 0.25rem;
+  transition: background-color 0.2s;
+}
+
+.subcategories-list li a:hover {
+  background-color: #e9ecef;
+  text-decoration: none;
+}
+
+.subcategory-post-count {
+  color: #6c757d;
+  font-size: 0.875rem;
+  margin-left: 0.25rem;
+}
+</style>

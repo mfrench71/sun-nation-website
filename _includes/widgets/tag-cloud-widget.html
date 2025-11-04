@@ -1,0 +1,25 @@
+<!-- Tag Cloud Widget -->
+<div class="widget widget-tag-cloud">
+  <h3 class="widget-title">Popular Tags</h3>
+  <div class="tag-cloud-compact">
+    {% assign sorted_tags = site.tags | sort %}
+    {% for tag in sorted_tags limit:15 %}
+      {% assign tag_name = tag[0] %}
+      {% assign posts = tag[1] %}
+      {% assign post_count = posts | size %}
+
+      {% if post_count > 0 %}
+        {% assign tag_size = 'small' %}
+        {% if post_count > 10 %}
+          {% assign tag_size = 'large' %}
+        {% elsif post_count > 5 %}
+          {% assign tag_size = 'medium' %}
+        {% endif %}
+
+        <a href="{{ site.baseurl }}/tag/{{ tag_name | slugify }}/" class="tag-cloud-item tag-{{ tag_size }}" title="{{ post_count }} post{% if post_count != 1 %}s{% endif %}">
+          {{ tag_name }}
+        </a>
+      {% endif %}
+    {% endfor %}
+  </div>
+</div>

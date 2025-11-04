@@ -1,0 +1,413 @@
+/* ============================================
+   IMAGE GALLERIES & LIGHTBOX
+   Modern grid layouts for photo galleries
+   ============================================ */
+
+/* Gallery Grid Layout - Only for explicit gallery containers */
+.gallery,
+.wp-block-gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 6px;
+  margin: 32px 0;
+}
+
+/* Individual Gallery Items - Only within gallery containers */
+.gallery figure,
+.wp-block-gallery figure {
+  margin: 0 !important;
+  position: relative;
+  overflow: hidden;
+  border-radius: 2px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  aspect-ratio: 1 / 1;
+}
+
+.gallery figure:hover,
+.wp-block-gallery figure:hover {
+  transform: scale(1.02);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+}
+
+/* Gallery Images - Only within gallery containers */
+.gallery figure img,
+.wp-block-gallery figure img,
+.post-content .gallery figure img,
+.page-content .gallery figure img {
+  width: 100% !important;
+  height: 100% !important;
+  display: block !important;
+  object-fit: cover;
+  object-position: center;
+  transition: opacity 0.2s ease;
+}
+
+.gallery figure a,
+.wp-block-gallery figure a {
+  display: block !important;
+  width: 100%;
+  height: 100%;
+}
+
+.gallery figure:hover img,
+.wp-block-gallery figure:hover img {
+  opacity: 0.9;
+}
+
+/* Individual figures in post content - Keep natural layout */
+.post-content > figure,
+.page-content > figure {
+  margin: 1.5rem 0;
+  text-align: center;
+}
+
+.post-content > figure img,
+.page-content > figure img {
+  max-width: 100%;
+  height: auto;
+  display: inline-block;
+}
+
+/* GALLERY OVERRIDES - These must come AFTER regular figure styles */
+/* Explicitly override post-content figure styles for gallery items */
+.post-content .gallery figure,
+.page-content .gallery figure,
+.gallery .post-content figure,
+.gallery .page-content figure {
+  margin: 0 !important;
+  text-align: left !important;
+}
+
+.post-content .gallery figure img,
+.page-content .gallery figure img,
+.gallery .post-content figure img,
+.gallery .page-content figure img {
+  max-width: none !important;
+  height: 100% !important;
+  display: block !important;
+  object-fit: cover !important;
+}
+
+/* Gallery Links - Only within gallery containers */
+.gallery a,
+.gallery figure a,
+.wp-block-gallery a,
+.wp-block-gallery figure a {
+  display: block;
+  position: relative;
+  text-decoration: none;
+  outline: none;
+}
+
+/* Standalone figure links in post content - Keep default link behavior */
+.post-content > figure a,
+.page-content > figure a {
+  display: inline-block;
+  position: relative;
+  text-decoration: none;
+  outline: none;
+}
+
+.gallery a::after,
+.gallery figure a[href*=".jpg"]::after,
+.gallery figure a[href*=".jpeg"]::after,
+.gallery figure a[href*=".png"]::after,
+.gallery figure a[href*=".gif"]::after,
+.gallery figure a[href*=".webp"]::after,
+.wp-block-gallery a::after,
+.post-content > figure a[href*=".jpg"]::after,
+.post-content > figure a[href*=".jpeg"]::after,
+.post-content > figure a[href*=".png"]::after,
+.post-content > figure a[href*=".gif"]::after,
+.post-content > figure a[href*=".webp"]::after,
+.page-content > figure a[href*=".jpg"]::after,
+.page-content > figure a[href*=".jpeg"]::after,
+.page-content > figure a[href*=".png"]::after,
+.page-content > figure a[href*=".gif"]::after,
+.page-content > figure a[href*=".webp"]::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 48px;
+  height: 48px;
+  background: rgba(0, 0, 0, 0.6);
+  border-radius: 50%;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 24px;
+}
+
+.gallery a:hover::after,
+.gallery figure a:hover::after,
+.wp-block-gallery a:hover::after,
+.post-content > figure a:hover::after,
+.page-content > figure a:hover::after {
+  opacity: 1;
+}
+
+/* Figcaption Styling */
+.gallery figcaption,
+.post-content figcaption,
+.page-content figcaption {
+  font-size: 14px;
+  color: #666;
+  padding: 12px;
+  text-align: center;
+  line-height: 1.4;
+  background: #fafafa;
+  border-top: 1px solid #e8e8e8;
+}
+
+/* Responsive Gallery Layouts */
+@media (max-width: 768px) {
+  .gallery,
+  .wp-block-gallery {
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    gap: 4px;
+  }
+}
+
+@media (max-width: 600px) {
+  .gallery,
+  .wp-block-gallery {
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+    gap: 4px;
+  }
+}
+
+@media (max-width: 480px) {
+  .gallery,
+  .wp-block-gallery {
+    grid-template-columns: repeat(auto-fill, minmax(90px, 1fr));
+    gap: 3px;
+  }
+
+  .gallery figure,
+  .wp-block-gallery figure {
+    border-radius: 1px;
+  }
+
+  .gallery figcaption,
+  .post-content figcaption,
+  .page-content figcaption {
+    font-size: 11px;
+    padding: 6px;
+  }
+}
+
+/* GLightbox Custom Styling */
+.glightbox-clean .gslide-description,
+.gslide-description {
+  background: rgba(0, 0, 0, 0.9) !important;
+  color: white !important;
+  padding: 16px 24px !important;
+  font-size: 14px !important;
+  line-height: 1.6 !important;
+}
+
+.glightbox-clean .gdesc-inner,
+.gdesc-inner {
+  background: rgba(0, 0, 0, 0.9) !important;
+  color: white !important;
+}
+
+.glightbox-clean .gslide-title,
+.gslide-title {
+  font-size: 18px !important;
+  font-weight: 600 !important;
+  margin-bottom: 8px !important;
+  color: white !important;
+}
+
+/* Prevent body scroll when lightbox is open */
+body.glightbox-open {
+  overflow: hidden;
+}
+
+/* Ensure lightbox images fit within viewport */
+/* Leave space for description at bottom (approx 80px) */
+.gslide-media {
+  max-width: 95vw !important;
+  max-height: 90vh !important;
+}
+
+.gslide-inner-content {
+  max-width: 95vw !important;
+  max-height: 90vh !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+}
+
+.gslide-image {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  max-width: 95vw !important;
+  max-height: calc(90vh - 100px) !important;
+  flex-shrink: 1 !important;
+}
+
+.gslide-image img {
+  max-width: 95vw !important;
+  max-height: calc(90vh - 100px) !important;
+  width: auto !important;
+  height: auto !important;
+  object-fit: contain !important;
+}
+
+/* Ensure the slide container respects viewport */
+.gslide {
+  max-width: 100vw !important;
+  max-height: 100vh !important;
+}
+
+/* Position description at bottom */
+.gslide-description {
+  position: relative !important;
+  bottom: 0 !important;
+  width: 100% !important;
+  max-width: 95vw !important;
+  flex-shrink: 0 !important;
+}
+
+/* Handle mobile viewports */
+@media (max-width: 768px) {
+  .gslide-media,
+  .gslide-inner-content {
+    max-width: 100vw !important;
+    max-height: 85vh !important;
+  }
+
+  .gslide-image {
+    max-width: 100vw !important;
+    max-height: calc(85vh - 80px) !important;
+  }
+
+  .gslide-image img {
+    max-width: 100vw !important;
+    max-height: calc(85vh - 80px) !important;
+  }
+
+  .gslide-description {
+    max-width: 100vw !important;
+    padding: 12px 16px !important;
+    font-size: 12px !important;
+  }
+}
+
+/* Loading State for Images */
+.gallery img[loading="lazy"],
+.post-content img[loading="lazy"],
+.page-content img[loading="lazy"] {
+  background: linear-gradient(90deg, #f0f0f0 25%, #e8e8e8 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+/* Gallery Grid Variations */
+
+/* Two Column Gallery */
+.gallery-2col {
+  grid-template-columns: repeat(2, 1fr) !important;
+}
+
+/* Three Column Gallery */
+.gallery-3col {
+  grid-template-columns: repeat(3, 1fr) !important;
+}
+
+/* Four Column Gallery */
+.gallery-4col {
+  grid-template-columns: repeat(4, 1fr) !important;
+}
+
+/* Five Column Gallery */
+.gallery-5col {
+  grid-template-columns: repeat(5, 1fr) !important;
+}
+
+@media (max-width: 900px) {
+  .gallery-4col,
+  .gallery-5col {
+    grid-template-columns: repeat(3, 1fr) !important;
+  }
+
+  .gallery-3col {
+    grid-template-columns: repeat(3, 1fr) !important;
+  }
+}
+
+@media (max-width: 600px) {
+  .gallery-2col,
+  .gallery-3col,
+  .gallery-4col,
+  .gallery-5col {
+    grid-template-columns: repeat(3, 1fr) !important;
+  }
+}
+
+/* Masonry-style Layout (Optional) */
+.gallery-masonry {
+  column-count: 3;
+  column-gap: 16px;
+}
+
+.gallery-masonry figure {
+  break-inside: avoid;
+  margin-bottom: 16px;
+}
+
+@media (max-width: 900px) {
+  .gallery-masonry {
+    column-count: 2;
+  }
+}
+
+@media (max-width: 600px) {
+  .gallery-masonry {
+    column-count: 1;
+  }
+}
+
+/* Featured Image in Gallery */
+.gallery figure.featured {
+  grid-column: span 2;
+  grid-row: span 2;
+}
+
+@media (max-width: 600px) {
+  .gallery figure.featured {
+    grid-column: span 1;
+    grid-row: span 1;
+  }
+}
+
+/* Image Aspect Ratio Options */
+.gallery-square figure {
+  aspect-ratio: 1 / 1;
+}
+
+.gallery-landscape figure {
+  aspect-ratio: 16 / 9;
+}
+
+.gallery-portrait figure {
+  aspect-ratio: 3 / 4;
+}

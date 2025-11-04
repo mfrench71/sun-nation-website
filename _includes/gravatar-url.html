@@ -1,0 +1,25 @@
+{%- comment -%}
+Gravatar URL Generator
+Usage: {% include gravatar-url.html email="user@example.com" size=32 %}
+Returns: Gravatar URL for the given email
+{%- endcomment -%}
+
+{%- assign email = include.email | default: site.email | downcase | strip -%}
+{%- assign size = include.size | default: 32 -%}
+{%- assign default_image = include.default | default: "mp" -%}
+
+{%- comment -%}
+We can't generate MD5 hashes in pure Liquid, so we'll use a workaround:
+1. For the site author (site.email), use a pre-calculated hash from config
+2. For other emails, fall back to default avatar
+{%- endcomment -%}
+
+{%- if email == site.email -%}
+  {%- if site.gravatar_hash -%}
+https://www.gravatar.com/avatar/{{ site.gravatar_hash }}?s={{ size }}&d={{ default_image }}
+  {%- else -%}
+{{ '/assets/images/default-avatar.svg' | relative_url }}
+  {%- endif -%}
+{%- else -%}
+{{ '/assets/images/default-avatar.svg' | relative_url }}
+{%- endif -%}

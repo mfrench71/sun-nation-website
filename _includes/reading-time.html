@@ -1,0 +1,12 @@
+{% if include.content %}
+  {% assign words = include.content | strip_html | number_of_words %}
+{% elsif post.content %}
+  {% assign words = post.content | strip_html | number_of_words %}
+{% else %}
+  {% assign words = content | strip_html | number_of_words %}
+{% endif %}
+{% assign minutes = words | divided_by: 200 %}
+{% if minutes == 0 %}
+  {% assign minutes = 1 %}
+{% endif %}
+<i class="far fa-clock reading-time-icon" aria-hidden="true" title="{{ words }} words"></i> {{ minutes }} min read

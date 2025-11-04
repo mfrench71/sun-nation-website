@@ -1,0 +1,217 @@
+/* ============================================
+   RESPONSIVE EMBED STYLES
+   Handles YouTube, Vimeo, SoundCloud, and other embeds
+   ============================================ */
+
+/* Ensure embed figures don't get gallery styling */
+.post-content figure:has(.embed-container),
+.page-content figure:has(.embed-container),
+figure:has(.embed-container) {
+  margin: 1.5rem 0 !important;
+  text-align: left !important;
+  max-width: 100% !important;
+}
+
+/* Generic responsive embed container */
+.embed-container,
+.wp-block-embed__wrapper,
+.video-container {
+  position: relative;
+  padding-bottom: 56.25%; /* 16:9 aspect ratio */
+  height: 0;
+  overflow: hidden;
+  max-width: 100%;
+  margin: 20px 0;
+}
+
+/* Aspect ratio variations */
+.embed-container.ratio-4-3,
+.wp-embed-aspect-4-3 .wp-block-embed__wrapper {
+  padding-bottom: 75%; /* 4:3 aspect ratio */
+}
+
+.embed-container.ratio-9-16,
+.wp-embed-aspect-9-16 .wp-block-embed__wrapper {
+  padding-bottom: 177.78%; /* 9:16 aspect ratio (vertical) */
+}
+
+.embed-container.ratio-1-1 {
+  padding-bottom: 100%; /* 1:1 aspect ratio (square) */
+}
+
+/* iframe inside responsive container */
+.embed-container iframe,
+.wp-block-embed__wrapper iframe,
+.video-container iframe,
+.embed-container object,
+.embed-container embed {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100% !important;
+  height: 100% !important;
+  border: 0;
+  max-width: none !important;
+}
+
+/* WordPress Block Editor embed figures */
+figure.wp-block-embed {
+  margin: 20px 0;
+  max-width: 100%;
+}
+
+figure.wp-block-embed.is-type-video {
+  margin: 30px 0;
+}
+
+/* Make sure the wrapper is responsive */
+.wp-block-embed__wrapper {
+  position: relative;
+}
+
+/* When wp-has-aspect-ratio is present, ensure responsiveness */
+.wp-has-aspect-ratio .wp-block-embed__wrapper {
+  position: relative;
+}
+
+/* YouTube specific */
+.wp-block-embed-youtube .wp-block-embed__wrapper,
+.youtube-embed {
+  background: #000;
+}
+
+/* Vimeo specific */
+.wp-block-embed-vimeo .wp-block-embed__wrapper,
+.vimeo-embed {
+  background: #000;
+}
+
+/* SoundCloud embeds */
+.wp-block-embed-soundcloud,
+.soundcloud-embed {
+  margin: 20px 0;
+}
+
+.wp-block-embed-soundcloud iframe,
+.soundcloud-embed iframe {
+  width: 100%;
+  height: 166px; /* SoundCloud standard height */
+  border: 0;
+}
+
+/* Sketchfab and other 3D embeds */
+.sketchfab-embed {
+  margin: 20px 0;
+  max-width: 100%;
+}
+
+.sketchfab-embed iframe {
+  width: 100%;
+  height: 480px;
+  border: 0;
+  border-radius: 4px;
+}
+
+/* Generic iframe styling for embeds not in containers */
+.post-content iframe:not(.no-responsive) {
+  max-width: 100%;
+  border: 0;
+}
+
+/* Legacy WordPress embed shortcode placeholder */
+.wordpress-embed-placeholder {
+  background: #f5f5f5;
+  border: 1px solid #e8e8e8;
+  border-radius: 4px;
+  padding: 20px;
+  text-align: center;
+  margin: 20px 0;
+  color: #666;
+}
+
+.wordpress-embed-placeholder::before {
+  content: "⚠️ ";
+  font-size: 20px;
+}
+
+/* Leaflet map containers */
+/* Initial div before JavaScript initialization */
+.leaflet-map {
+  width: 100% !important;
+  height: 400px !important;
+  margin: 20px 0;
+  border-radius: 4px;
+  border: 1px solid #e8e8e8;
+  background: #f5f5f5;
+  position: relative;
+}
+
+/* After Leaflet.js initializes and adds this class */
+.leaflet-map.leaflet-container {
+  width: 100% !important;
+  height: 400px !important;
+  margin: 20px 0;
+  border-radius: 4px;
+  border: 1px solid #e8e8e8;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  z-index: 1;
+}
+
+/* Leaflet-generated container styles */
+.leaflet-container {
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  z-index: 1;
+}
+
+/* Ensure Leaflet attribution and controls are visible */
+.leaflet-container .leaflet-control-attribution {
+  background: rgba(255, 255, 255, 0.8);
+  font-size: 11px;
+  padding: 2px 5px;
+}
+
+.leaflet-container .leaflet-control-zoom {
+  border-radius: 4px;
+  box-shadow: 0 1px 5px rgba(0,0,0,0.4);
+}
+
+/* Custom marker popup styling */
+.leaflet-popup-content-wrapper {
+  border-radius: 4px;
+}
+
+@media (max-width: 768px) {
+  .sketchfab-embed iframe {
+    height: 300px;
+  }
+
+  .leaflet-map,
+  .leaflet-map.leaflet-container {
+    height: 300px !important;
+  }
+}
+
+/* Loading state for embeds */
+.embed-loading {
+  background: #f5f5f5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 200px;
+  color: #999;
+}
+
+/* Fix for inline aspect-ratio CSS from WordPress */
+.wp-block-embed__wrapper[style*="aspect-ratio"] {
+  position: relative;
+  width: 100% !important;
+  max-width: 100% !important;
+}
+
+.wp-block-embed__wrapper[style*="aspect-ratio"] iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100% !important;
+  height: 100% !important;
+}

@@ -1,0 +1,185 @@
+{%- comment -%}
+  Category Tree Include
+
+  Renders hierarchical category structure from _data/taxonomy.yml
+
+  Parameters:
+  - show_counts: (boolean) Show post counts per category
+  - link_categories: (boolean) Make categories clickable
+  - collapse_children: (boolean) Collapse child categories by default
+
+  Usage:
+  {% include category-tree.html show_counts=true link_categories=true %}
+{%- endcomment -%}
+
+{%- assign show_counts = include.show_counts | default: true -%}
+{%- assign link_categories = include.link_categories | default: true -%}
+{%- assign collapse_children = include.collapse_children | default: false -%}
+
+<div class="category-tree">
+  {%- if site.data.taxonomy.categories -%}
+    <ul class="category-tree-list">
+      {%- for parent in site.data.taxonomy.categories -%}
+        {%- assign parent_slug = parent.slug | default: parent.item | slugify -%}
+        {%- assign parent_posts = site.categories[parent.item] | size -%}
+        {%- assign has_children = false -%}
+        {%- if parent.children and parent.children.size > 0 -%}
+          {%- assign has_children = true -%}
+        {%- endif -%}
+
+        <li class="category-tree-item {% if has_children %}has-children{% endif %}">
+          {%- if has_children -%}
+            <button class="category-tree-toggle {% if collapse_children %}collapsed{% endif %}"
+                    aria-expanded="{% if collapse_children %}false{% else %}true{% endif %}"
+                    aria-controls="children-{{ parent_slug }}">
+              <i class="fas fa-chevron-down category-chevron"></i>
+            </button>
+          {%- endif -%}
+
+          {%- if link_categories -%}
+            <a href="{{ site.baseurl }}/category/{{ parent_slug }}/"
+               class="category-tree-link parent-category">
+              <i class="fas fa-folder category-icon"></i>
+              <span class="category-name">{{ parent.item }}</span>
+              {%- if show_counts -%}
+                <span class="category-count">({{ parent_posts }})</span>
+              {%- endif -%}
+            </a>
+          {%- else -%}
+            <span class="category-tree-text parent-category">
+              <i class="fas fa-folder category-icon"></i>
+              <span class="category-name">{{ parent.item }}</span>
+              {%- if show_counts -%}
+                <span class="category-count">({{ parent_posts }})</span>
+              {%- endif -%}
+            </span>
+          {%- endif -%}
+
+          {%- if has_children -%}
+            <ul class="category-tree-children {% if collapse_children %}collapsed{% endif %}"
+                id="children-{{ parent_slug }}">
+              {%- for child in parent.children -%}
+                {%- assign child_slug = child.slug | default: child.item | slugify -%}
+                {%- assign child_posts = site.categories[child.item] | size -%}
+
+                <li class="category-tree-item child-category">
+                  {%- if link_categories -%}
+                    <a href="{{ site.baseurl }}/category/{{ child_slug }}/"
+                       class="category-tree-link">
+                      <i class="fas fa-folder-open category-icon"></i>
+                      <span class="category-name">{{ child.item }}</span>
+                      {%- if show_counts -%}
+                        <span class="category-count">({{ child_posts }})</span>
+                      {%- endif -%}
+                    </a>
+                  {%- else -%}
+                    <span class="category-tree-text">
+                      <i class="fas fa-folder-open category-icon"></i>
+                      <span class="category-name">{{ child.item }}</span>
+                      {%- if show_counts -%}
+                        <span class="category-count">({{ child_posts }})</span>
+                      {%- endif -%}
+                    </span>
+                  {%- endif -%}
+                </li>
+              {%- endfor -%}
+            </ul>
+          {%- endif -%}
+        </li>
+      {%- endfor -%}
+    </ul>
+  {%- else -%}
+    <p class="text-muted">No categories defined.</p>
+  {%- endif -%}
+</div>
+
+<script>
+// Initialize category tree toggle functionality
+document.addEventListener('DOMContentLoaded', function() {
+  const toggleButtons = document.querySelectorAll('.category-tree-toggle');
+
+  toggleButtons.forEach(function(button) {
+    button.addEventListener('click', function() {
+      const isExpanded = this.getAttribute('aria-expanded') === 'true';
+      const childrenId = this.getAttribute('aria-controls');
+      const childrenList = document.getElementById(childrenId);
+
+      // Toggle state
+      this.setAttribute('aria-expanded', !isExpanded);
+      this.classList.toggle('collapsed');
+
+      if (childrenList) {
+        childrenList.classList.toggle('collapsed');
+      }
+    });
+  });
+});
+</script>
+
+<style>
+.category-tree-list {
+  list-style: none;
+  padding-left: 0;
+  margin: 0;
+}
+
+.category-tree-item {
+  margin-bottom: 0.5rem;
+}
+
+.category-tree-toggle {
+  background: none;
+  border: none;
+  padding: 0.25rem;
+  cursor: pointer;
+  color: #6c757d;
+  transition: transform 0.2s;
+}
+
+.category-tree-toggle.collapsed i {
+  transform: rotate(-90deg);
+}
+
+.category-tree-link, .category-tree-text {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  text-decoration: none;
+  color: inherit;
+  padding: 0.25rem 0.5rem;
+  border-radius: 0.25rem;
+}
+
+.category-tree-link:hover {
+  background-color: #f8f9fa;
+  text-decoration: none;
+}
+
+.category-icon {
+  font-size: 0.875rem;
+  color: #0d9488;
+}
+
+.category-count {
+  font-size: 0.875rem;
+  color: #6c757d;
+}
+
+.category-tree-children {
+  list-style: none;
+  padding-left: 2rem;
+  margin-top: 0.5rem;
+}
+
+.category-tree-children.collapsed {
+  display: none;
+}
+
+.child-category {
+  margin-bottom: 0.25rem;
+}
+
+.child-category .category-icon {
+  font-size: 0.75rem;
+}
+</style>

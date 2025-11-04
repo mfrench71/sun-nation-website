@@ -1,0 +1,35 @@
+[build]
+  command = "bash netlify/build.sh"
+  publish = "_site"
+  functions = "netlify/functions"
+
+[build.environment]
+  RUBY_VERSION = "3.1.0"
+  JEKYLL_ENV = "production"
+
+# Redirect old admin-custom path to new admin path
+[[redirects]]
+  from = "/admin-custom/*"
+  to = "/admin/:splat"
+  status = 301
+  force = true
+
+# Relaxed CSP for admin interface
+[[headers]]
+  for = "/admin/*"
+  [headers.values]
+    X-Frame-Options = "SAMEORIGIN"
+    X-Content-Type-Options = "nosniff"
+    X-XSS-Protection = "1; mode=block"
+    Referrer-Policy = "no-referrer-when-downgrade"
+    Content-Security-Policy = "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https: http:; style-src 'self' 'unsafe-inline' https: http:; img-src 'self' data: https: http: blob:; font-src 'self' data: https: http:; connect-src 'self' https: http: wss:; frame-src 'self' https: http:; frame-ancestors 'self'"
+
+# Stricter CSP for public site (must come last as fallback)
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "DENY"
+    X-Content-Type-Options = "nosniff"
+    X-XSS-Protection = "1; mode=block"
+    Referrer-Policy = "no-referrer-when-downgrade"
+    Content-Security-Policy = "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://unpkg.com https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://cdn.tailwindcss.com https://identity.netlify.com https://static.cloudflareinsights.com https://media-library.cloudinary.com https://widget.cloudinary.com https://upload-widget.cloudinary.com; style-src 'self' 'unsafe-inline' https://unpkg.com https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://maxcdn.bootstrapcdn.com https://fonts.googleapis.com https://media-library.cloudinary.com https://widget.cloudinary.com https://upload-widget.cloudinary.com; img-src 'self' data: https: blob:; font-src 'self' data: https://cdnjs.cloudflare.com https://maxcdn.bootstrapcdn.com https://fonts.gstatic.com https://media-library.cloudinary.com https://upload-widget.cloudinary.com; connect-src 'self' https://circleseven.co.uk https://unpkg.com https://cdn.jsdelivr.net https://cdnjs.cloudflare.com https://cloudflareinsights.com https://api.netlify.com https://*.netlify.com https://api.cloudinary.com https://*.cloudinary.com https://media-library.cloudinary.com https://upload-widget.cloudinary.com; frame-src https://player.vimeo.com https://www.youtube.com https://sketchfab.com https://console.cloudinary.com https://widget.cloudinary.com https://upload-widget.cloudinary.com"

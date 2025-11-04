@@ -1,0 +1,78 @@
+{%- comment -%}
+Extract and display post card thumbnail image
+
+Checks in order:
+1. post.featured_image or post.image in front matter
+2. First image in post content
+3. Default image
+
+Outputs thumbnail optimized for cards (300x200)
+{%- endcomment -%}
+
+{%- assign featured_img = nil -%}
+{%- assign cloudinary_url = site.cloudinary_base_url -%}
+
+{%- comment -%} Check front matter first {%- endcomment -%}
+{%- if include.post.featured_image -%}
+  {%- assign featured_img = include.post.featured_image -%}
+{%- elsif include.post.image -%}
+  {%- assign featured_img = include.post.image -%}
+{%- else -%}
+  {%- comment -%} Extract first image from content {%- endcomment -%}
+  {%- assign img_parts = include.post.content | split: '<img ' -%}
+  {%- if img_parts.size > 1 -%}
+    {%- assign first_img = img_parts[1] | split: '>' | first -%}
+
+    {%- comment -%} Extract src from img tag {%- endcomment -%}
+    {%- assign src_parts = first_img | split: 'src="' -%}
+    {%- if src_parts.size > 1 -%}
+      {%- assign src = src_parts[1] | split: '"' | first -%}
+
+      {%- comment -%} Extract filename from various URL formats {%- endcomment -%}
+      {%- if src contains 'cloudinary.com' -%}
+        {%- assign url_parts = src | split: '/upload/' -%}
+        {%- if url_parts.size > 1 -%}
+          {%- assign after_upload = url_parts[1] | split: '/' -%}
+          {%- assign featured_img = after_upload | last -%}
+        {%- endif -%}
+      {%- elsif src contains 'circleseven.co.uk/wp-content/uploads' -%}
+        {%- assign url_parts = src | split: '/' -%}
+        {%- assign featured_img = url_parts | last -%}
+      {%- else -%}
+        {%- assign featured_img = src -%}
+      {%- endif -%}
+    {%- endif -%}
+  {%- endif -%}
+{%- endif -%}
+
+{%- comment -%} Output the card image {%- endcomment -%}
+{%- if featured_img and featured_img != '' -%}
+  {%- assign img_id = featured_img | remove: '.jpg' | remove: '.png' | remove: '.gif' | remove: '.webp' | remove: '.jpeg' -%}
+  {%- assign loading_value = include.loading | default: "lazy" -%}
+
+  {%- comment -%} Prepend default folder if image doesn't already have a folder path {%- endcomment -%}
+  {%- if img_id contains '/' -%}
+    {%- assign full_path = img_id -%}
+  {%- elsif site.cloudinary_default_folder and site.cloudinary_default_folder != '' -%}
+    {%- assign full_path = site.cloudinary_default_folder | append: '/' | append: img_id -%}
+  {%- else -%}
+    {%- assign full_path = img_id -%}
+  {%- endif -%}
+
+  {%- if featured_img contains 'http' -%}
+    <img src="{{ featured_img }}" alt="{{ include.post.title | escape }}" loading="{{ loading_value }}">
+  {%- else -%}
+    <img
+      src="{{ cloudinary_url }}/c_fill,g_auto,w_320,h_213,q_auto,f_auto,dpr_auto/{{ full_path }}"
+      srcset="{{ cloudinary_url }}/c_fill,g_auto,w_320,h_213,q_auto,f_auto/{{ full_path }} 320w,
+              {{ cloudinary_url }}/c_fill,g_auto,w_640,h_427,q_auto,f_auto/{{ full_path }} 640w,
+              {{ cloudinary_url }}/c_fill,g_auto,w_960,h_640,q_auto,f_auto/{{ full_path }} 960w"
+      sizes="(max-width: 600px) 100vw, (max-width: 900px) 50vw, 320px"
+      alt="{{ include.post.title | escape }}"
+      loading="{{ loading_value }}"
+    >
+  {%- endif -%}
+{%- else -%}
+  {%- assign loading_value = include.loading | default: "lazy" -%}
+  <img src="{{ '/assets/images/default-post.svg' | relative_url }}" alt="{{ include.post.title | escape }}" loading="{{ loading_value }}">
+{%- endif -%}

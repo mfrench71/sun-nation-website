@@ -1,0 +1,14 @@
+User-agent: *
+Allow: /
+
+# Sitemaps
+Sitemap: https://circleseven.co.uk/sitemap.xml
+
+# Disallow admin and config
+Disallow: /admin/
+Disallow: /.git/
+Disallow: /_site/
+
+# Allow CSS and JS for better indexing
+Allow: /assets/css/
+Allow: /assets/js/

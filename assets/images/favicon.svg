@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <!-- Outer white circle -->
+  <circle cx="50" cy="50" r="48" fill="white" opacity="0.95"/>
+
+  <!-- Inner teal circle -->
+  <circle cx="50" cy="50" r="44" fill="#20b2aa"/>
+
+  <!-- The number "7" - geometric style matching logo -->
+  <g transform="translate(33, 28)">
+    <!-- Top horizontal bar -->
+    <rect x="0" y="0" width="34" height="9" fill="white" opacity="0.95"/>
+
+    <!-- Diagonal stroke of the 7 -->
+    <path d="M 24,9 L 11,46 L 20,46 L 34,9 Z"
+          fill="white"
+          opacity="0.95"/>
+  </g>
+</svg>

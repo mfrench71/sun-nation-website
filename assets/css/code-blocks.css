@@ -1,0 +1,178 @@
+/* Code Block Styling */
+
+/* Inline code */
+code {
+  background: #f4f4f4;
+  padding: 2px 6px;
+  border-radius: 3px;
+  font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', 'Consolas', monospace;
+  font-size: 0.9em;
+  color: #e83e8c;
+  border: 1px solid #e1e4e8;
+}
+
+/* Code blocks */
+pre {
+  background: #f6f8fa;
+  border-radius: 6px;
+  padding: 1rem;
+  overflow-x: auto;
+  margin: 1.5rem 0;
+  border: 1px solid #d0d7de;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+pre code {
+  background: transparent;
+  border: none;
+  padding: 0;
+  color: #24292f;
+  font-size: 0.875rem;
+  line-height: 1.6;
+  display: block;
+}
+
+/* Highlight.js theme customization */
+.hljs {
+  background: #f6f8fa;
+  color: #24292f;
+  padding: 1rem;
+  border-radius: 6px;
+}
+
+/* Line numbers (optional) */
+.hljs-ln-numbers {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  text-align: right;
+  color: #57606a;
+  border-right: 1px solid #d0d7de;
+  vertical-align: top;
+  padding-right: 8px;
+  margin-right: 8px;
+}
+
+/* Scrollbar styling for code blocks */
+pre::-webkit-scrollbar {
+  height: 8px;
+}
+
+pre::-webkit-scrollbar-track {
+  background: #eaeef2;
+  border-radius: 4px;
+}
+
+pre::-webkit-scrollbar-thumb {
+  background: #d0d7de;
+  border-radius: 4px;
+}
+
+pre::-webkit-scrollbar-thumb:hover {
+  background: #afb8c1;
+}
+
+/* Language label */
+pre[class*="language-"]::before {
+  content: attr(class);
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 2px 8px;
+  font-size: 0.7rem;
+  color: #57606a;
+  background: #eaeef2;
+  border-bottom-left-radius: 4px;
+  text-transform: uppercase;
+  opacity: 0.8;
+}
+
+/* Code block wrapper for better control */
+.post-content pre,
+.page-content pre {
+  position: relative;
+  margin: 1.5rem 0;
+}
+
+/* Ensure inline code doesn't get block styling */
+p code,
+li code,
+td code,
+h1 code,
+h2 code,
+h3 code,
+h4 code,
+h5 code,
+h6 code {
+  background: #f4f4f4;
+  padding: 2px 6px;
+  border-radius: 3px;
+  font-size: 0.9em;
+  color: #e83e8c;
+  border: 1px solid #e1e4e8;
+  white-space: nowrap;
+}
+
+/* Dark mode inline code (if you add dark mode later) */
+@media (prefers-color-scheme: dark) {
+  p code,
+  li code,
+  td code {
+    background: #2d2d2d;
+    color: #ff79c6;
+    border-color: #444;
+  }
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+  pre {
+    padding: 0.75rem;
+    font-size: 0.8125rem;
+  }
+
+  pre code {
+    font-size: 0.8125rem;
+  }
+}
+
+/* Copy button (if you want to add this feature) */
+.code-block-wrapper {
+  position: relative;
+}
+
+.copy-code-button {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  padding: 4px 8px;
+  font-size: 0.75rem;
+  background: #ffffff;
+  color: #24292f;
+  border: 1px solid #d0d7de;
+  border-radius: 4px;
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity 0.2s, background 0.2s;
+}
+
+.code-block-wrapper:hover .copy-code-button {
+  opacity: 1;
+}
+
+.copy-code-button:hover {
+  background: #f3f4f6;
+  border-color: #afb8c1;
+}
+
+.copy-code-button:active {
+  background: #eaeef2;
+}
+
+.copy-code-button.copied {
+  background: #2da44e;
+  color: #ffffff;
+  border-color: #2da44e;
+}

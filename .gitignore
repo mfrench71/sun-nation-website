@@ -1,0 +1,30 @@
+_site
+.sass-cache
+.jekyll-cache
+.jekyll-metadata
+vendor
+.bundle
+Gemfile.lock
+.DS_Store
+
+# Node.js
+node_modules/
+
+# WordPress export and conversion scripts
+*.xml
+wp_convert.py
+
+# Claude settings
+.claude/
+
+# Local Netlify folder
+.netlify
+
+# Environment variables (contains secrets)
+.env
+
+# Test output directories
+coverage/
+html/
+playwright-report/
+test-results/

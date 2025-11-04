@@ -1,0 +1,89 @@
+{%- comment -%}
+Featured image helper with fallback to first image in post
+
+Checks in order:
+1. post.featured_image or post.image in front matter
+2. First image in post content
+3. Default image
+
+Outputs image optimized for social sharing (1200x630)
+{%- endcomment -%}
+
+{%- assign featured_img = nil -%}
+{%- assign cloudinary_url = site.cloudinary_base_url -%}
+
+{%- comment -%} Check front matter first {%- endcomment -%}
+{%- if page.featured_image -%}
+  {%- assign featured_img = page.featured_image -%}
+{%- elsif page.image -%}
+  {%- assign featured_img = page.image -%}
+{%- else -%}
+  {%- comment -%} Extract first image from content {%- endcomment -%}
+  {%- assign img_match = page.content | split: '<img ' | first -%}
+  {%- if img_match != page.content -%}
+    {%- assign img_parts = page.content | split: '<img ' -%}
+    {%- assign first_img = img_parts[1] | split: '>' | first -%}
+
+    {%- comment -%} Extract src from img tag {%- endcomment -%}
+    {%- assign src_parts = first_img | split: 'src="' -%}
+    {%- if src_parts.size > 1 -%}
+      {%- assign src = src_parts[1] | split: '"' | first -%}
+
+      {%- comment -%} Check if it's a Cloudinary or WordPress URL {%- endcomment -%}
+      {%- if src contains 'cloudinary.com' -%}
+        {%- comment -%} Extract public_id from Cloudinary URL {%- endcomment -%}
+        {%- assign url_parts = src | split: '/upload/' -%}
+        {%- if url_parts.size > 1 -%}
+          {%- assign after_upload = url_parts[1] | split: '/' -%}
+          {%- comment -%} Skip transformation, get last part as public_id {%- endcomment -%}
+          {%- assign featured_img = after_upload | last -%}
+        {%- endif -%}
+      {%- elsif src contains 'circleseven.co.uk/wp-content/uploads' -%}
+        {%- comment -%} Extract filename from WordPress URL {%- endcomment -%}
+        {%- assign url_parts = src | split: '/' -%}
+        {%- assign featured_img = url_parts | last -%}
+      {%- else -%}
+        {%- assign featured_img = src -%}
+      {%- endif -%}
+    {%- endif -%}
+  {%- endif -%}
+{%- endif -%}
+
+{%- comment -%} Output the featured image {%- endcomment -%}
+{%- if featured_img and featured_img != '' -%}
+  {%- comment -%} Remove file extension for Cloudinary public_id {%- endcomment -%}
+  {%- assign img_id = featured_img | remove: '.jpg' | remove: '.png' | remove: '.gif' | remove: '.webp' | remove: '.jpeg' -%}
+  {%- comment -%} Featured images are typically above-fold, so default to eager loading for better LCP {%- endcomment -%}
+  {%- assign loading_value = include.loading | default: "eager" -%}
+
+  {%- comment -%} Prepend default folder if image doesn't already have a folder path {%- endcomment -%}
+  {%- if img_id contains '/' -%}
+    {%- assign full_path = img_id -%}
+  {%- elsif site.cloudinary_default_folder and site.cloudinary_default_folder != '' -%}
+    {%- assign full_path = site.cloudinary_default_folder | append: '/' | append: img_id -%}
+  {%- else -%}
+    {%- assign full_path = img_id -%}
+  {%- endif -%}
+
+  {%- comment -%} Check if it's already a full URL or just a filename {%- endcomment -%}
+  {%- if featured_img contains 'http' -%}
+    <img src="{{ featured_img }}" alt="{{ page.title | escape }}" class="post-featured-image" loading="{{ loading_value }}">
+  {%- else -%}
+    <img
+      src="{{ cloudinary_url }}/c_limit,w_1200,h_600,q_auto,f_auto,dpr_auto/{{ full_path }}"
+      srcset="{{ cloudinary_url }}/c_limit,w_400,h_300,q_auto,f_auto/{{ full_path }} 400w,
+              {{ cloudinary_url }}/c_limit,w_800,h_600,q_auto,f_auto/{{ full_path }} 800w,
+              {{ cloudinary_url }}/c_limit,w_1200,h_600,q_auto,f_auto/{{ full_path }} 1200w,
+              {{ cloudinary_url }}/c_limit,w_1600,h_600,q_auto,f_auto/{{ full_path }} 1600w,
+              {{ cloudinary_url }}/c_limit,w_2400,h_600,q_auto,f_auto/{{ full_path }} 2400w"
+      sizes="(max-width: 480px) 100vw, (max-width: 768px) 100vw, (max-width: 1200px) 80vw, 1200px"
+      alt="{{ page.title | escape }}"
+      class="post-featured-image"
+      loading="{{ loading_value }}"
+      fetchpriority="high"
+    >
+  {%- endif -%}
+{%- else -%}
+  {%- assign loading_value = include.loading | default: "eager" -%}
+  <img src="{{ '/assets/images/default-post.svg' | relative_url }}" alt="{{ page.title | escape }}" class="post-featured-image" loading="{{ loading_value }}">
+{%- endif -%}

@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Media Library - Admin</title>
+  <link rel="icon" type="image/svg+xml" href="/assets/images/favicon.svg">
+
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Local CSS -->
+  <link rel="stylesheet" href="/admin/admin.css">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+  <!-- Cloudinary Upload Widget -->
+  <script src="https://widget.cloudinary.com/v2.0/global/all.js"></script>
+
+  <!-- Netlify Identity Widget -->
+  <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+</head>
+<body class="bg-light">
+  <div id="app">
+    <!-- Auth Gate -->
+    <div id="auth-gate" class="min-vh-100 d-flex align-items-center justify-content-center">
+      <div class="card shadow p-4 auth-gate-card">
+        <h1 class="h3 fw-bold mb-3">Admin Login Required</h1>
+        <p class="text-muted mb-3">Please log in to access the media library.</p>
+        <button onclick="netlifyIdentity.open()" class="btn btn-primary w-100">
+          Log In
+        </button>
+      </div>
+    </div>
+
+    <!-- Main App (hidden until authenticated) -->
+    <div id="main-app" class="d-none">
+      <!-- Header Container (populated by shared component) -->
+      <div id="header-container"></div>
+
+      <!-- Sidebar Container (populated by shared component) -->
+      <div id="sidebar-container"></div>
+
+      <!-- Main Content Area (adjusted for sidebar, below header) -->
+      <div id="main-content-wrapper">
+        <!-- Main Content -->
+        <main class="px-3 px-lg-4 py-4">
+        <!-- Error State -->
+        <div id="error" class="alert alert-danger d-none mb-4" role="alert">
+          <p class="mb-0"></p>
+        </div>
+
+        <!-- Success State -->
+        <div id="success" class="alert alert-success d-none mb-4" role="alert">
+          <p class="mb-0"></p>
+        </div>
+
+        <!-- Image Modal (Bootstrap Modal) -->
+        <div class="modal fade" id="imageModal" tabindex="-1" aria-labelledby="imageModalLabel" aria-hidden="true" data-bs-backdrop="true" data-bs-keyboard="true">
+          <div class="modal-dialog modal-dialog-centered modal-xl">
+            <div class="modal-content bg-dark border-0">
+              <div class="modal-header border-0 position-absolute top-0 end-0 z-3">
+                <button type="button" class="btn btn-dark rounded-circle shadow modal-close-btn" data-bs-dismiss="modal" aria-label="Close">
+                  <i class="fas fa-times fa-lg"></i>
+                </button>
+              </div>
+              <div class="modal-body p-0 position-relative min-vh-50">
+                <!-- Loading Spinner -->
+                <div id="image-modal-loading" class="position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center justify-content-center">
+                  <div class="text-center">
+                    <div class="spinner-border text-primary mb-3 spinner-lg" role="status">
+                      <span class="visually-hidden">Loading...</span>
+                    </div>
+                    <p class="text-white small">Loading image...</p>
+                  </div>
+                </div>
+                <!-- Image Container -->
+                <div class="d-flex align-items-center justify-content-center p-4">
+                  <img id="image-modal-img" src="" alt="Full size preview" class="d-none rounded shadow-lg img-fluid" class="modal-image-preview" />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Media Library Section -->
+        <div id="section-media">
+          <h2 class="h5 fw-bold mb-4">Media Library</h2>
+
+          <!-- Collapsible Help -->
+
+          <!-- Media Controls -->
+          <div class="card shadow-sm mb-4">
+            <div class="card-body">
+              <div class="d-flex flex-wrap gap-2 align-items-center">
+                <input
+                  type="text"
+                  id="media-search"
+                  placeholder="Search media..."
+                  class="form-control flex-grow-1"
+                  style="min-width: 16rem;"
+                  oninput="debouncedFilterMedia()"
+                />
+                <select
+                  id="media-filter"
+                  class="form-select w-auto"
+                  onchange="filterMedia()"
+                >
+                  <option value="all">All Media</option>
+                  <option value="images">Images Only</option>
+                  <option value="recent">Recently Uploaded</option>
+                </select>
+                <button
+                  onclick="openCloudinaryUpload()"
+                  class="btn btn-primary d-flex align-items-center gap-2"
+                  title="Upload new image to library"
+                >
+                  <i class="fas fa-upload"></i>
+                  Upload Image
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Pagination (Top) -->
+          <div id="media-pagination-top" class="d-none mb-4 d-flex justify-content-between align-items-center">
+            <div class="small text-muted">
+              Page <span id="media-current-page-top">1</span> of <span id="media-total-pages-top">1</span>
+            </div>
+            <div class="d-flex gap-2">
+              <button
+                id="media-prev-btn-top"
+                onclick="changeMediaPage(-1)"
+                class="btn btn-sm btn-outline-secondary"
+                disabled
+              >
+                Previous
+              </button>
+              <button
+                id="media-next-btn-top"
+                onclick="changeMediaPage(1)"
+                class="btn btn-sm btn-outline-secondary"
+                disabled
+              >
+                Next
+              </button>
+            </div>
+          </div>
+
+          <!-- Media Grid -->
+          <div class="card shadow-sm p-4">
+            <div id="media-loading" class="p-5 text-center text-muted">
+              <div class="spinner-border text-primary mb-2" role="status">
+                <span class="visually-hidden">Loading...</span>
+              </div>
+              <p class="mb-0">Loading media library...</p>
+            </div>
+            <div id="media-empty" class="d-none p-5 text-center text-muted">
+              <i class="fas fa-image fa-4x mb-3 text-secondary opacity-50"></i>
+              <p class="fs-5 fw-medium mb-1">No media found</p>
+              <p class="small mb-0">Upload your first image to get started</p>
+            </div>
+            <div id="media-grid" class="row row-cols-2 row-cols-sm-3 row-cols-md-4 row-cols-lg-5 g-3">
+              <!-- Media items will be inserted here -->
+            </div>
+          </div>
+
+          <!-- Pagination -->
+          <div id="media-pagination" class="d-none mt-4 d-flex justify-content-between align-items-center">
+            <div class="small text-muted">
+              Page <span id="media-current-page">1</span> of <span id="media-total-pages">1</span>
+            </div>
+            <div class="d-flex gap-2">
+              <button
+                id="media-prev-btn"
+                onclick="changeMediaPage(-1)"
+                class="btn btn-sm btn-outline-secondary"
+                disabled
+              >
+                Previous
+              </button>
+              <button
+                id="media-next-btn"
+                onclick="changeMediaPage(1)"
+                class="btn btn-sm btn-outline-secondary"
+                disabled
+              >
+                Next
+              </button>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+  </div>
+  </div>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Import logger to make it available globally for app.js -->
+  <script type="module">
+    import logger from '/admin/js/core/logger.js?v=1761218399';
+  </script>
+
+  <script src="/admin/app.js?v=1761218399"></script>
+
+  <!-- ES6 Modules Integration -->
+  <script type="module">
+    // Import standalone init helper
+    import { initStandalonePage } from '/admin/js/standalone-init.js?v=1761218399';
+
+    // Import shared components
+    import { initHeader } from '/admin/js/components/header.js?v=1761218399';
+    import { initSidebar } from '/admin/js/components/sidebar.js?v=1761218399';
+
+    // Import modules
+    import { initNotifications } from '/admin/js/ui/notifications.js?v=1761218399';
+    import { loadSiteTitle, loadSiteConfig } from '/admin/js/modules/settings.js?v=1761218399';
+    import {
+      loadMedia,
+      renderMediaGrid,
+      updateMediaPagination,
+      changeMediaPage,
+      filterMedia,
+      debouncedFilterMedia,
+      copyMediaUrl,
+      viewMediaFull,
+      openCloudinaryUpload
+    } from '/admin/js/modules/media.js?v=1761218399';
+    import {
+      loadDeploymentHistory,
+      restoreActiveDeployments,
+      trackDeployment,
+      showDeploymentBanner,
+      updateDeploymentBanner,
+      showDeploymentCompletion,
+      hideDeploymentBanner,
+      startDeploymentPolling
+    } from '/admin/js/modules/deployments.js?v=1761218399';
+
+    // Initialize notifications when DOM is ready
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initNotifications);
+    } else {
+      initNotifications();
+    }
+
+    // Expose to window for onclick handlers and app.js
+    window.loadSiteTitle = loadSiteTitle;
+    window.loadMedia = loadMedia;
+    window.renderMediaGrid = renderMediaGrid;
+    window.updateMediaPagination = updateMediaPagination;
+    window.changeMediaPage = changeMediaPage;
+    window.filterMedia = filterMedia;
+    window.debouncedFilterMedia = debouncedFilterMedia;
+    window.copyMediaUrl = copyMediaUrl;
+    window.viewMediaFull = viewMediaFull;
+    window.openCloudinaryUpload = openCloudinaryUpload;
+    window.loadDeploymentHistory = loadDeploymentHistory;
+    window.restoreActiveDeployments = restoreActiveDeployments;
+    window.trackDeployment = trackDeployment;
+    window.showDeploymentBanner = showDeploymentBanner;
+    window.updateDeploymentBanner = updateDeploymentBanner;
+    window.showDeploymentCompletion = showDeploymentCompletion;
+    window.hideDeploymentBanner = hideDeploymentBanner;
+    window.startDeploymentPolling = startDeploymentPolling;
+
+    // Page-specific initialization
+    const init = async () => {
+      await initStandalonePage('media', async (user) => {
+        // Initialize shared components with active page
+        initHeader();
+        initSidebar('media');
+
+        // Load site config (needed for Cloudinary folder setting)
+        await loadSiteConfig();
+
+        // Load site title
+        await loadSiteTitle();
+
+        // Load deployment history and restore active deployments
+        await loadDeploymentHistory();
+        await restoreActiveDeployments();
+
+        // Load media
+        await loadMedia();
+      });
+    };
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', init);
+    } else {
+      init();
+    }
+
+    // Setup Netlify Identity
+    netlifyIdentity.on('login', () => {
+      location.reload();
+    });
+
+    netlifyIdentity.on('logout', () => {
+      location.href = '/admin/';
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Settings - Admin</title>
+  <link rel="icon" type="image/svg+xml" href="/assets/images/favicon.svg">
+
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Local CSS -->
+  <link rel="stylesheet" href="/admin/admin.css">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+  <!-- Netlify Identity Widget -->
+  <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+</head>
+<body class="bg-light">
+  <div id="app">
+    <!-- Auth Gate -->
+    <div id="auth-gate" class="min-vh-100 d-flex align-items-center justify-content-center">
+      <div class="card shadow p-4 auth-gate-card">
+        <h1 class="h3 fw-bold mb-3">Admin Login Required</h1>
+        <p class="text-muted mb-3">Please log in to access settings.</p>
+        <button onclick="netlifyIdentity.open()" class="btn btn-primary w-100">
+          Log In
+        </button>
+      </div>
+    </div>
+
+    <!-- Main App (hidden until authenticated) -->
+    <div id="main-app" class="d-none">
+      <!-- Header Container (populated by shared component) -->
+      <div id="header-container"></div>
+
+      <!-- Sidebar Container (populated by shared component) -->
+      <div id="sidebar-container"></div>
+
+      <!-- Main Content Area (adjusted for sidebar, below header) -->
+      <div id="main-content-wrapper">
+        <!-- Main Content -->
+        <main class="px-3 px-lg-4 py-4">
+        <!-- Error State -->
+        <div id="error" class="alert alert-danger d-none mb-4" role="alert">
+          <p class="mb-0"></p>
+        </div>
+
+        <!-- Success State -->
+        <div id="success" class="alert alert-success d-none mb-4" role="alert">
+          <p class="mb-0"></p>
+        </div>
+
+        <!-- Settings Section -->
+        <div id="section-settings">
+          <h2 class="h5 fw-bold mb-4">Settings</h2>
+
+          <!-- Collapsible Help -->
+
+          <!-- Settings Accordion -->
+          <div id="settings-accordion" class="accordion">
+            <!-- Admin Application Settings -->
+            <div class="accordion-item">
+              <h2 class="accordion-header">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#adminSettingsCollapse">
+                  <i class="fas fa-cog text-primary me-2"></i>
+                  Admin Application Settings
+                </button>
+              </h2>
+              <div id="adminSettingsCollapse" class="accordion-collapse collapse">
+                <div class="accordion-body">
+                  <p class="small text-muted mb-4">
+                    Configure polling intervals, timeouts, and rate limits for the admin interface. These settings are stored in your browser.
+                  </p>
+
+                  <form id="admin-settings-form" onsubmit="saveAdminSettings(event)">
+                    <div class="row g-3">
+                      <!-- Deployment Status Poll Interval -->
+                      <div class="col-md-6">
+                        <label for="admin-setting-deployment-poll-interval" class="form-label">
+                          Deployment Status Check
+                        </label>
+                        <div class="input-group">
+                          <input
+                            type="number"
+                            id="admin-setting-deployment-poll-interval"
+                            name="deployment_poll_interval"
+                            min="5"
+                            max="60"
+                            step="1"
+                            class="form-control"
+                            required
+                          />
+                          <span class="input-group-text">seconds</span>
+                        </div>
+                        <div class="form-text">How often to check deployment status (default: 10 seconds)</div>
+                      </div>
+
+                      <!-- Deployment History Poll Interval -->
+                      <div class="col-md-6">
+                        <label for="admin-setting-deployment-history-poll-interval" class="form-label">
+                          Deployment History Refresh
+                        </label>
+                        <div class="input-group">
+                          <input
+                            type="number"
+                            id="admin-setting-deployment-history-poll-interval"
+                            name="deployment_history_poll_interval"
+                            min="10"
+                            max="120"
+                            step="1"
+                            class="form-control"
+                            required
+                          />
+                          <span class="input-group-text">seconds</span>
+                        </div>
+                        <div class="form-text">How often to refresh deployment history (default: 30 seconds)</div>
+                      </div>
+
+                      <!-- Deployment Timeout -->
+                      <div class="col-md-6">
+                        <label for="admin-setting-deployment-timeout" class="form-label">
+                          Deployment Timeout
+                        </label>
+                        <div class="input-group">
+                          <input
+                            type="number"
+                            id="admin-setting-deployment-timeout"
+                            name="deployment_timeout"
+                            min="60"
+                            max="1200"
+                            step="30"
+                            class="form-control"
+                            required
+                          />
+                          <span class="input-group-text">seconds</span>
+                        </div>
+                        <div class="form-text">Maximum time to wait for deployments (default: 600s / 10 minutes)</div>
+                      </div>
+
+                      <!-- Fetch Timeout -->
+                      <div class="col-md-6">
+                        <label for="admin-setting-fetch-timeout" class="form-label">
+                          API Request Timeout
+                        </label>
+                        <div class="input-group">
+                          <input
+                            type="number"
+                            id="admin-setting-fetch-timeout"
+                            name="fetch_timeout"
+                            min="5"
+                            max="120"
+                            step="1"
+                            class="form-control"
+                            required
+                          />
+                          <span class="input-group-text">seconds</span>
+                        </div>
+                        <div class="form-text">Maximum time for API requests (default: 30 seconds)</div>
+                      </div>
+
+                      <!-- Debounce Delay -->
+                      <div class="col-md-6">
+                        <label for="admin-setting-debounce-delay" class="form-label">
+                          Search Input Delay
+                        </label>
+                        <div class="input-group">
+                          <input
+                            type="number"
+                            id="admin-setting-debounce-delay"
+                            name="debounce_delay"
+                            min="100"
+                            max="2000"
+                            step="50"
+                            class="form-control"
+                            required
+                          />
+                          <span class="input-group-text">ms</span>
+                        </div>
+                        <div class="form-text">Delay before search triggers (default: 300ms)</div>
+                      </div>
+                    </div>
+
+                    <!-- Action Buttons -->
+                    <div class="mt-4 d-flex gap-2 justify-content-end">
+                      <button
+                        type="button"
+                        onclick="resetAdminSettings()"
+                        class="btn btn-outline-secondary d-flex align-items-center gap-2"
+                        title="Reset to default values"
+                      >
+                        <i class="fas fa-redo"></i>
+                        <span>Reset to Defaults</span>
+                      </button>
+                      <button
+                        type="submit"
+                        id="admin-settings-save-btn"
+                        class="btn btn-primary"
+                        title="Save admin settings"
+                      >
+                        Save Admin Settings
+                      </button>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+
+            <!-- Site Configuration Settings -->
+            <div class="accordion-item">
+              <h2 class="accordion-header">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#siteConfigCollapse">
+                  <i class="fas fa-server text-primary me-2"></i>
+                  Site Configuration
+                </button>
+              </h2>
+              <div id="siteConfigCollapse" class="accordion-collapse collapse">
+                <div class="accordion-body">
+                  <p class="small text-muted mb-4">
+                    These settings update your _config.yml file and trigger an automatic site rebuild (1-2 minutes).
+                  </p>
+
+                  <form id="settings-form" onsubmit="saveSettings(event)">
+                    <div class="row g-3">
+                      <!-- Site Title -->
+                      <div class="col-md-6">
+                        <label for="setting-title" class="form-label">
+                          Site Title
+                        </label>
+                        <input
+                          type="text"
+                          id="setting-title"
+                          name="title"
+                          class="form-control"
+                          required
+                        />
+                      </div>
+
+                      <!-- Author Name -->
+                      <div class="col-md-6">
+                        <label for="setting-author" class="form-label">
+                          Author Name
+                        </label>
+                        <input
+                          type="text"
+                          id="setting-author"
+                          name="author"
+                          class="form-control"
+                          required
+                        />
+                      </div>
+
+                      <!-- Email -->
+                      <div class="col-md-6">
+                        <label for="setting-email" class="form-label">
+                          Email
+                        </label>
+                        <input
+                          type="email"
+                          id="setting-email"
+                          name="email"
+                          class="form-control"
+                          required
+                        />
+                      </div>
+
+                      <!-- GitHub Username -->
+                      <div class="col-md-6">
+                        <label for="setting-github_username" class="form-label">
+                          GitHub Username
+                        </label>
+                        <input
+                          type="text"
+                          id="setting-github_username"
+                          name="github_username"
+                          class="form-control"
+                        />
+                      </div>
+
+                      <!-- Related Posts Count -->
+                      <div class="col-md-6">
+                        <label for="setting-related_posts_count" class="form-label">
+                          Related Posts Count
+                        </label>
+                        <input
+                          type="number"
+                          id="setting-related_posts_count"
+                          name="related_posts_count"
+                          min="0"
+                          max="10"
+                          class="form-control"
+                          required
+                        />
+                      </div>
+
+                      <!-- Timezone -->
+                      <div class="col-md-6">
+                        <label for="setting-timezone" class="form-label">
+                          Timezone
+                        </label>
+                        <input
+                          type="text"
+                          id="setting-timezone"
+                          name="timezone"
+                          placeholder="Europe/London"
+                          class="form-control"
+                          required
+                        />
+                      </div>
+
+                      <!-- Language -->
+                      <div class="col-md-6">
+                        <label for="setting-lang" class="form-label">
+                          Language Code
+                        </label>
+                        <input
+                          type="text"
+                          id="setting-lang"
+                          name="lang"
+                          placeholder="en-GB"
+                          class="form-control"
+                          required
+                        />
+                      </div>
+
+                      <!-- Site Description (full width) -->
+                      <div class="col-12">
+                        <label for="setting-description" class="form-label">
+                          Site Description
+                        </label>
+                        <textarea
+                          id="setting-description"
+                          name="description"
+                          rows="3"
+                          class="form-control"
+                          required
+                        ></textarea>
+                      </div>
+
+                      <!-- Cloudinary Default Folder -->
+                      <div class="col-md-6">
+                        <label for="setting-cloudinary_default_folder" class="form-label">
+                          Cloudinary Default Folder
+                        </label>
+                        <select
+                          id="setting-cloudinary_default_folder"
+                          name="cloudinary_default_folder"
+                          class="form-select"
+                        >
+                          <option value="">Loading folders...</option>
+                        </select>
+                        <div class="form-text">
+                          Default folder for all Cloudinary images. Images will be loaded from this folder site-wide.
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- Save Button -->
+                    <div class="mt-4 d-flex justify-content-end">
+                      <button
+                        type="submit"
+                        id="settings-save-btn"
+                        class="btn btn-primary btn-lg"
+                        title="Save site settings"
+                      >
+                        Save Settings
+                      </button>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+  </div>
+  </div>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Import logger to make it available globally for app.js -->
+  <script type="module">
+    import logger from '/admin/js/core/logger.js?v=1761218399';
+  </script>
+
+  <script src="/admin/app.js?v=1761218399"></script>
+
+  <!-- ES6 Modules Integration -->
+  <script type="module">
+    // Import standalone init helper
+    import { initStandalonePage } from '/admin/js/standalone-init.js?v=1761218399';
+
+    // Import shared components
+    import { initHeader } from '/admin/js/components/header.js?v=1761218399';
+    import { initSidebar } from '/admin/js/components/sidebar.js?v=1761218399';
+
+    // Import modules
+    import { initNotifications } from '/admin/js/ui/notifications.js?v=1761218399';
+    import { loadSiteTitle } from '/admin/js/modules/settings.js?v=1761218399';
+    import {
+      loadSettings,
+      saveSettings,
+      loadAdminSettings,
+      saveAdminSettings,
+      resetAdminSettings
+    } from '/admin/js/modules/settings.js?v=1761218399';
+    import {
+      loadDeploymentHistory,
+      restoreActiveDeployments,
+      trackDeployment,
+      showDeploymentBanner,
+      updateDeploymentBanner,
+      showDeploymentCompletion,
+      hideDeploymentBanner,
+      startDeploymentPolling
+    } from '/admin/js/modules/deployments.js?v=1761218399';
+
+    // Initialize notifications when DOM is ready
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initNotifications);
+    } else {
+      initNotifications();
+    }
+
+    // Expose to window for onclick handlers and app.js
+    window.loadSiteTitle = loadSiteTitle;
+    window.loadSettings = loadSettings;
+    window.saveSettings = saveSettings;
+    window.loadAdminSettings = loadAdminSettings;
+    window.saveAdminSettings = saveAdminSettings;
+    window.resetAdminSettings = resetAdminSettings;
+    window.loadDeploymentHistory = loadDeploymentHistory;
+    window.restoreActiveDeployments = restoreActiveDeployments;
+    window.trackDeployment = trackDeployment;
+    window.showDeploymentBanner = showDeploymentBanner;
+    window.updateDeploymentBanner = updateDeploymentBanner;
+    window.showDeploymentCompletion = showDeploymentCompletion;
+    window.hideDeploymentBanner = hideDeploymentBanner;
+    window.startDeploymentPolling = startDeploymentPolling;
+
+    // Page-specific initialization
+    const init = async () => {
+      await initStandalonePage('settings', async (user) => {
+        // Initialize shared components with active page
+        initHeader();
+        initSidebar('settings');
+
+        // Load site title
+        await loadSiteTitle();
+
+        // Load deployment history and restore active deployments
+        await loadDeploymentHistory();
+        await restoreActiveDeployments();
+
+        // Load settings
+        await loadSettings();
+        await loadAdminSettings();
+      });
+    };
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', init);
+    } else {
+      init();
+    }
+
+    // Setup Netlify Identity
+    netlifyIdentity.on('login', () => {
+      location.reload();
+    });
+
+    netlifyIdentity.on('logout', () => {
+      location.href = '/admin/';
+    });
+  </script>
+</body>
+</html>

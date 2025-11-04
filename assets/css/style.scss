@@ -1,0 +1,79 @@
+---
+# Only the main Sass file needs front matter (the dashes are enough)
+---
+
+// Override minima theme colors with teal
+$brand-color: #20b2aa !default;
+$link-base-color: #20b2aa !default;
+$link-visited-color: #20b2aa !default;
+$link-hover-color: #1a9991 !default;
+
+@import "minima";
+
+// Additional link color overrides for post/page content
+.post-content a,
+.page-content a,
+p a,
+li a {
+  color: #20b2aa;
+
+  &:visited {
+    color: #20b2aa;
+  }
+
+  &:hover {
+    color: #1a9991;
+    text-decoration: underline;
+  }
+}
+
+// Hover shadow effect for subcategory boxes
+.hover-shadow {
+  transition: box-shadow 0.2s ease-in-out;
+
+  &:hover {
+    box-shadow: 0 0.125rem 0.5rem rgba(0, 0, 0, 0.15);
+  }
+}
+
+// Wider content width at all viewport sizes (minima default is 800px)
+.wrapper {
+  max-width: 95%;
+  width: 100%;
+}
+
+@media (min-width: 768px) {
+  .wrapper {
+    max-width: 90%;
+  }
+}
+
+@media (min-width: 900px) {
+  .wrapper {
+    max-width: 92%;
+  }
+}
+
+@media (min-width: 1100px) {
+  .wrapper {
+    max-width: 94%;
+  }
+}
+
+@media (min-width: 1400px) {
+  .wrapper {
+    max-width: 1400px;
+  }
+}
+
+@media (min-width: 1600px) {
+  .wrapper {
+    max-width: 1560px;
+  }
+}
+
+@media (min-width: 1800px) {
+  .wrapper {
+    max-width: 1700px;
+  }
+}

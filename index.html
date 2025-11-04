@@ -1,0 +1,109 @@
+---
+layout: default-sidebar
+---
+
+<div class="home">
+  <div class="post-grid">
+    {% for post in paginator.posts %}
+      {% if paginator.page == 1 and forloop.index > 12 %}
+        {% continue %}
+      {% endif %}
+      <article class="post-card{% if post.featured %} featured{% endif %}">
+        <!-- Card Image -->
+        <div class="post-card-image">
+          <a href="{{ post.url | relative_url }}">
+            {% if post.featured %}
+              {% include post-card-image.html post=post loading="eager" %}
+            {% else %}
+              {% include post-card-image.html post=post %}
+            {% endif %}
+          </a>
+          <!-- Edit Button (only visible when logged in) -->
+          <a href="/admin/posts/edit.html?file={{ post.path | replace: '_posts/', '' | uri_escape }}"
+             class="edit-card-link"
+             style="display: none;"
+             title="Edit this post"
+             aria-label="Edit {{ post.title }}">
+            <i class="fas fa-edit" aria-hidden="true"></i>
+          </a>
+        </div>
+
+        <!-- Card Content -->
+        <div class="post-card-content">
+          <!-- Category Badge -->
+          {% if post.categories.size > 0 %}
+            {% assign display_category = post.categories | first %}
+            <a href="{{ site.baseurl }}/category/{{ display_category | slugify }}/" class="category-badge badge-{{ display_category | slugify }}">
+              {{ display_category }}
+            </a>
+          {% endif %}
+
+          <!-- Title -->
+          <h2 class="post-card-title">
+            <a href="{{ post.url | relative_url }}">{{ post.title | escape }}</a>
+          </h2>
+
+          <!-- Excerpt -->
+          {% if post.excerpt %}
+            <p class="post-card-excerpt">{{ post.excerpt | strip_html | strip_newlines | truncatewords: 30 }}</p>
+          {% endif %}
+
+          <!-- Author & Meta -->
+          <div class="post-card-meta">
+            <img src="{% include gravatar-url.html email=site.email size=64 %}"
+                 alt="{{ site.author | escape }}"
+                 class="post-author-avatar"
+                 loading="lazy"
+                 onerror="this.src='{{ '/assets/images/default-avatar.svg' | relative_url }}'">
+            <div class="post-meta-info">
+              <span class="post-author-name">{{ site.author | escape }}</span>
+              <span class="post-date-reading">
+                <i class="far fa-calendar calendar-icon" aria-hidden="true"></i>
+                {{ post.date | date: "%b %-d, %Y" }}
+                {%- if post.content -%}
+                  · {% include reading-time.html %}
+                {%- endif -%}
+              </span>
+            </div>
+          </div>
+        </div>
+      </article>
+    {% endfor %}
+  </div>
+
+  <!-- Pagination links -->
+  {% if paginator.total_pages > 1 %}
+  <nav class="pagination" aria-label="Pagination Navigation">
+    {% if paginator.previous_page %}
+      <a href="{{ paginator.previous_page_path | relative_url }}" class="previous" aria-label="Go to previous page">← Previous</a>
+    {% else %}
+      <span class="previous disabled" aria-hidden="true">← Previous</span>
+    {% endif %}
+
+    <span class="page-number" aria-current="page">Page {{ paginator.page }} of {{ paginator.total_pages }}</span>
+
+    {% if paginator.next_page %}
+      <a href="{{ paginator.next_page_path | relative_url }}" class="next" aria-label="Go to next page">Next →</a>
+    {% else %}
+      <span class="next disabled" aria-hidden="true">Next →</span>
+    {% endif %}
+  </nav>
+
+  <!-- Page numbers -->
+  <nav class="pagination-pages" aria-label="Page Numbers">
+    {% if paginator.total_pages > 1 %}
+      {% for page in (1..paginator.total_pages) %}
+        {% if page == paginator.page %}
+          <span class="current" aria-current="page" aria-label="Current page, page {{ page }}">{{ page }}</span>
+        {% elsif page == 1 %}
+          <a href="{{ '/' | relative_url }}" aria-label="Go to page {{ page }}">{{ page }}</a>
+        {% else %}
+          <a href="{{ site.paginate_path | relative_url | replace: ':num', page }}" aria-label="Go to page {{ page }}">{{ page }}</a>
+        {% endif %}
+      {% endfor %}
+    {% endif %}
+  </nav>
+  {% endif %}
+
+  
+</div>

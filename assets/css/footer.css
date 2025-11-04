@@ -1,0 +1,114 @@
+/* ============================================
+   FOOTER STYLES
+   Social icons and footer layout
+   ============================================ */
+
+.site-footer {
+  border-top: 1px solid #e8e8e8;
+  padding: 30px 0;
+  background: #f9f9f9;
+}
+
+.footer-col-wrapper {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 30px;
+  margin-bottom: 30px;
+}
+
+/* Subscribe and Contact Links */
+.feed-subscribe a,
+.contact-list a {
+  color: #20b2aa;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.feed-subscribe a:hover,
+.contact-list a:hover {
+  color: #1a9991;
+  text-decoration: underline;
+}
+
+.contact-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+/* Social Media Icons in Footer */
+.social-links {
+  display: flex;
+  justify-content: center;
+  padding: 20px 0;
+  border-top: 1px solid #e8e8e8;
+}
+
+.social-media-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.social-media-list li {
+  margin: 0;
+  display: flex;
+  align-items: center;
+}
+
+.social-media-list a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  background: white;
+  border: 1px solid #e0e0e0;
+  border-radius: 50%;
+  text-decoration: none;
+  color: #666;
+  transition: all 0.2s ease;
+  position: relative;
+}
+
+.social-media-list a:hover {
+  background: #20b2aa;
+  color: white;
+  border-color: #20b2aa;
+}
+
+.social-media-list svg {
+  width: 20px;
+  height: 20px;
+}
+
+.social-media-list .username {
+  display: none;
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+  .footer-col-wrapper {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .social-media-list {
+    gap: 8px;
+  }
+
+  .social-media-list a {
+    width: 40px;
+    height: 40px;
+  }
+
+  .social-media-list svg {
+    width: 18px;
+    height: 18px;
+  }
+}

@@ -1,0 +1,128 @@
+/* ============================================
+   EDIT LINKS FOR DECAP CMS
+   Edit buttons shown when logged in via Netlify Identity
+   ============================================ */
+
+/* Edit button on card image (top right corner) */
+.edit-card-link {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: 40px;
+  height: 40px;
+  background: rgba(32, 178, 170, 0.95);
+  color: white !important;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  font-size: 16px;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  z-index: 10;
+  opacity: 0;
+  transform: scale(0.8);
+}
+
+/* Ensure icon is visible */
+.edit-card-link i {
+  color: white;
+  font-size: 16px;
+  line-height: 1;
+}
+
+.edit-card-link.edit-link-visible {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.edit-card-link:hover {
+  background: #1a9991;
+  transform: scale(1.1) !important;
+  box-shadow: 0 4px 12px rgba(32, 178, 170, 0.4);
+}
+
+.edit-card-link:active {
+  transform: scale(0.95) !important;
+}
+
+/* Ensure card image has position relative for absolute positioning */
+.post-card-image {
+  position: relative;
+}
+
+/* Edit link on post title (inline with title) */
+.edit-post-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  margin-left: 16px;
+  background: rgba(32, 178, 170, 0.1);
+  color: #20b2aa;
+  border-radius: 8px;
+  text-decoration: none;
+  font-size: 18px;
+  transition: all 0.3s ease;
+  vertical-align: middle;
+  opacity: 0;
+  transform: translateY(-2px) scale(0.8);
+}
+
+.edit-post-link.edit-link-visible {
+  opacity: 1;
+  transform: translateY(-2px) scale(1);
+}
+
+.edit-post-link:hover {
+  background: rgba(32, 178, 170, 0.2);
+  color: #1a9991;
+  transform: translateY(-2px) scale(1.1);
+}
+
+.edit-post-link:active {
+  transform: translateY(-2px) scale(0.95);
+}
+
+/* Mobile adjustments */
+@media (max-width: 768px) {
+  .edit-card-link {
+    width: 36px;
+    height: 36px;
+    font-size: 14px;
+    top: 8px;
+    right: 8px;
+  }
+
+  .edit-post-link {
+    width: 32px;
+    height: 32px;
+    font-size: 16px;
+    margin-left: 8px;
+  }
+}
+
+/* Accessibility: Focus states */
+.edit-card-link:focus-visible,
+.edit-post-link:focus-visible {
+  outline: 3px solid #20b2aa;
+  outline-offset: 2px;
+}
+
+/* Animation for appearing */
+@keyframes fadeInScale {
+  from {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.edit-link-visible {
+  animation: fadeInScale 0.3s ease forwards;
+}

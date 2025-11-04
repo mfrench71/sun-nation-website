@@ -1,0 +1,71 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <!-- Teal gradient background -->
+  <defs>
+    <linearGradient id="bg-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#20b2aa;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#008b8b;stop-opacity:1" />
+    </linearGradient>
+
+    <!-- Shadow for depth -->
+    <filter id="shadow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="3"/>
+      <feOffset dx="0" dy="2" result="offsetblur"/>
+      <feComponentTransfer>
+        <feFuncA type="linear" slope="0.3"/>
+      </feComponentTransfer>
+      <feMerge>
+        <feMergeNode/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <!-- Teal background -->
+  <rect width="1200" height="630" fill="url(#bg-gradient)"/>
+
+  <!-- Pattern overlay with subtle circles -->
+  <g opacity="0.08">
+    <circle cx="150" cy="150" r="100" fill="white"/>
+    <circle cx="1050" cy="480" r="80" fill="white"/>
+    <circle cx="350" cy="500" r="60" fill="white"/>
+    <circle cx="950" cy="150" r="90" fill="white"/>
+    <circle cx="500" cy="100" r="50" fill="white"/>
+    <circle cx="700" cy="530" r="70" fill="white"/>
+  </g>
+
+  <!-- Main logo group - centered -->
+  <g transform="translate(600, 315)">
+    <!-- Outer circle with shadow -->
+    <circle cx="0" cy="0" r="180" fill="white" opacity="0.95" filter="url(#shadow)"/>
+
+    <!-- Inner teal circle -->
+    <circle cx="0" cy="0" r="165" fill="#20b2aa"/>
+
+    <!-- The number "7" in white - clean and bold -->
+    <g transform="translate(-55, -70)">
+      <!-- Top horizontal bar -->
+      <rect x="0" y="0" width="110" height="28" fill="white" opacity="0.95"/>
+
+      <!-- Diagonal stroke of the 7 -->
+      <path d="M 80,28 L 35,150 L 65,150 L 110,28 Z"
+            fill="white"
+            opacity="0.95"/>
+    </g>
+
+    <!-- Accent circles for design balance -->
+    <circle cx="90" cy="-90" r="12" fill="white" opacity="0.6"/>
+    <circle cx="-80" cy="85" r="8" fill="white" opacity="0.4"/>
+  </g>
+
+  <!-- Site name below logo -->
+  <text x="600" y="550"
+        font-family="Arial, sans-serif"
+        font-size="42"
+        font-weight="600"
+        fill="white"
+        text-anchor="middle"
+        opacity="0.95"
+        letter-spacing="2">
+    CIRCLE SEVEN
+  </text>
+</svg>

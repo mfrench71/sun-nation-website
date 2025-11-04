@@ -1,0 +1,46 @@
+{%- comment -%}
+Cloudinary responsive image helper
+
+Usage:
+{% include cloudinary-image.html
+   src="image-filename.jpg"
+   alt="Description"
+   transformation="c_fill,w_800,h_600"
+   caption="Optional caption"
+   sizes="(max-width: 768px) 100vw, 800px"
+%}
+
+Parameters:
+- src: Image filename or public_id (required)
+- alt: Alt text for accessibility (required)
+- transformation: Cloudinary transformation string (optional, defaults to q_auto,f_auto)
+- caption: Optional caption text
+- sizes: Responsive sizes attribute (optional)
+- loading: lazy or eager (optional, defaults to lazy)
+{%- endcomment -%}
+
+{%- assign cloudinary_url = site.cloudinary_base_url -%}
+{%- assign img_src = include.src | remove: '.jpg' | remove: '.png' | remove: '.gif' | remove: '.webp' | remove: '.jpeg' -%}
+
+{%- comment -%} Prepend default folder if image doesn't already have a folder path {%- endcomment -%}
+{%- if img_src contains '/' -%}
+  {%- assign full_path = img_src -%}
+{%- elsif site.cloudinary_default_folder and site.cloudinary_default_folder != '' -%}
+  {%- assign full_path = site.cloudinary_default_folder | append: '/' | append: img_src -%}
+{%- else -%}
+  {%- assign full_path = img_src -%}
+{%- endif -%}
+
+{%- if include.transformation -%}
+  {%- assign transform = include.transformation -%}
+{%- else -%}
+  {%- assign transform = "q_auto,f_auto" -%}
+{%- endif -%}
+
+{%- if include.loading -%}
+  {%- assign loading = include.loading -%}
+{%- else -%}
+  {%- assign loading = "lazy" -%}
+{%- endif -%}
+
+{%- if include.caption -%}<figure>{%- endif -%}<img src="{{ cloudinary_url }}/{{ transform }}/{{ full_path }}"{%- if include.sizes %} srcset="{{ cloudinary_url }}/c_limit,w_400,q_auto,f_auto/{{ full_path }} 400w, {{ cloudinary_url }}/c_limit,w_800,q_auto,f_auto/{{ full_path }} 800w, {{ cloudinary_url }}/c_limit,w_1200,q_auto,f_auto/{{ full_path }} 1200w, {{ cloudinary_url }}/c_limit,w_1600,q_auto,f_auto/{{ full_path }} 1600w" sizes="{{ include.sizes }}"{%- endif %} alt="{{ include.alt | escape }}" loading="{{ loading }}">{%- if include.caption -%}<figcaption>{{ include.caption }}</figcaption></figure>{%- endif -%}

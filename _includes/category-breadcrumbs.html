@@ -1,0 +1,70 @@
+{%- comment -%}
+  Category Breadcrumbs Include
+
+  Shows hierarchical breadcrumb navigation for a category
+  Automatically finds parent category from taxonomy structure
+
+  Parameters:
+  - category: The category name to show breadcrumbs for
+
+  Usage:
+  {% include category-breadcrumbs.html category=page.category %}
+{%- endcomment -%}
+
+{%- assign current_category = include.category -%}
+{%- assign parent_category = nil -%}
+{%- assign parent_slug = nil -%}
+{%- assign current_slug = nil -%}
+{%- assign is_child = false -%}
+
+{%- comment -%} Find if this is a child category and get its parent {%- endcomment -%}
+{%- for parent in site.data.taxonomy.categories -%}
+  {%- if parent.item == current_category -%}
+    {%- assign current_slug = parent.slug | default: parent.item | slugify -%}
+    {%- break -%}
+  {%- endif -%}
+
+  {%- if parent.children -%}
+    {%- for child in parent.children -%}
+      {%- if child.item == current_category -%}
+        {%- assign is_child = true -%}
+        {%- assign parent_category = parent.item -%}
+        {%- assign parent_slug = parent.slug | default: parent.item | slugify -%}
+        {%- assign current_slug = child.slug | default: child.item | slugify -%}
+        {%- break -%}
+      {%- endif -%}
+    {%- endfor -%}
+  {%- endif -%}
+{%- endfor -%}
+
+<nav aria-label="Breadcrumb" class="breadcrumb-nav">
+  <ol class="breadcrumb" itemscope itemtype="https://schema.org/BreadcrumbList">
+    <li class="breadcrumb-item" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+      <a href="{{ site.baseurl }}/" itemprop="item">
+        <span itemprop="name">Home</span>
+      </a>
+      <meta itemprop="position" content="1" />
+    </li>
+
+    {%- if is_child and parent_category -%}
+      <li class="breadcrumb-separator" aria-hidden="true">/</li>
+      <li class="breadcrumb-item" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <a href="{{ site.baseurl }}/category/{{ parent_slug }}/" itemprop="item">
+          <span itemprop="name">{{ parent_category }}</span>
+        </a>
+        <meta itemprop="position" content="2" />
+      </li>
+      <li class="breadcrumb-separator" aria-hidden="true">/</li>
+      <li class="breadcrumb-item active" aria-current="page" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <span itemprop="name">{{ current_category }}</span>
+        <meta itemprop="position" content="3" />
+      </li>
+    {%- else -%}
+      <li class="breadcrumb-separator" aria-hidden="true">/</li>
+      <li class="breadcrumb-item active" aria-current="page" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <span itemprop="name">{{ current_category }}</span>
+        <meta itemprop="position" content="2" />
+      </li>
+    {%- endif -%}
+  </ol>
+</nav>

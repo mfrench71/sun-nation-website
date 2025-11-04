@@ -1,0 +1,30 @@
+<a href="#main-content" class="skip-to-content">Skip to main content</a>
+
+<style>
+.skip-to-content {
+  position: absolute;
+  left: -9999px;
+  top: auto;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  z-index: 99999;
+  background: var(--color-primary, #2a7ae2);
+  color: white;
+  padding: 10px 20px;
+  text-decoration: none;
+  font-weight: 500;
+  border-radius: 0 0 4px 4px;
+}
+
+.skip-to-content:focus {
+  position: fixed;
+  left: 10px;
+  top: 0;
+  width: auto;
+  height: auto;
+  overflow: visible;
+  outline: 2px solid #fff;
+  outline-offset: 2px;
+}
+</style>

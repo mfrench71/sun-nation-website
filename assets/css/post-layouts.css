@@ -1,0 +1,489 @@
+/* ============================================
+   POST LAYOUT STYLES
+   Shared styles for post listings across site
+   ============================================ */
+
+/* Post List Container */
+.post-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+/* Individual Post Item */
+.post-item {
+  margin-bottom: 40px;
+  padding-bottom: 30px;
+  border-bottom: 1px solid #e8e8e8;
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
+}
+
+/* Post Featured Image */
+.post-image {
+  flex-shrink: 0;
+  width: 250px;
+  height: 200px;
+  overflow: hidden;
+  border-radius: 4px;
+}
+
+.post-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s;
+}
+
+.post-image:hover img {
+  transform: scale(1.05);
+}
+
+/* Post Content Area */
+.post-content {
+  flex: 1;
+  min-width: 0;
+}
+
+/* Post Metadata (date) */
+.post-meta {
+  font-size: 14px;
+  color: #828282;
+  display: block;
+  margin-bottom: 5px;
+}
+
+/* Post Excerpt */
+.post-excerpt {
+  margin: 10px 0;
+  color: #666;
+  line-height: 1.6;
+}
+
+/* Post Categories/Tags - Higher specificity */
+.post-item .post-categories,
+span.post-categories {
+  font-size: 14px;
+  color: #666;
+  margin-top: 10px;
+  display: block;
+}
+
+.post-categories a.category,
+a.category {
+  background: #f0f0f0;
+  padding: 2px 8px;
+  border-radius: 3px;
+  margin-right: 5px;
+  text-decoration: none;
+  color: #333;
+  transition: background 0.2s, color 0.2s;
+  display: inline-block;
+  margin-bottom: 5px;
+}
+
+.post-categories a.category:hover,
+a.category:hover {
+  background: #2a7ae2;
+  color: white;
+}
+
+/* Post Breadcrumb (category hierarchy) */
+.post-breadcrumb {
+  display: block;
+  font-size: 12px;
+  color: #999;
+  margin-top: 10px;
+  font-style: italic;
+}
+
+/* Pagination Controls - Higher specificity to override theme */
+.home .pagination,
+div.pagination {
+  margin: 30px 0;
+  text-align: center;
+  padding: 20px 0;
+  border-top: 1px solid #e8e8e8;
+  border-bottom: 1px solid #e8e8e8;
+}
+
+.home .pagination a,
+.home .pagination span,
+div.pagination a,
+div.pagination span {
+  padding: 8px 16px;
+  margin: 0 5px;
+  text-decoration: none;
+  color: #20b2aa;
+}
+
+.home .pagination .disabled,
+div.pagination .disabled {
+  color: #828282;
+}
+
+.home .pagination .page-number,
+div.pagination .page-number {
+  font-weight: bold;
+  color: #111;
+}
+
+/* Pagination Page Numbers */
+.home .pagination-pages,
+div.pagination-pages {
+  text-align: center;
+  margin: 20px 0;
+}
+
+.home .pagination-pages a,
+.home .pagination-pages span,
+div.pagination-pages a,
+div.pagination-pages span {
+  padding: 0;
+  margin: 0 2px;
+  text-decoration: none;
+  color: #20b2aa;
+  border: 1px solid #e8e8e8;
+  border-radius: 3px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  text-align: center;
+  font-size: 14px;
+  line-height: 1;
+  transition: all 0.2s ease;
+  box-sizing: border-box;
+}
+
+.home .pagination-pages a:hover,
+div.pagination-pages a:hover {
+  background: #20b2aa;
+  color: white;
+  border-color: #20b2aa;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 4px rgba(32, 178, 170, 0.3);
+}
+
+.home .pagination-pages .current,
+div.pagination-pages .current {
+  padding: 0;
+  margin: 0 2px;
+  background: #20b2aa;
+  color: white;
+  border: 1px solid #20b2aa;
+  border-radius: 3px;
+  width: 32px;
+  height: 32px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  line-height: 1;
+  box-sizing: border-box;
+}
+
+/* Compact Post Item (for categories page) */
+.post-item-compact {
+  margin-bottom: 15px;
+  padding: 10px 0;
+  display: flex;
+  gap: 15px;
+  align-items: flex-start;
+}
+
+.post-image-small {
+  flex-shrink: 0;
+  width: 80px;
+  height: 60px;
+  overflow: hidden;
+  border-radius: 3px;
+}
+
+.post-image-small img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.post-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.post-title-link {
+  color: #111;
+  text-decoration: none;
+  font-weight: 500;
+  display: block;
+  margin-bottom: 3px;
+}
+
+.post-title-link:hover {
+  color: #2a7ae2;
+}
+
+.post-link {
+  color: #111;
+  text-decoration: none;
+}
+
+.post-link:hover {
+  color: #2a7ae2;
+}
+
+/* View All Link */
+.view-all-link {
+  padding: 10px 0;
+  font-weight: 500;
+}
+
+.view-all-link a {
+  color: #2a7ae2;
+  text-decoration: none;
+}
+
+/* Post Count Badge */
+.post-count {
+  color: #666; /* Darkened from #999 for WCAG AA contrast */
+  font-size: 14px;
+}
+
+/* Categories Page Specific Styles - Higher specificity */
+div.categories-page,
+.page-content .categories-page {
+  max-width: 100%;
+}
+
+.categories-page .category-cloud {
+  margin: 30px 0;
+  line-height: 2.5;
+}
+
+.categories-page a.category-tag,
+.category-cloud a.category-tag {
+  display: inline-block;
+  margin: 5px 10px 5px 0;
+  padding: 5px 12px;
+  background: #f0f0f0;
+  border-radius: 4px;
+  text-decoration: none;
+  color: #333;
+  transition: background 0.2s;
+}
+
+.categories-page a.category-tag:hover,
+.category-cloud a.category-tag:hover {
+  background: #2a7ae2;
+  color: white;
+}
+
+.category-tag span.count {
+  font-size: 0.85em;
+  opacity: 0.7;
+}
+
+.categories-page .category-section {
+  margin-bottom: 50px;
+}
+
+.categories-page .category-section h2,
+div.category-section h2 {
+  border-bottom: 2px solid #e8e8e8;
+  padding-bottom: 10px;
+  margin-bottom: 20px;
+}
+
+.category-section h2 a {
+  color: #111;
+  text-decoration: none;
+}
+
+.category-section h2 a:hover {
+  color: #2a7ae2;
+}
+
+.category-section h2 span.count {
+  color: #666;
+  font-size: 18px;
+  font-weight: normal;
+}
+
+.categories-page .category-section ul.post-list,
+.category-section ul.post-list {
+  list-style: none;
+  padding: 0;
+}
+
+/* Reading Time Indicator */
+.reading-time {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  color: #666;
+  font-size: 14px;
+}
+
+.reading-time-icon {
+  fill: #20b2aa;
+  vertical-align: middle;
+}
+
+/* Post Meta Footer Container */
+.post-meta-footer {
+  margin-top: 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* Post Categories Footer */
+.post-categories-footer {
+  padding: 16px 18px;
+  background: transparent;
+  border: 1px solid #20b2aa;
+  border-left: 4px solid #20b2aa;
+  border-radius: 4px;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.post-categories-footer strong {
+  color: #20b2aa;
+  font-weight: 600;
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.post-categories-footer strong::before {
+  content: '\f07b';
+  font-family: 'Font Awesome 6 Free';
+  font-weight: 900;
+  color: #20b2aa;
+  font-size: 14px;
+}
+
+.post-categories-footer .category-badge {
+  margin-bottom: 0;
+}
+
+/* Post Tags Footer */
+.post-tags-footer {
+  padding: 16px 18px;
+  background: transparent;
+  border: 1px solid #1a9991;
+  border-left: 4px solid #1a9991;
+  border-radius: 4px;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.post-tags-footer strong {
+  color: #1a9991;
+  font-weight: 600;
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.post-tags-footer strong::before {
+  content: '\f02b';
+  font-family: 'Font Awesome 6 Free';
+  font-weight: 900;
+  color: #1a9991;
+  font-size: 14px;
+}
+
+.post-tags-footer a.post-tag {
+  display: inline-block;
+  padding: 4px 12px;
+  border-radius: 12px;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 0;
+  width: fit-content;
+  text-decoration: none;
+  transition: all 0.2s;
+  background: #e3f2fd;
+  color: #1565c0;
+}
+
+.post-tags-footer a.post-tag:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Related Posts Section */
+.related-posts {
+  margin-top: 60px;
+  padding: 40px 0;
+  border-top: 3px solid #20b2aa;
+  background: linear-gradient(135deg, #e0f7f6 0%, #f0fffe 50%, #ffffff 100%);
+  margin-left: -30px;
+  margin-right: -30px;
+  padding-left: 30px;
+  padding-right: 30px;
+}
+
+.related-posts h2 {
+  font-size: 28px;
+  margin-bottom: 32px;
+  color: #20b2aa;
+  font-weight: 700;
+}
+
+/* Mobile Adjustments for Related Posts */
+@media (max-width: 768px) {
+  .related-posts {
+    margin-left: -16px;
+    margin-right: -16px;
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+
+  .related-posts h2 {
+    font-size: 22px;
+  }
+}
+
+/* Microformats2 Hidden Elements */
+.u-url[hidden],
+a.u-url {
+  display: none !important;
+  width: 0 !important;
+  height: 0 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  border: 0 !important;
+  position: absolute !important;
+  left: -9999px !important;
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+  .post-item {
+    flex-direction: column;
+  }
+
+  .post-image {
+    width: 100%;
+    height: 200px;
+  }
+}

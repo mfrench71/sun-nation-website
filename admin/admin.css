@@ -1,0 +1,631 @@
+/**
+ * Admin Custom Styles for Bootstrap 5
+ * Minimal overrides and custom components
+ */
+
+/* ============================================
+   BRAND COLORS & BOOTSTRAP OVERRIDES
+   ============================================ */
+:root {
+  --bs-primary: #0d9488;
+  --bs-primary-rgb: 13, 148, 136;
+  --bs-teal: #0d9488;
+}
+
+.btn-primary {
+  background-color: var(--bs-teal);
+  border-color: var(--bs-teal);
+}
+
+.btn-primary:hover {
+  background-color: #0f766e;
+  border-color: #0f766e;
+}
+
+/* ============================================
+   FIXED HEADER & SIDEBAR LAYOUT
+   ============================================ */
+#main-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1030;
+  height: 49px;
+  background-color: white;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+#admin-sidebar {
+  position: fixed;
+  top: 49px;
+  left: 0;
+  bottom: 0;
+  width: 260px;
+  z-index: 1020;
+  background-color: white;
+  border-right: 1px solid #e5e7eb;
+  transition: width 300ms cubic-bezier(0.4, 0, 0.2, 1);
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+#admin-sidebar.collapsed {
+  width: 60px;
+}
+
+#main-content-wrapper {
+  margin-left: 260px;
+  margin-top: 49px;
+  min-height: calc(100vh - 49px);
+  transition: margin-left 300ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+body.sidebar-collapsed #admin-sidebar {
+  width: 60px;
+}
+
+body.sidebar-collapsed #main-content-wrapper {
+  margin-left: 60px;
+}
+
+/* ============================================
+   SIDEBAR NAVIGATION
+   ============================================ */
+.sidebar-nav-item {
+  color: #6b7280;
+  text-decoration: none;
+  border-radius: 0.375rem;
+}
+
+.sidebar-nav-item:hover {
+  background-color: #f3f4f6;
+  color: #111827;
+}
+
+.sidebar-nav-item.active {
+  background-color: #0d9488;
+  color: white !important;
+  border-radius: 0;
+}
+
+.sidebar-nav-item.active i {
+  color: white;
+}
+
+body.sidebar-collapsed .sidebar-nav-text {
+  display: none;
+}
+
+.sidebar-icon {
+  width: 1.25rem;
+  text-align: center;
+}
+
+.sidebar-collapse-icon {
+  transition: transform 300ms;
+}
+
+body.sidebar-collapsed .sidebar-collapse-icon {
+  transform: rotate(180deg);
+}
+
+/* Sidebar flyout menu */
+.sidebar-nav-item-with-flyout {
+  position: relative;
+}
+
+.sidebar-flyout-menu {
+  position: absolute;
+  left: 100%;
+  top: 0;
+  min-width: 200px;
+  margin-left: 0.5rem;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.15s ease, visibility 0.15s ease;
+  z-index: 1040;
+}
+
+.sidebar-nav-item-with-flyout:hover .sidebar-flyout-menu {
+  opacity: 1;
+  visibility: visible;
+}
+
+.sidebar-flyout-menu a.active {
+  background-color: #0d9488;
+  color: white;
+}
+
+body.sidebar-collapsed .sidebar-flyout-menu {
+  display: none;
+}
+
+/* ============================================
+   WORDPRESS-STYLE ROW ACTIONS
+   ============================================ */
+.row-with-actions {
+  position: relative;
+  min-height: 3.25rem;
+}
+
+.row-actions {
+  visibility: hidden;
+  display: flex;
+  font-size: inherit;
+  margin-top: 0.25rem;
+  gap: 0.25rem;
+  height: 1.25rem;
+}
+
+.row-with-actions:hover .row-actions {
+  visibility: visible;
+}
+
+.row-actions a {
+  color: var(--bs-teal);
+  text-decoration: none;
+}
+
+.row-actions a:hover {
+  color: #0f766e;
+  text-decoration: underline;
+}
+
+.row-actions button {
+  background: none;
+  border: none;
+  padding: 0;
+  color: var(--bs-teal);
+  cursor: pointer;
+  font-size: inherit;
+  line-height: inherit;
+}
+
+.row-actions button:hover {
+  color: #0f766e;
+  text-decoration: underline;
+}
+
+/* Ensure all buttons in table cells inherit font size */
+table .btn-link {
+  font-size: inherit;
+  line-height: inherit;
+}
+
+/* ============================================
+   TAXONOMY AUTOCOMPLETE WIDGET
+   ============================================ */
+.taxonomy-input-wrapper {
+  position: relative;
+}
+
+.taxonomy-selected-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 8px;
+  min-height: 0;
+}
+
+.taxonomy-selected-tags:empty {
+  display: none;
+}
+
+.taxonomy-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background-color: #e5e7eb;
+  color: #374151;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 13px;
+}
+
+.taxonomy-tag:hover {
+  background-color: #d1d5db;
+}
+
+.taxonomy-tag-remove {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  height: 16px;
+  background-color: #9ca3af;
+  color: white;
+  border-radius: 50%;
+  font-size: 11px;
+  cursor: pointer;
+  border: none;
+  padding: 0;
+}
+
+.taxonomy-tag-remove:hover {
+  background-color: #dc2626;
+}
+
+.taxonomy-suggestions {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background: white;
+  border: 1px solid #d1d5db;
+  border-top: none;
+  border-radius: 0 0 4px 4px;
+  max-height: 200px;
+  overflow-y: auto;
+  z-index: 1000;
+  box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+  margin-top: -1px;
+}
+
+.taxonomy-suggestion-item {
+  padding: 8px 12px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.taxonomy-suggestion-item:hover {
+  background-color: #f3f4f6;
+}
+
+.taxonomy-suggestion-item.active {
+  background-color: #0d9488;
+  color: white;
+}
+
+/* ============================================
+   EASYMDE EDITOR STYLES
+   ============================================ */
+/* Sticky toolbar */
+.EasyMDEContainer .editor-toolbar {
+  position: sticky !important;
+  top: 49px !important;
+  z-index: 100 !important;
+  background: white !important;
+  border-bottom: 1px solid #d1d5db !important;
+}
+
+/* Preview styles */
+.editor-preview,
+.editor-preview-side {
+  padding: 20px !important;
+  line-height: 1.6 !important;
+}
+
+.editor-preview .gallery,
+.editor-preview-side .gallery {
+  display: grid !important;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)) !important;
+  gap: 6px !important;
+  margin: 32px 0 !important;
+}
+
+.editor-preview .gallery figure,
+.editor-preview-side .gallery figure {
+  margin: 0 !important;
+  aspect-ratio: 1 / 1 !important;
+}
+
+.editor-preview .gallery figure img,
+.editor-preview-side .gallery figure img {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+}
+
+/* ============================================
+   SORTABLE DRAG & DROP
+   ============================================ */
+.sortable-ghost {
+  opacity: 0.4;
+  background: #e5e7eb;
+}
+
+.sortable-drag {
+  cursor: grabbing !important;
+}
+
+/* ============================================
+   BADGES FOR CATEGORIES/TAGS
+   ============================================ */
+.badge-category {
+  background-color: #dbeafe;
+  color: #1e40af;
+}
+
+.badge-tag {
+  background-color: #f3e8ff;
+  color: #6b21a8;
+}
+
+/* Deployment banner gradient animation */
+@keyframes gradient-pulse {
+  0%, 100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+.animate-gradient-pulse {
+  background-size: 200% 200%;
+  animation: gradient-pulse 3s ease infinite;
+}
+
+/* ============================================
+   MEDIA LIBRARY COMPONENTS
+   ============================================ */
+.media-overlay {
+  transition: background-color 0.2s ease;
+}
+
+.media-item:hover .media-overlay {
+  background-color: rgba(0, 0, 0, 0.05) !important;
+}
+
+.media-actions {
+  transition: opacity 0.2s ease;
+}
+
+.media-item:hover .media-actions {
+  opacity: 1 !important;
+}
+
+/* ============================================
+   IMAGE CHOOSER COMPONENTS
+   ============================================ */
+.chooser-image-btn {
+  border: 2px solid #d1d5db;
+  background: white;
+  transition: border-color 0.2s ease, transform 0.2s ease;
+}
+
+.chooser-image-btn:hover {
+  border-color: #0d9488;
+  transform: translateY(-2px);
+}
+
+.chooser-image-btn:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(13, 148, 136, 0.1);
+}
+
+.chooser-image-overlay {
+  background-color: rgba(13, 148, 136, 0);
+  transition: background-color 0.2s ease;
+}
+
+.chooser-image-btn:hover .chooser-image-overlay {
+  background-color: rgba(13, 148, 136, 0.1);
+}
+
+.chooser-image-btn:hover .chooser-image-overlay i {
+  opacity: 1 !important;
+}
+
+/* ============================================
+   AUTH GATE - PREVENT FLASH OF CONTENT
+   ============================================ */
+#auth-gate {
+  display: none !important;
+}
+
+#auth-gate.show-auth {
+  display: flex !important;
+}
+
+/* ============================================
+   DEPLOYMENT TABLE ROW COLORS
+   ============================================ */
+/* Ensure table row background colors apply to all cells */
+.table tr.table-primary > td {
+  background-color: #cfe2ff !important;
+}
+
+.table tr.table-warning > td {
+  background-color: #fff3cd !important;
+}
+
+.table tr.table-secondary > td {
+  background-color: #e2e3e5 !important;
+}
+
+/* Bootstrap utility classes for colored rows */
+.table tr.bg-success > td {
+  background-color: #198754 !important;
+}
+
+.table tr.bg-danger > td {
+  background-color: #dc3545 !important;
+}
+
+.table tr.bg-primary > td {
+  background-color: #0d9488 !important;
+}
+
+.table tr.bg-warning > td {
+  background-color: #ffc107 !important;
+}
+
+.table tr.bg-secondary > td {
+  background-color: #6c757d !important;
+}
+
+/* ============================================
+   UTILITY OVERRIDES
+   ============================================ */
+.no-underline {
+  text-decoration: none !important;
+}
+
+.cursor-pointer {
+  cursor: pointer;
+}
+
+.cursor-move {
+  cursor: move;
+}
+
+/* ============================================
+   INLINE STYLE EXTRACTIONS
+   Converted from inline styles for better maintainability
+   ============================================ */
+
+/* Auth & Modals */
+.auth-gate-card {
+  max-width: 28rem;
+  width: 100%;
+}
+
+.modal-close-btn {
+  width: 3rem;
+  height: 3rem;
+}
+
+.modal-image-preview {
+  max-height: 85vh;
+}
+
+.modal-scrollable-content {
+  max-height: 60vh;
+  overflow-y: auto;
+}
+
+/* Card Headers */
+.card-header-gradient {
+  background: linear-gradient(135deg, #0d9488 0%, #14b8a6 100%);
+}
+
+/* Image Preview Component */
+.image-preview-wrapper {
+  display: inline-block;
+}
+
+.image-preview-thumbnail {
+  max-width: 150px;
+  max-height: 100px;
+}
+
+.image-preview-magnify-overlay {
+  pointer-events: none;
+  background: white;
+  border-radius: 6px;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+}
+
+.image-preview-magnify-icon {
+  font-size: 0.9rem;
+  color: #1f2937;
+}
+
+.image-preview-remove-btn {
+  top: -8px;
+  right: -8px;
+  background: white;
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+  border: 1px solid #e5e7eb;
+}
+
+.image-preview-remove-icon {
+  font-size: 0.75rem;
+  color: #6b7280;
+}
+
+/* Lists & Tables */
+.link-list-scrollable {
+  max-height: 200px;
+  overflow-y: auto;
+  font-size: 0.875rem;
+}
+
+.table-col-id {
+  width: 4rem;
+}
+
+.table-col-actions {
+  width: 8rem;
+}
+
+/* Utility Classes */
+.spinner-lg {
+  width: 4rem;
+  height: 4rem;
+}
+
+.progress-thin {
+  height: 8px;
+}
+
+.search-input-min {
+  min-width: 16rem;
+}
+
+.form-text-height {
+  height: 38px;
+}
+
+/* Taxonomy Tree View Styles */
+.taxonomy-tree-indent {
+  padding-left: 3.5rem !important;
+}
+
+.taxonomy-tree-expand-btn {
+  background: none;
+  border: none;
+  color: #6c757d;
+  cursor: pointer;
+  padding: 0;
+  width: 1.25rem;
+  height: 1.25rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 0.5rem;
+  transition: transform 0.2s;
+}
+
+.taxonomy-tree-expand-btn:hover {
+  color: #495057;
+}
+
+.taxonomy-tree-expand-btn.collapsed .fa-chevron-down {
+  transform: rotate(-90deg);
+}
+
+.taxonomy-tree-parent {
+  font-weight: 500;
+}
+
+.taxonomy-tree-child {
+  background-color: #f8f9fa;
+}
+
+.taxonomy-tree-child.d-none {
+  display: none !important;
+}
+
+.taxonomy-tree-child-indicator {
+  width: 2px;
+  height: 100%;
+  background-color: #dee2e6;
+  position: absolute;
+  left: 0.75rem;
+  top: 0;
+}

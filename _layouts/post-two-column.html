@@ -61,9 +61,11 @@ layout: default
         </div>
         {%- endif -%}
       </div>
+    </div>
+  </div>
 
-      {%- comment -%}
-      Smart Related Posts Algorithm:
+  {%- comment -%}
+  Smart Related Posts Algorithm:
       - Tier 1: Same category + matching tags (highest relevance)
       - Tier 2: Same category only (high relevance)
       - Tier 3: Matching tags only (medium relevance)
@@ -173,8 +175,6 @@ layout: default
         </div>
       </aside>
       {%- endif -%}
-    </div>
-  </div>
 
   <a class="u-url" href="{{ page.url | relative_url }}" hidden></a>
 </article>

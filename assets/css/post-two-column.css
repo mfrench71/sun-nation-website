@@ -17,11 +17,22 @@
 }
 
 .post-two-column-sidebar .post-featured-image-wrapper {
-  margin-bottom: 0;
+  margin: 0;
+}
+
+.post-two-column-sidebar .post-featured-image {
+  max-height: none;
+  height: auto;
 }
 
 .post-two-column-content {
   min-width: 0; /* Prevent content overflow */
+}
+
+/* Fix related posts section */
+.post-two-column .related-posts {
+  grid-column: 1 / -1;
+  margin-top: 40px;
 }
 
 /* Responsive breakpoints */

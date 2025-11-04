@@ -796,14 +796,8 @@ export async function editPost(filename, updateUrl = true) {
     }
 
     // Support both 'image' and 'featured_image' fields
-    let imageUrl = window.currentPost.frontmatter.image || window.currentPost.frontmatter.featured_image || '';
-
-    // Convert relative paths to full URLs for HTML5 URL validation
-    if (imageUrl && !imageUrl.startsWith('http://') && !imageUrl.startsWith('https://')) {
-      // Assume it's a partial Cloudinary path and construct full URL
-      imageUrl = `https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/${imageUrl}`;
-    }
-
+    // Store the relative path/filename only (URL is built in templates)
+    const imageUrl = window.currentPost.frontmatter.image || window.currentPost.frontmatter.featured_image || '';
     document.getElementById('post-image').value = imageUrl;
 
     // Update image preview
@@ -965,7 +959,7 @@ export async function savePost(event) {
     const title = document.getElementById('post-title').value;
     const excerpt = document.getElementById('post-excerpt').value;
     const date = document.getElementById('post-date').value;
-    const image = document.getElementById('post-image').value;
+    let image = document.getElementById('post-image').value;
     const layout = document.getElementById('post-layout').value;
     const content = window.markdownEditor ? window.markdownEditor.value() : document.getElementById('post-content').value;
     const selectedCategories = getMultiSelectValues('post-categories');

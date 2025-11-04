@@ -27,12 +27,12 @@ layout: default
       {%- endif -%}
       • {%- include reading-time.html -%}
     </p>
-
-    {%- comment -%} Featured image - automatically extracted from front matter or first image in content {%- endcomment -%}
-    <div class="post-featured-image-wrapper">
-      {%- include featured-image.html -%}
-    </div>
   </header>
+
+  {%- comment -%} Featured image - automatically extracted from front matter or first image in content {%- endcomment -%}
+  <div class="post-featured-image-wrapper">
+    {%- include featured-image.html -%}
+  </div>
 
   <div class="post-content e-content" itemprop="articleBody">
     {{ content | inject_cloudinary_folder | auto_gallery }}

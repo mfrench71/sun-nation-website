@@ -776,6 +776,8 @@ export async function editPost(filename, updateUrl = true) {
     document.getElementById('post-date').value = formatDateForInput(window.currentPost.frontmatter.date);
     // Handle both boolean true and string "true" from YAML parser
     document.getElementById('post-featured').checked = window.currentPost.frontmatter.featured === true || window.currentPost.frontmatter.featured === 'true';
+    // Set layout selector (defaults to 'post' if not specified)
+    document.getElementById('post-layout').value = window.currentPost.frontmatter.layout || 'post';
 
     // Display last modified date (read-only, informational)
     const lastModifiedEl = document.getElementById('post-last-modified');
@@ -853,6 +855,7 @@ export function showNewPostForm(updateUrl = true) {
   document.getElementById('post-date').value = formatDateForInput(new Date().toISOString());
   document.getElementById('post-image').value = '';
   document.getElementById('post-featured').checked = false;
+  document.getElementById('post-layout').value = 'post';
 
   // Clear image preview
   document.getElementById('image-preview').classList.add('d-none');
@@ -963,12 +966,13 @@ export async function savePost(event) {
     const excerpt = document.getElementById('post-excerpt').value;
     const date = document.getElementById('post-date').value;
     const image = document.getElementById('post-image').value;
+    const layout = document.getElementById('post-layout').value;
     const content = window.markdownEditor ? window.markdownEditor.value() : document.getElementById('post-content').value;
     const selectedCategories = getMultiSelectValues('post-categories');
     const selectedTags = getMultiSelectValues('post-tags');
 
     const frontmatter = {
-      layout: 'post',
+      layout: layout || 'post',
       title,
       date: new Date(date).toISOString(),
       categories: selectedCategories,

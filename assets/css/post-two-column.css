@@ -1,0 +1,63 @@
+/* ============================================
+   TWO-COLUMN POST LAYOUT
+   Featured image on left, content on right
+   ============================================ */
+
+.post-two-column-container {
+  display: grid;
+  grid-template-columns: 400px 1fr;
+  gap: 40px;
+  margin-bottom: 40px;
+}
+
+.post-two-column-sidebar {
+  position: sticky;
+  top: 80px;
+  align-self: start;
+}
+
+.post-two-column-sidebar .post-featured-image-wrapper {
+  margin-bottom: 0;
+}
+
+.post-two-column-content {
+  min-width: 0; /* Prevent content overflow */
+}
+
+/* Responsive breakpoints */
+@media (max-width: 1200px) {
+  .post-two-column-container {
+    grid-template-columns: 350px 1fr;
+    gap: 32px;
+  }
+}
+
+@media (max-width: 1000px) {
+  .post-two-column-container {
+    grid-template-columns: 300px 1fr;
+    gap: 24px;
+  }
+}
+
+@media (max-width: 900px) {
+  .post-two-column-container {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+
+  .post-two-column-sidebar {
+    position: static;
+    margin-bottom: 32px;
+  }
+
+  .post-two-column-sidebar .post-featured-image-wrapper {
+    margin-bottom: 32px;
+  }
+}
+
+/* Ensure featured image scales properly in sidebar */
+.post-two-column-sidebar img {
+  width: 100%;
+  height: auto;
+  display: block;
+}

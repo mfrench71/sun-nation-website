@@ -29,15 +29,27 @@
   min-width: 0; /* Prevent content overflow */
 }
 
-/* Ensure post-meta-footer is full width outside the two-column container */
+/* Ensure post-meta-footer is full width with orange top border */
 .post-two-column .post-meta-footer {
-  margin-top: 32px;
+  margin-top: 0;
   margin-bottom: 40px;
+  padding-top: 32px;
+  border-top: 2px solid var(--orange-primary, #c5641c);
+  /* Break out of container to extend full width */
+  margin-left: calc(-50vw + 50%);
+  margin-right: calc(-50vw + 50%);
+  padding-left: calc(50vw - 50%);
+  padding-right: calc(50vw - 50%);
 }
 
-/* Fix related posts section */
+/* Fix related posts section - full width with equal spacing */
 .post-two-column .related-posts {
   margin-top: 40px;
+  /* Break out of container to extend full width */
+  margin-left: calc(-50vw + 50%);
+  margin-right: calc(-50vw + 50%);
+  padding-left: calc(50vw - 50%);
+  padding-right: calc(50vw - 50%);
 }
 
 /* Responsive breakpoints */
@@ -68,6 +80,25 @@
 
   .post-two-column-sidebar .post-featured-image-wrapper {
     margin-bottom: 32px;
+  }
+
+  /* Adjust full-width elements on mobile */
+  .post-two-column .post-meta-footer,
+  .post-two-column .related-posts {
+    margin-left: -20px;
+    margin-right: -20px;
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+}
+
+@media (max-width: 600px) {
+  .post-two-column .post-meta-footer,
+  .post-two-column .related-posts {
+    margin-left: -16px;
+    margin-right: -16px;
+    padding-left: 16px;
+    padding-right: 16px;
   }
 }
 

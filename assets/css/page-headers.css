@@ -1,6 +1,81 @@
 /* ============================================
-   PAGE HEADERS - NO BACKGROUND
-   Empty file - no special header backgrounds
+   PAGE HEADER FULL-WIDTH DARK BACKGROUND
    ============================================ */
 
-/* File intentionally left empty */
+/* Full-width dark background section */
+.page-header-dark {
+  background:
+    /* Subtle diagonal mesh pattern */
+    repeating-linear-gradient(
+      45deg,
+      transparent,
+      transparent 10px,
+      rgba(0, 0, 0, 0.1) 10px,
+      rgba(0, 0, 0, 0.1) 11px
+    ),
+    repeating-linear-gradient(
+      -45deg,
+      transparent,
+      transparent 10px,
+      rgba(0, 0, 0, 0.1) 10px,
+      rgba(0, 0, 0, 0.1) 11px
+    ),
+    /* Dark base color */
+    #2a2520;
+
+  /* Full width - break out of container */
+  margin-left: calc(-50vw + 50%);
+  margin-right: calc(-50vw + 50%);
+  padding: 40px calc(50vw - 50%);
+  margin-bottom: 40px;
+}
+
+/* Ensure text is readable on dark background */
+.page-header-dark .breadcrumbs {
+  color: #a8a6a3;
+  margin-bottom: 20px;
+}
+
+.page-header-dark .breadcrumbs a {
+  color: #c5641c;
+}
+
+.page-header-dark .breadcrumbs a:hover {
+  color: #d4752a;
+}
+
+.page-header-dark .page-heading,
+.page-header-dark .post-title {
+  color: #e8e6e3;
+  margin-bottom: 16px;
+}
+
+.page-header-dark .category-icon,
+.page-header-dark .tag-icon {
+  color: #c5641c;
+}
+
+.page-header-dark .category-description,
+.page-header-dark .tag-description,
+.page-header-dark .post-count-info,
+.page-header-dark .post-meta {
+  color: #c8c6c3;
+  margin-bottom: 0;
+}
+
+/* Responsive padding */
+@media (max-width: 900px) {
+  .page-header-dark {
+    padding: 32px 20px;
+    margin-left: -20px;
+    margin-right: -20px;
+  }
+}
+
+@media (max-width: 600px) {
+  .page-header-dark {
+    padding: 24px 16px;
+    margin-left: -16px;
+    margin-right: -16px;
+  }
+}

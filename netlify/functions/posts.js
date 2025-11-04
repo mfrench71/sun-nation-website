@@ -100,15 +100,19 @@ function parseFrontmatter(content) {
   const lines = frontmatterText.split('\n');
   let currentKey = null;
   let currentValue = [];
+  let isArrayValue = false; // Track if value came from YAML list syntax (- items)
 
   for (const line of lines) {
     if (line.match(/^[a-zA-Z_]+:/)) {
       // Save previous key if exists
       if (currentKey) {
-        frontmatter[currentKey] = currentValue.length === 1
-          ? currentValue[0]
-          : currentValue;
+        // If items came from YAML list syntax (- items), keep as array even if single item
+        // Otherwise, convert single-item array to string
+        frontmatter[currentKey] = (isArrayValue || currentValue.length > 1)
+          ? currentValue
+          : (currentValue.length === 1 ? currentValue[0] : '');
         currentValue = [];
+        isArrayValue = false;
       }
 
       const [key, ...valueParts] = line.split(':');
@@ -116,7 +120,7 @@ function parseFrontmatter(content) {
       const value = valueParts.join(':').trim();
 
       if (value.startsWith('[') && value.endsWith(']')) {
-        // Array value
+        // Inline array value [item1, item2]
         frontmatter[currentKey] = value
           .slice(1, -1)
           .split(',')
@@ -127,16 +131,17 @@ function parseFrontmatter(content) {
         currentValue.push(value.replace(/^["']|["']$/g, ''));
       }
     } else if (currentKey && line.trim().startsWith('-')) {
-      // Array item
+      // Array item from YAML list syntax
+      isArrayValue = true;
       currentValue.push(line.trim().substring(1).trim().replace(/^["']|["']$/g, ''));
     }
   }
 
   // Save last key
   if (currentKey) {
-    frontmatter[currentKey] = currentValue.length === 1
-      ? currentValue[0]
-      : currentValue;
+    frontmatter[currentKey] = (isArrayValue || currentValue.length > 1)
+      ? currentValue
+      : (currentValue.length === 1 ? currentValue[0] : '');
   }
 
   return { frontmatter, body: body.trim() };

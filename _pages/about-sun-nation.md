@@ -1,7 +1,7 @@
 ---
 title: "About Sun Nation"
 date: 2023-04-28T15:37:19.000Z
-featured_image: https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/sun-nation/PXL_20230506_1314043852-scaled.jpg
+featured_image: PXL_20230506_1314043852-scaled.jpg
 ---
 Sun Nation is a rock band comprising [three members](/category/the-lineup), hailing from Herefordshire and Worcestershire. Their performances feature a blend of [original and cover songs](/category/set-list) from rock, grunge, and pop genres, each played in a unique, adapted rock style that complements the band's setup and instruments. This approach leads to innovative solutions, and challenges the band members to approach each song in a distinctive manner, setting them apart from standard covers bands.
 

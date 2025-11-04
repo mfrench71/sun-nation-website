@@ -3,7 +3,7 @@ title: "Superstition - Stevie Wonder"
 date: 2023-02-27T08:53:08.000Z
 categories:
   - Set List
-featured_image: https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/sun-nation/attachment-Stevie-Superstition-e1677487975771.jpg
+featured_image: attachment-Stevie-Superstition-e1677487975771.jpg
 ---
 "Superstition" is a song by American singer-songwriter Stevie Wonder. It was released on October 24, 1972, as the lead single from his fifteenth studio album, Talking Book (1972), by Tamla. The lyrics describe popular superstitions and their negative effects.
 

@@ -55,10 +55,9 @@ function buildAttachmentMap(items) {
     const attachmentUrl = item.attachment_url;
 
     if (postType === 'attachment' && postId && attachmentUrl) {
-      // Extract filename from URL and convert to Cloudinary format
+      // Extract filename from URL (remove size suffixes like -300x200)
       const filename = path.basename(attachmentUrl).replace(/(-\d+x\d+)?(\.\w+)$/, '$2');
-      const cloudinaryUrl = `https://res.cloudinary.com/${CLOUDINARY_CLOUD_NAME}/image/upload/q_auto,f_auto/${CLOUDINARY_FOLDER}/${filename}`;
-      attachmentMap[postId] = cloudinaryUrl;
+      attachmentMap[postId] = filename;
     }
   });
 
@@ -117,7 +116,7 @@ function extractPostData(item, namespaces, attachmentMap) {
     );
     if (thumbnailMeta) {
       const thumbnailId = thumbnailMeta.meta_value;
-      // Resolve attachment ID to Cloudinary URL
+      // Resolve attachment ID to filename (URL will be built from config)
       featuredImage = attachmentMap[thumbnailId] || '';
     }
   }

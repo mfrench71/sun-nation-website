@@ -3,7 +3,7 @@ title: "Killing In The Name - Rage Against The Machine"
 date: 2023-02-24T11:48:29.000Z
 categories:
   - Set List
-featured_image: https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/sun-nation/54e45f1cd50a9c48e6356477c9865213.1000x999x1.jpg
+featured_image: 54e45f1cd50a9c48e6356477c9865213.1000x999x1.jpg
 ---
 "Killing in the Name" is a protest song by American rock band Rage Against the Machine, and appears on their 1992 self-titled debut album. It was released as the lead single from the album in November 1992. It features heavy drop-D guitar riffs, and lyrics inspired by the police brutality suffered by Rodney King and the subsequent 1992 Los Angeles riots.
 

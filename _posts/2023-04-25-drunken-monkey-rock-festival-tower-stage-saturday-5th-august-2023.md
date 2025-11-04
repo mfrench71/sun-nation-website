@@ -3,7 +3,7 @@ title: "Drunken Monkey Rock Festival - Tower Stage - Saturday 5th August 2023"
 date: 2023-04-25T08:26:13.000Z
 categories:
   - Events
-featured_image: https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/sun-nation/drunken-monkey-2023-logo.jpg
+featured_image: drunken-monkey-2023-logo.jpg
 ---
 Sun Nation will be performing on the Tower Stage at the [Drunken Monkey Rock Festival](https://www.drunkenmonkeyrockfest.co.uk/) on Saturday 5th August 2023.
 

@@ -1,12 +1,10 @@
 ---
+layout: 
 title: Contact Us
 permalink: /contact/
-layout: page
-date: 2023-06-06T09:08:43.000Z
-featured_image: PXL_20230506_1314043852-scaled.jpg
+date: 2023-06-06T10:08
+last_modified_at: 2025-11-04 21:40:31
 ---
-
-# Get in Touch
 
 We'd love to hear from you! Fill out the form below and we'll get back to you as soon as possible.
 

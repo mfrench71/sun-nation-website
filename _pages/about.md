@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: page
 title: About Sun Nation
 permalink: /about/
 date: 2023-04-28T16:37

@@ -55,8 +55,8 @@ exclude:
 email: info@sun-nation.co.uk
 baseurl: ''
 google_fonts:
-  enabled: false
-  body_font: Open Sans
-  heading_font: Open Sans
+  enabled: true
+  body_font: Roboto Condensed
+  heading_font: Bebas Neue
 cloudinary_default_folder: sun-nation
 instagram_username: sun_nation

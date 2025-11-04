@@ -2,11 +2,11 @@
 # Only the main Sass file needs front matter (the dashes are enough)
 ---
 
-// Override minima theme colors with teal
-$brand-color: #20b2aa !default;
-$link-base-color: #20b2aa !default;
-$link-visited-color: #20b2aa !default;
-$link-hover-color: #1a9991 !default;
+// Override minima theme colors with grunge orange
+$brand-color: #c5641c !default;
+$link-base-color: #c5641c !default;
+$link-visited-color: #c5641c !default;
+$link-hover-color: #a0501a !default;
 
 @import "minima";
 
@@ -15,14 +15,14 @@ $link-hover-color: #1a9991 !default;
 .page-content a,
 p a,
 li a {
-  color: #20b2aa;
+  color: #c5641c;
 
   &:visited {
-    color: #20b2aa;
+    color: #c5641c;
   }
 
   &:hover {
-    color: #1a9991;
+    color: #a0501a;
     text-decoration: underline;
   }
 }

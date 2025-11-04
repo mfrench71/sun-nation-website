@@ -5,9 +5,9 @@
 /* CSS Variables */
 :root {
   --header-height: 60px;
-  --teal-primary: #20b2aa;
-  --teal-light: #e0f7f6;
-  --teal-hover: #1a9991;
+  --orange-primary: #c5641c;
+  --orange-light: #2a2520;
+  --orange-hover: #a0501a;
 }
 
 /* Body Padding for Fixed Header */
@@ -24,10 +24,10 @@ body {
   right: 0;
   height: var(--header-height);
   border-top: none;
-  border-bottom: 2px solid var(--teal-primary);
-  background: white;
+  border-bottom: 2px solid var(--orange-primary);
+  background: #1a1816;
   z-index: 1000;
-  box-shadow: 0 2px 8px rgba(32, 178, 170, 0.1);
+  box-shadow: 0 2px 8px rgba(197, 100, 28, 0.2);
   box-sizing: border-box;
 }
 
@@ -51,7 +51,7 @@ body {
   font-size: 18px;
   font-weight: 700;
   text-decoration: none;
-  color: var(--teal-primary);
+  color: var(--orange-primary);
   white-space: nowrap;
   letter-spacing: 0.3px;
   transition: opacity 0.2s ease;
@@ -198,7 +198,7 @@ body {
   padding: 0 0 3px 0 !important;
   letter-spacing: 1px !important;
   line-height: 1.2 !important;
-  border-bottom: 1px solid var(--teal-light) !important;
+  border-bottom: 1px solid var(--orange-light) !important;
 }
 
 .mega-menu-section h3 i {
@@ -248,7 +248,7 @@ body {
   font-weight: 900;
   margin-right: 6px;
   margin-top: 1px;
-  color: var(--teal-primary);
+  color: var(--orange-primary);
   opacity: 0;
   transition: opacity 0.2s ease;
   font-size: 10px;
@@ -256,8 +256,8 @@ body {
 }
 
 .mega-menu-links a:hover {
-  background: var(--teal-light);
-  color: var(--teal-hover);
+  background: var(--orange-light);
+  color: var(--orange-hover);
 }
 
 .mega-menu-links a:hover .link-text::before {
@@ -324,7 +324,7 @@ body {
 }
 
 .nav-search button:hover {
-  background: var(--teal-hover);
+  background: var(--orange-hover);
 }
 
 .nav-search button:focus {
@@ -487,7 +487,7 @@ body {
   margin: 0;
   font-size: 18px;
   font-weight: 700;
-  color: var(--teal-primary);
+  color: var(--orange-primary);
 }
 
 .mobile-drawer-close {
@@ -572,8 +572,8 @@ body {
 
 .mobile-nav-link:hover,
 .mobile-nav-link:active {
-  background: var(--teal-light);
-  color: var(--teal-hover);
+  background: var(--orange-light);
+  color: var(--orange-hover);
 }
 
 /* Mobile Accordion */
@@ -596,8 +596,8 @@ body {
 
 .mobile-accordion-toggle:hover,
 .mobile-accordion-toggle:active {
-  background: var(--teal-light);
-  color: var(--teal-hover);
+  background: var(--orange-light);
+  color: var(--orange-hover);
 }
 
 .mobile-accordion-toggle::after {
@@ -606,7 +606,7 @@ body {
   font-weight: 900;
   font-size: 11px;
   transition: transform 0.2s ease;
-  color: var(--teal-primary);
+  color: var(--orange-primary);
   opacity: 0.7;
 }
 
@@ -669,7 +669,7 @@ body {
   font-weight: 900;
   margin-right: 6px;
   margin-top: 1px;
-  color: var(--teal-primary);
+  color: var(--orange-primary);
   opacity: 0;
   transition: opacity 0.2s ease;
   font-size: 10px;
@@ -678,8 +678,8 @@ body {
 
 .mobile-accordion-links a:hover,
 .mobile-accordion-links a:active {
-  background: var(--teal-light);
-  color: var(--teal-hover);
+  background: var(--orange-light);
+  color: var(--orange-hover);
 }
 
 .mobile-accordion-links a:hover .link-text::before,
@@ -745,7 +745,7 @@ body {
 }
 
 .mobile-search button:hover {
-  background: var(--teal-hover);
+  background: var(--orange-hover);
 }
 
 .mobile-search button:focus {

@@ -25,6 +25,7 @@ const GOOGLE_FONTS = [
   'Rubik',
   'Work Sans',
   'Inter',
+  'Impact',
   'Noto Sans',
   'Mukta',
   'Libre Baskerville',

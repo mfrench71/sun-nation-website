@@ -1,13 +1,19 @@
 ---
-layout: default
+layout: base
 ---
 
 <article class="page">
+  {%- comment -%} Full-width header - outside wrapper {%- endcomment -%}
   <header class="page-header page-header-dark">
-    <h1 class="page-title">{{ page.title }}</h1>
+    <div class="wrapper">
+      <h1 class="page-title">{{ page.title }}</h1>
+    </div>
   </header>
 
-  <div class="page-content">
-    {{ content }}
+  {%- comment -%} Content wrapper for uniform spacing {%- endcomment -%}
+  <div class="wrapper">
+    <div class="page-content">
+      {{ content }}
+    </div>
   </div>
 </article>

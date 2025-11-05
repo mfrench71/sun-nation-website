@@ -1,62 +1,68 @@
 ---
-layout: default
+layout: base
 ---
 
 <article class="post h-entry" itemscope itemtype="https://schema.org/BlogPosting">
 
+  {%- comment -%} Full-width header - outside wrapper {%- endcomment -%}
   <header class="post-header page-header-dark">
-    {%- include breadcrumbs.html -%}
+    <div class="wrapper">
+      {%- include breadcrumbs.html -%}
 
-    <h1 class="post-title p-name" itemprop="name headline">
-      {{ page.title | escape }}
-      <!-- Edit Link (only visible when logged in) -->
-      <a href="/admin/posts/edit.html?file={{ page.path | replace: '_posts/', '' | uri_escape }}"
-         class="edit-post-link"
-         style="display: none;"
-         title="Edit this post"
-         aria-label="Edit this post">
-        <i class="fas fa-edit" aria-hidden="true"></i>
-      </a>
-    </h1>
-    <p class="post-meta">
-      <time class="dt-published" datetime="{{ page.date | date_to_xmlschema }}" itemprop="datePublished">
-        {{ page.date | date: "%b %-d, %Y" }}
-      </time>
-      {%- if page.author -%}
-        • <span itemprop="author" itemscope itemtype="https://schema.org/Person"><span class="p-author h-card" itemprop="name">{{ page.author }}</span></span>
-      {%- endif -%}
-      • {%- include reading-time.html -%}
-    </p>
+      <h1 class="post-title p-name" itemprop="name headline">
+        {{ page.title | escape }}
+        <!-- Edit Link (only visible when logged in) -->
+        <a href="/admin/posts/edit.html?file={{ page.path | replace: '_posts/', '' | uri_escape }}"
+           class="edit-post-link"
+           style="display: none;"
+           title="Edit this post"
+           aria-label="Edit this post">
+          <i class="fas fa-edit" aria-hidden="true"></i>
+        </a>
+      </h1>
+      <p class="post-meta">
+        <time class="dt-published" datetime="{{ page.date | date_to_xmlschema }}" itemprop="datePublished">
+          {{ page.date | date: "%b %-d, %Y" }}
+        </time>
+        {%- if page.author -%}
+          • <span itemprop="author" itemscope itemtype="https://schema.org/Person"><span class="p-author h-card" itemprop="name">{{ page.author }}</span></span>
+        {%- endif -%}
+        • {%- include reading-time.html -%}
+      </p>
+    </div>
   </header>
 
-  {%- comment -%} Featured image - automatically extracted from front matter or first image in content {%- endcomment -%}
-  <div class="post-featured-image-wrapper">
-    {%- include featured-image.html -%}
-  </div>
-
-  <div class="post-content e-content" itemprop="articleBody">
-    {{ content | inject_cloudinary_folder | auto_gallery }}
-  </div>
-
-  <div class="post-meta-footer">
-    {%- if page.categories.size > 0 -%}
-    <div class="post-categories-footer">
-      <strong>Categories:</strong>
-      {%- for category in page.categories -%}
-        <a href="{{ site.baseurl }}/category/{{ category | slugify }}/" class="category-badge badge-{{ category | slugify }}">{{ category }}</a>
-      {%- endfor -%}
+  {%- comment -%} Content wrapper for uniform spacing {%- endcomment -%}
+  <div class="wrapper">
+    {%- comment -%} Featured image - automatically extracted from front matter or first image in content {%- endcomment -%}
+    <div class="post-featured-image-wrapper">
+      {%- include featured-image.html -%}
     </div>
-    {%- endif -%}
 
-    {%- if page.tags.size > 0 -%}
-    <div class="post-tags-footer">
-      <strong>Tags:</strong>
-      {%- for tag in page.tags -%}
-        <a href="{{ site.baseurl }}/tag/{{ tag | slugify }}/" class="post-tag">{{ tag }}</a>
-      {%- endfor -%}
+    <div class="post-content e-content" itemprop="articleBody">
+      {{ content | inject_cloudinary_folder | auto_gallery }}
     </div>
-    {%- endif -%}
-  </div>
+
+    <div class="post-meta-footer">
+      {%- if page.categories.size > 0 -%}
+      <div class="post-categories-footer">
+        <strong>Categories:</strong>
+        {%- for category in page.categories -%}
+          <a href="{{ site.baseurl }}/category/{{ category | slugify }}/" class="category-badge badge-{{ category | slugify }}">{{ category }}</a>
+        {%- endfor -%}
+      </div>
+      {%- endif -%}
+
+      {%- if page.tags.size > 0 -%}
+      <div class="post-tags-footer">
+        <strong>Tags:</strong>
+        {%- for tag in page.tags -%}
+          <a href="{{ site.baseurl }}/tag/{{ tag | slugify }}/" class="post-tag">{{ tag }}</a>
+        {%- endfor -%}
+      </div>
+      {%- endif -%}
+    </div>
+  </div> {%- comment -%} Close wrapper {%- endcomment -%}
 
   {%- comment -%}
   Smart Related Posts Algorithm:
@@ -106,8 +112,9 @@ layout: default
 
   {%- if related_posts.size > 0 -%}
   <aside class="related-posts">
-    <h2>Related Posts</h2>
-    <div class="post-grid">
+    <div class="wrapper">
+      <h2>Related Posts</h2>
+      <div class="post-grid">
       {%- for post in related_posts limit:site.related_posts_count -%}
       <article class="post-card">
         <!-- Card Image -->
@@ -166,7 +173,8 @@ layout: default
         </div>
       </article>
       {%- endfor -%}
-    </div>
+      </div>
+    </div> {%- comment -%} Close wrapper {%- endcomment -%}
   </aside>
   {%- endif -%}
 

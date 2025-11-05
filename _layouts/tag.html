@@ -1,15 +1,20 @@
 ---
-layout: default
+layout: base
 ---
 <div class="tag-page">
+  {%- comment -%} Full-width header - outside wrapper {%- endcomment -%}
   <header class="page-header-dark">
-    <h1 class="page-heading">
-      <i class="fas fa-tag tag-icon"></i>
-      Tag: {{ page.tag }}
-    </h1>
-    <p class="tag-description">{{ site.tags[page.tag].size | default: page.posts.size }} post{% if page.posts.size != 1 %}s{% endif %} tagged with "{{ page.tag }}"</p>
+    <div class="wrapper">
+      <h1 class="page-heading">
+        <i class="fas fa-tag tag-icon"></i>
+        Tag: {{ page.tag }}
+      </h1>
+      <p class="tag-description">{{ site.tags[page.tag].size | default: page.posts.size }} post{% if page.posts.size != 1 %}s{% endif %} tagged with "{{ page.tag }}"</p>
+    </div>
   </header>
 
+  {%- comment -%} Content wrapper for uniform spacing {%- endcomment -%}
+  <div class="wrapper">
   <div class="post-grid">
     {% assign posts = site.tags[page.tag] | default: page.posts | sort: 'date' | reverse %}
     {% for post in posts %}
@@ -63,4 +68,5 @@ layout: default
       </article>
     {% endfor %}
   </div>
+  </div> {%- comment -%} Close wrapper {%- endcomment -%}
 </div>

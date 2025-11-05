@@ -12,10 +12,10 @@
   position: relative;
   margin-top: 0;
   margin-bottom: 40px;
-  padding: 40px calc(50vw - 50%);
+  padding: 40px 24px;
   /* Pull out of wrapper constraints */
-  margin-left: calc(-50vw + 50%);
-  margin-right: calc(-50vw + 50%);
+  margin-left: -24px;
+  margin-right: -24px;
 }
 
 /* Full-width background using pseudo-element */
@@ -92,15 +92,19 @@
   margin-bottom: 0;
 }
 
-/* Responsive padding */
-@media (max-width: 900px) {
+/* Responsive padding - match wrapper padding at each breakpoint */
+@media (min-width: 601px) and (max-width: 900px) {
   .page-header-dark {
-    padding: 32px calc(50vw - 50%);
+    padding: 32px 20px;
+    margin-left: -20px;
+    margin-right: -20px;
   }
 }
 
 @media (max-width: 600px) {
   .page-header-dark {
-    padding: 24px calc(50vw - 50%);
+    padding: 24px 16px;
+    margin-left: -16px;
+    margin-right: -16px;
   }
 }

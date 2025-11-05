@@ -9,6 +9,23 @@
 
 /* Full-width dark background section */
 .page-header-dark {
+  position: relative;
+  margin-top: 0;
+  margin-bottom: 40px;
+  padding: 40px 0;
+}
+
+/* Full-width background using pseudo-element */
+.page-header-dark::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  right: 0;
+  bottom: 0;
+  width: 100vw;
+  margin-left: -50vw;
+  z-index: -1;
   background:
     /* More visible diagonal mesh pattern */
     repeating-linear-gradient(
@@ -27,25 +44,6 @@
     ),
     /* Dark base color */
     #2a2520;
-
-  /* Full width - break out of container, no top margin */
-  position: relative;
-  width: 100vw;
-  left: 50%;
-  right: 50%;
-  margin-left: -50vw;
-  margin-right: -50vw;
-  margin-top: 0;
-  margin-bottom: 40px;
-  padding: 40px;
-  box-sizing: border-box;
-}
-
-/* Center content within full-width header */
-.page-header-dark > * {
-  max-width: 1400px;
-  margin-left: auto;
-  margin-right: auto;
 }
 
 /* Ensure text is readable on dark background */

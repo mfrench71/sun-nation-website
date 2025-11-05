@@ -432,26 +432,23 @@ div.category-section h2 {
 
 /* Related Posts Section */
 .related-posts {
+  position: relative;
   margin-top: 60px;
   padding: 40px 0;
-  background: linear-gradient(135deg, #2a2520 0%, #2a2826 50%, #1a1816 100%);
-  /* Full width - break out of container */
-  position: relative;
-  width: 100vw;
-  left: 50%;
-  right: 50%;
-  margin-left: -50vw;
-  margin-right: -50vw;
-  box-sizing: border-box;
-  padding-left: 40px;
-  padding-right: 40px;
 }
 
-/* Center content within full-width section */
-.related-posts > * {
-  max-width: 1400px;
-  margin-left: auto;
-  margin-right: auto;
+/* Full-width background using pseudo-element */
+.related-posts::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  right: 0;
+  bottom: 0;
+  width: 100vw;
+  margin-left: -50vw;
+  z-index: -1;
+  background: linear-gradient(135deg, #2a2520 0%, #2a2826 50%, #1a1816 100%);
 }
 
 .related-posts h2 {

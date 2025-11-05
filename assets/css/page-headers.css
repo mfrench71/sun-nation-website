@@ -91,12 +91,12 @@
 /* Responsive padding */
 @media (max-width: 900px) {
   .page-header-dark {
-    padding: 32px calc(50vw - 50%);
+    padding: 32px 0;
   }
 }
 
 @media (max-width: 600px) {
   .page-header-dark {
-    padding: 24px calc(50vw - 50%);
+    padding: 24px 0;
   }
 }

@@ -430,7 +430,7 @@ div.category-section h2 {
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-/* Related Posts Section */
+/* Related Posts Section - Default (no wrapper padding above 900px landscape) */
 .related-posts {
   position: relative;
   margin-top: 60px;
@@ -448,9 +448,27 @@ div.category-section h2 {
 }
 
 /* Mobile Adjustments for Related Posts */
+/* Account for wrapper padding at tablet portrait (601-900px) */
+@media (min-width: 601px) and (max-width: 900px) and (orientation: portrait) {
+  .related-posts {
+    margin-left: calc(-50vw + 50% - 20px);
+    margin-right: calc(-50vw + 50% - 20px);
+    padding: 40px calc(50vw - 50% + 20px);
+  }
+}
+
 @media (max-width: 768px) {
   .related-posts h2 {
     font-size: 22px;
+  }
+}
+
+/* Account for wrapper padding at mobile (600px and below) */
+@media (max-width: 600px) {
+  .related-posts {
+    margin-left: calc(-50vw + 50% - 16px);
+    margin-right: calc(-50vw + 50% - 16px);
+    padding: 40px calc(50vw - 50% + 16px);
   }
 }
 

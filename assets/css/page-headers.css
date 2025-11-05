@@ -7,7 +7,7 @@
   padding-top: 0 !important;
 }
 
-/* Full-width dark background section */
+/* Full-width dark background section - Default (no wrapper padding above 900px landscape) */
 .page-header-dark {
   position: relative;
   margin-top: 0;
@@ -78,15 +78,20 @@
   margin-bottom: 0;
 }
 
-/* Responsive padding */
-@media (max-width: 900px) {
+/* Account for wrapper padding at tablet portrait (601-900px) */
+@media (min-width: 601px) and (max-width: 900px) and (orientation: portrait) {
   .page-header-dark {
-    padding: 32px calc(50vw - 50%);
+    margin-left: calc(-50vw + 50% - 20px);
+    margin-right: calc(-50vw + 50% - 20px);
+    padding: 32px calc(50vw - 50% + 20px);
   }
 }
 
+/* Account for wrapper padding at mobile (600px and below) */
 @media (max-width: 600px) {
   .page-header-dark {
-    padding: 24px calc(50vw - 50%);
+    margin-left: calc(-50vw + 50% - 16px);
+    margin-right: calc(-50vw + 50% - 16px);
+    padding: 24px calc(50vw - 50% + 16px);
   }
 }

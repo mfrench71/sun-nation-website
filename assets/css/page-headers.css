@@ -81,16 +81,12 @@
 /* Responsive padding */
 @media (max-width: 900px) {
   .page-header-dark {
-    padding: 32px 20px;
-    margin-left: -20px;
-    margin-right: -20px;
+    padding: 32px calc(50vw - 50%);
   }
 }
 
 @media (max-width: 600px) {
   .page-header-dark {
-    padding: 24px 16px;
-    margin-left: -16px;
-    margin-right: -16px;
+    padding: 24px calc(50vw - 50%);
   }
 }

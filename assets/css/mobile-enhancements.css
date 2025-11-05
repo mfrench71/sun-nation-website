@@ -248,11 +248,6 @@ img {
   .post-card.featured {
     grid-column: span 2;
   }
-
-  .wrapper {
-    padding-left: 24px;
-    padding-right: 24px;
-  }
 }
 
 /* Tablet Portrait */

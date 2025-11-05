@@ -7,14 +7,14 @@
   padding-top: 0 !important;
 }
 
-/* Full-width dark background section - Default (no wrapper padding above 900px landscape) */
+/* Full-width dark background section */
 .page-header-dark {
   position: relative;
   margin-top: 0;
   margin-bottom: 40px;
-  margin-left: calc(-50vw + 50%);
-  margin-right: calc(-50vw + 50%);
-  padding: 40px calc(50vw - 50%);
+  width: 100vw;
+  margin-left: calc(50% - 50vw);
+  padding: 40px;
   background:
     /* More visible diagonal mesh pattern */
     repeating-linear-gradient(
@@ -33,6 +33,13 @@
     ),
     /* Dark base color */
     #2a2520;
+}
+
+/* Center content within full-width header */
+.page-header-dark > * {
+  max-width: 100%;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 /* Ensure text is readable on dark background */
@@ -78,20 +85,15 @@
   margin-bottom: 0;
 }
 
-/* Account for wrapper padding at tablet portrait (601-900px) */
-@media (min-width: 601px) and (max-width: 900px) and (orientation: portrait) {
+/* Responsive padding */
+@media (max-width: 900px) {
   .page-header-dark {
-    margin-left: calc(-50vw + 50% - 20px);
-    margin-right: calc(-50vw + 50% - 20px);
-    padding: 32px calc(50vw - 50% + 20px);
+    padding: 32px;
   }
 }
 
-/* Account for wrapper padding at mobile (600px and below) */
 @media (max-width: 600px) {
   .page-header-dark {
-    margin-left: calc(-50vw + 50% - 16px);
-    margin-right: calc(-50vw + 50% - 16px);
-    padding: 24px calc(50vw - 50% + 16px);
+    padding: 24px;
   }
 }

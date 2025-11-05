@@ -29,11 +29,23 @@
     #2a2520;
 
   /* Full width - break out of container, no top margin */
-  margin-left: calc(-50vw + 50%);
-  margin-right: calc(-50vw + 50%);
+  position: relative;
+  width: 100vw;
+  left: 50%;
+  right: 50%;
+  margin-left: -50vw;
+  margin-right: -50vw;
   margin-top: 0;
-  padding: 40px calc(50vw - 50%);
   margin-bottom: 40px;
+  padding: 40px;
+  box-sizing: border-box;
+}
+
+/* Center content within full-width header */
+.page-header-dark > * {
+  max-width: 1400px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 /* Ensure text is readable on dark background */

@@ -116,6 +116,10 @@ body {
   height: var(--header-height);
 }
 
+.nav-link:visited {
+  color: var(--teal-primary);
+}
+
 .nav-link:hover {
   background: var(--teal-primary);
   color: white;

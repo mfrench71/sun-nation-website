@@ -2,10 +2,17 @@
    PAGE HEADER FULL-WIDTH DARK BACKGROUND
    ============================================ */
 
+/* Remove top padding from page-content when dark header is first child */
+.page-content:has(> .category-archive > .page-header-dark:first-child),
+.page-content:has(> .tag-page > .page-header-dark:first-child),
+.page-content:has(> article > .page-header-dark:first-child) {
+  padding-top: 0 !important;
+}
+
 /* Full-width dark background section - naturally full width (no wrapper parent) */
 .page-header-dark {
   width: 100%;
-  margin: 0;
+  margin: 0 0 40px 0;
   padding: 40px 0;
   background:
     /* Diagonal mesh pattern */

@@ -22,14 +22,14 @@
 }
 
 .breadcrumb-item a {
-  color: var(--link-color, #0084b4);
+  color: var(--link-color, #c5641c);
   text-decoration: none;
   transition: color 0.2s ease;
 }
 
 .breadcrumb-item a:hover {
-  color: var(--link-hover-color, #005580);
-  text-decoration: underline;
+  color: var(--link-hover-color, white);
+  text-decoration: none;
 }
 
 .breadcrumb-item.active {

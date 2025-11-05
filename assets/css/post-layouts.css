@@ -434,7 +434,10 @@ div.category-section h2 {
 .related-posts {
   position: relative;
   margin-top: 60px;
-  padding: 40px 0;
+  padding: 40px calc(50vw - 50%);
+  /* Pull out of wrapper constraints */
+  margin-left: calc(-50vw + 50%);
+  margin-right: calc(-50vw + 50%);
 }
 
 /* Full-width background using pseudo-element */

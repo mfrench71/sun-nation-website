@@ -395,7 +395,7 @@ body {
   display: block;
   width: 24px;
   height: 2px;
-  background: #111;
+  background: #c5641c;
   position: relative;
   margin: 0;
   transition: background 0.3s;
@@ -407,7 +407,7 @@ body {
   display: block;
   width: 24px;
   height: 2px;
-  background: #111;
+  background: #c5641c;
   position: absolute;
   transition: transform 0.3s;
 }

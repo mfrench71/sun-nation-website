@@ -73,7 +73,8 @@
 }
 
 .page-header-dark .page-heading,
-.page-header-dark .post-title {
+.page-header-dark .post-title,
+.page-header-dark .page-title {
   color: #e8e6e3;
   margin-bottom: 16px;
 }

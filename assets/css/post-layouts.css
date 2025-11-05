@@ -434,10 +434,7 @@ div.category-section h2 {
 .related-posts {
   position: relative;
   margin-top: 60px;
-  padding: 40px 24px;
-  /* Pull out of wrapper constraints */
-  margin-left: -24px;
-  margin-right: -24px;
+  padding: 40px 0;
 }
 
 /* Full-width background using pseudo-element */
@@ -445,11 +442,10 @@ div.category-section h2 {
   content: '';
   position: absolute;
   top: 0;
-  left: 50%;
-  right: 0;
   bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
   width: 100vw;
-  margin-left: -50vw;
   z-index: -1;
   background: linear-gradient(135deg, #2a2520 0%, #2a2826 50%, #1a1816 100%);
 }
@@ -462,25 +458,9 @@ div.category-section h2 {
 }
 
 /* Mobile Adjustments for Related Posts */
-@media (min-width: 601px) and (max-width: 900px) {
-  .related-posts {
-    padding: 40px 20px;
-    margin-left: -20px;
-    margin-right: -20px;
-  }
-}
-
 @media (max-width: 768px) {
   .related-posts h2 {
     font-size: 22px;
-  }
-}
-
-@media (max-width: 600px) {
-  .related-posts {
-    padding: 40px 16px;
-    margin-left: -16px;
-    margin-right: -16px;
   }
 }
 

@@ -12,10 +12,7 @@
   position: relative;
   margin-top: 0;
   margin-bottom: 40px;
-  padding: 40px 24px;
-  /* Pull out of wrapper constraints */
-  margin-left: -24px;
-  margin-right: -24px;
+  padding: 40px 0;
 }
 
 /* Full-width background using pseudo-element */
@@ -23,11 +20,10 @@
   content: '';
   position: absolute;
   top: 0;
-  left: 50%;
-  right: 0;
   bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
   width: 100vw;
-  margin-left: -50vw;
   z-index: -1;
   background:
     /* More visible diagonal mesh pattern */
@@ -92,19 +88,15 @@
   margin-bottom: 0;
 }
 
-/* Responsive padding - match wrapper padding at each breakpoint */
-@media (min-width: 601px) and (max-width: 900px) {
+/* Responsive padding */
+@media (max-width: 900px) {
   .page-header-dark {
-    padding: 32px 20px;
-    margin-left: -20px;
-    margin-right: -20px;
+    padding: 32px 0;
   }
 }
 
 @media (max-width: 600px) {
   .page-header-dark {
-    padding: 24px 16px;
-    margin-left: -16px;
-    margin-right: -16px;
+    padding: 24px 0;
   }
 }

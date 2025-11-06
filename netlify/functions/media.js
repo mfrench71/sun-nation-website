@@ -16,8 +16,8 @@
 const https = require('https');
 
 // Cloudinary configuration
-const CLOUDINARY_CLOUD_NAME = 'circleseven';
-const CLOUDINARY_API_KEY = '732138267195618';
+const CLOUDINARY_CLOUD_NAME = process.env.CLOUDINARY_CLOUD_NAME || 'circleseven';
+const CLOUDINARY_API_KEY = process.env.CLOUDINARY_API_KEY || '732138267195618';
 const CLOUDINARY_API_SECRET = process.env.CLOUDINARY_API_SECRET;
 
 // Check for required environment variables

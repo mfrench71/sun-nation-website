@@ -64,9 +64,9 @@ Outputs thumbnail optimized for cards (300x200)
   {%- else -%}
     <img
       src="{{ cloudinary_url }}/c_fill,g_auto,w_320,h_213,q_auto,f_auto,dpr_auto/{{ full_path }}"
-      srcset="{{ cloudinary_url }}/c_fill,g_auto,w_320,h_213,q_auto,f_auto/{{ full_path }} 320w,
-              {{ cloudinary_url }}/c_fill,g_auto,w_640,h_427,q_auto,f_auto/{{ full_path }} 640w,
-              {{ cloudinary_url }}/c_fill,g_auto,w_960,h_640,q_auto,f_auto/{{ full_path }} 960w"
+      srcset="{{ cloudinary_url }}/c_fill,g_auto,w_320,h_213,q_auto,f_auto,dpr_auto/{{ full_path }} 320w,
+              {{ cloudinary_url }}/c_fill,g_auto,w_640,h_427,q_auto,f_auto,dpr_auto/{{ full_path }} 640w,
+              {{ cloudinary_url }}/c_fill,g_auto,w_960,h_640,q_auto,f_auto,dpr_auto/{{ full_path }} 960w"
       sizes="(max-width: 600px) 100vw, (max-width: 900px) 50vw, 320px"
       alt="{{ include.post.title | escape }}"
       loading="{{ loading_value }}"

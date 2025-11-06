@@ -71,11 +71,11 @@ Outputs image optimized for social sharing (1200x630)
   {%- else -%}
     <img
       src="{{ cloudinary_url }}/c_limit,w_1200,h_600,q_auto,f_auto,dpr_auto/{{ full_path }}"
-      srcset="{{ cloudinary_url }}/c_limit,w_400,h_300,q_auto,f_auto/{{ full_path }} 400w,
-              {{ cloudinary_url }}/c_limit,w_800,h_600,q_auto,f_auto/{{ full_path }} 800w,
-              {{ cloudinary_url }}/c_limit,w_1200,h_600,q_auto,f_auto/{{ full_path }} 1200w,
-              {{ cloudinary_url }}/c_limit,w_1600,h_600,q_auto,f_auto/{{ full_path }} 1600w,
-              {{ cloudinary_url }}/c_limit,w_2400,h_600,q_auto,f_auto/{{ full_path }} 2400w"
+      srcset="{{ cloudinary_url }}/c_limit,w_400,h_300,q_auto,f_auto,dpr_auto/{{ full_path }} 400w,
+              {{ cloudinary_url }}/c_limit,w_800,h_600,q_auto,f_auto,dpr_auto/{{ full_path }} 800w,
+              {{ cloudinary_url }}/c_limit,w_1200,h_600,q_auto,f_auto,dpr_auto/{{ full_path }} 1200w,
+              {{ cloudinary_url }}/c_limit,w_1600,h_600,q_auto,f_auto,dpr_auto/{{ full_path }} 1600w,
+              {{ cloudinary_url }}/c_limit,w_2400,h_600,q_auto,f_auto,dpr_auto/{{ full_path }} 2400w"
       sizes="(max-width: 480px) 100vw, (max-width: 768px) 100vw, (max-width: 1200px) 80vw, 1200px"
       alt="{{ page.title | escape }}"
       class="post-featured-image"

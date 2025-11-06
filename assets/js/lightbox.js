@@ -6,10 +6,19 @@
 (function() {
   'use strict';
 
+  // Store lightbox instance globally to prevent memory leaks
+  let lightboxInstance = null;
+
   // Wait for DOM and GLightbox to be ready
   function initLightbox() {
     if (typeof GLightbox === 'undefined') {
       return;
+    }
+
+    // Destroy previous instance to prevent memory leaks
+    if (lightboxInstance) {
+      lightboxInstance.destroy();
+      lightboxInstance = null;
     }
 
     // Add glightbox class to image links, excluding video embeds
@@ -30,7 +39,7 @@
     groupGalleryImages();
 
     // Initialize GLightbox - use simple selector
-    const lightbox = GLightbox({
+    lightboxInstance = GLightbox({
       selector: '.glightbox',
       touchNavigation: true,
       loop: true,
@@ -50,6 +59,8 @@
         document.body.classList.remove('glightbox-open');
       }
     });
+
+    return lightboxInstance;
   }
 
   // Initialize on DOMContentLoaded

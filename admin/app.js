@@ -1853,10 +1853,20 @@ function stopDeploymentHistoryPolling() {
  *
  * Sets up interval to check deployment status every 5 seconds and handles completion.
  */
+// Flag to prevent concurrent polling
+let isPollingDeployments = false;
+
 function startDeploymentPolling() {
   if (deploymentPollInterval) return; // Already polling
 
   deploymentPollInterval = setInterval(async () => {
+    // Prevent concurrent polling
+    if (isPollingDeployments) {
+      logger.debug('Deployment poll already in progress, skipping...');
+      return;
+    }
+
+    isPollingDeployments = true;
     try {
       // Always poll, even if no active deployments, to catch external deployments
       if (activeDeployments.length === 0) {
@@ -1935,6 +1945,8 @@ function startDeploymentPolling() {
     } catch (error) {
       logger.error('Error in deployment polling interval:', error);
       // Don't stop polling even on error
+    } finally {
+      isPollingDeployments = false;
     }
   }, DEPLOYMENT_STATUS_POLL_INTERVAL);
 }

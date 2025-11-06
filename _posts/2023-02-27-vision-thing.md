@@ -1,4 +1,5 @@
 ---
+layout: post-two-column
 title: "Vision Thing - Sisters Of Mercy"
 date: 2023-02-27T09:59:50.000Z
 categories:

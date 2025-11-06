@@ -1,4 +1,5 @@
 ---
+layout: post-two-column
 title: "Mappy Halloween Mappfest Fundraiser, Malvern - Saturday 21st October 2023"
 date: 2023-10-03T18:39:12.000Z
 categories:

@@ -1,4 +1,5 @@
 ---
+layout: post-two-column
 title: "Malvern Rocks - Red Lion Inn, Malvern - Saturday 29th July 2023"
 date: 2023-07-04T08:45:29.000Z
 categories:

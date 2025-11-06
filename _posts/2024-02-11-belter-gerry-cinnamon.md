@@ -1,4 +1,5 @@
 ---
+layout: post-two-column
 title: "Belter - Gerry Cinnamon"
 date: 2024-02-11T16:44:58.000Z
 categories:

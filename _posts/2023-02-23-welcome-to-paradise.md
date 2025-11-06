@@ -1,4 +1,5 @@
 ---
+layout: post-two-column
 title: "Welcome To Paradise - Green Day"
 date: 2023-02-23T15:44:33.000Z
 categories:

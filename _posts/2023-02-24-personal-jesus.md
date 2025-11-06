@@ -1,4 +1,5 @@
 ---
+layout: post-two-column
 title: "Personal Jesus - Depeche Mode"
 date: 2023-02-24T12:00:56.000Z
 categories:

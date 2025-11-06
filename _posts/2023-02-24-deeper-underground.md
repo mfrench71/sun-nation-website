@@ -1,4 +1,5 @@
 ---
+layout: post-two-column
 title: "Deeper Underground - Jamiroquai"
 date: 2023-02-24T11:43:56.000Z
 categories:

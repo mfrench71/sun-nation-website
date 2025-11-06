@@ -1,4 +1,5 @@
 ---
+layout: post-two-column
 title: "It's My Life - No Doubt"
 date: 2023-02-24T11:19:19.000Z
 categories:

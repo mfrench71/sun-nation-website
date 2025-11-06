@@ -1,4 +1,5 @@
 ---
+layout: post-two-column
 title: "Sledgehammer - Peter Gabriel"
 date: 2024-02-29T20:32:17.000Z
 categories:

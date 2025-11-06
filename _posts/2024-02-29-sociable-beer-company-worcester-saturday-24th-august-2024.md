@@ -1,4 +1,5 @@
 ---
+layout: post-two-column
 title: "The Sociable Beer Company, Worcester - Saturday 24th August 2024"
 date: 2024-02-29T20:13:05.000Z
 categories:

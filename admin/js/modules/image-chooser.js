@@ -153,6 +153,9 @@ function renderChooserGrid() {
     if (emptyEl) emptyEl.classList.remove('d-none');
     const paginationEl = document.getElementById('chooser-pagination');
     if (paginationEl) paginationEl.classList.add('d-none');
+    // Hide loading spinner
+    const loadingEl = document.getElementById('chooser-loading');
+    if (loadingEl) loadingEl.classList.add('d-none');
     return;
   }
 
@@ -227,6 +230,12 @@ function renderChooserGrid() {
 
   // Update pagination
   updateChooserPagination(totalPages);
+
+  // Hide loading spinner after grid is rendered
+  const loadingEl = document.getElementById('chooser-loading');
+  if (loadingEl) {
+    loadingEl.classList.add('d-none');
+  }
 }
 
 /**

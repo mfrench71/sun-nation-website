@@ -93,32 +93,46 @@
           <!-- Media Controls -->
           <div class="card shadow-sm mb-4">
             <div class="card-body">
-              <div class="d-flex flex-wrap gap-2 align-items-center">
-                <input
-                  type="text"
-                  id="media-search"
-                  placeholder="Search media..."
-                  class="form-control flex-grow-1"
-                  style="min-width: 16rem;"
-                  oninput="debouncedFilterMedia()"
-                />
-                <select
-                  id="media-filter"
-                  class="form-select w-auto"
-                  onchange="filterMedia()"
-                >
-                  <option value="all">All Media</option>
-                  <option value="images">Images Only</option>
-                  <option value="recent">Recently Uploaded</option>
-                </select>
-                <button
-                  onclick="openCloudinaryUpload()"
-                  class="btn btn-primary d-flex align-items-center gap-2"
-                  title="Upload new image to library"
-                >
-                  <i class="fas fa-upload"></i>
-                  Upload Image
-                </button>
+              <div class="row g-2">
+                <div class="col-md-4">
+                  <input
+                    type="text"
+                    id="media-search"
+                    placeholder="Search media..."
+                    class="form-control"
+                    oninput="debouncedFilterMedia()"
+                  />
+                </div>
+                <div class="col-md-3">
+                  <select
+                    id="media-folder"
+                    class="form-select"
+                    onchange="filterMedia()"
+                  >
+                    <option value="">All Folders</option>
+                  </select>
+                </div>
+                <div class="col-md-3">
+                  <select
+                    id="media-filter"
+                    class="form-select"
+                    onchange="filterMedia()"
+                  >
+                    <option value="all">All Media</option>
+                    <option value="images">Images Only</option>
+                    <option value="recent">Recently Uploaded</option>
+                  </select>
+                </div>
+                <div class="col-md-2">
+                  <button
+                    onclick="openCloudinaryUpload()"
+                    class="btn btn-primary w-100 d-flex align-items-center justify-content-center gap-2"
+                    title="Upload new image to library"
+                  >
+                    <i class="fas fa-upload"></i>
+                    Upload
+                  </button>
+                </div>
               </div>
             </div>
           </div>
@@ -161,7 +175,7 @@
               <p class="fs-5 fw-medium mb-1">No media found</p>
               <p class="small mb-0">Upload your first image to get started</p>
             </div>
-            <div id="media-grid" class="row row-cols-2 row-cols-sm-3 row-cols-md-4 row-cols-lg-5 g-3">
+            <div id="media-grid" class="row row-cols-2 row-cols-sm-3 row-cols-md-4 row-cols-lg-5 g-4">
               <!-- Media items will be inserted here -->
             </div>
           </div>

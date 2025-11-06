@@ -52,6 +52,9 @@ export async function loadMedia() {
     const data = await response.json();
     window.allMedia = data.resources || [];
 
+    // Populate folder dropdown
+    populateFolderDropdown();
+
     renderMediaGrid();
   } catch (error) {
     showError('Failed to load media: ' + error.message);
@@ -60,6 +63,47 @@ export async function loadMedia() {
     if (loadingEl) {
       loadingEl.classList.add('d-none');
     }
+  }
+}
+
+/**
+ * Populates folder dropdown with unique folders from media
+ *
+ * Extracts folder paths from media public_ids and populates the folder select.
+ * Pre-selects the default folder from site config if available.
+ *
+ * @private
+ */
+function populateFolderDropdown() {
+  const folderSelect = document.getElementById('media-folder');
+  if (!folderSelect) return;
+
+  const allMedia = window.allMedia || [];
+
+  // Extract unique folders from public_ids
+  const folders = new Set();
+  allMedia.forEach(media => {
+    const publicId = media.public_id;
+    const lastSlashIndex = publicId.lastIndexOf('/');
+    if (lastSlashIndex > 0) {
+      const folder = publicId.substring(0, lastSlashIndex);
+      folders.add(folder);
+    }
+  });
+
+  // Sort folders alphabetically
+  const sortedFolders = Array.from(folders).sort();
+
+  // Get default folder from site config
+  const defaultFolder = window.siteConfig?.cloudinary_default_folder || '';
+
+  // Populate select options
+  folderSelect.innerHTML = '<option value="">All Folders</option>' +
+    sortedFolders.map(folder => `<option value="${escapeHtml(folder)}">${escapeHtml(folder)}</option>`).join('');
+
+  // Pre-select the default folder if it exists
+  if (defaultFolder && sortedFolders.includes(defaultFolder)) {
+    folderSelect.value = defaultFolder;
   }
 }
 
@@ -97,6 +141,7 @@ export function renderMediaGrid() {
   const loadingEl = document.getElementById('media-loading');
   const search = document.getElementById('media-search')?.value.toLowerCase() || '';
   const filter = document.getElementById('media-filter')?.value || 'all';
+  const folder = document.getElementById('media-folder')?.value.toLowerCase() || '';
 
   if (loadingEl) {
     loadingEl.classList.add('d-none');
@@ -112,7 +157,15 @@ export function renderMediaGrid() {
     const matchesFilter = filter === 'all' ||
       (filter === 'images' && media.resource_type === 'image') ||
       (filter === 'recent' && isRecentUpload(media.created_at));
-    return matchesSearch && matchesFilter;
+
+    // Match exact folder by ensuring the folder path is followed by a '/'
+    let matchesFolder = !folder;
+    if (folder) {
+      const publicIdLower = media.public_id.toLowerCase();
+      matchesFolder = publicIdLower.startsWith(folder + '/') || publicIdLower === folder;
+    }
+
+    return matchesSearch && matchesFilter && matchesFolder;
   });
 
   // Sort by most recent first
@@ -150,7 +203,8 @@ export function renderMediaGrid() {
       const sizeKB = (media.bytes / 1024).toFixed(1);
 
       return `
-      <div class="media-item position-relative bg-white rounded overflow-hidden border shadow-sm">
+      <div class="col">
+        <div class="media-item position-relative bg-white rounded overflow-hidden border shadow-sm">
         <div class="position-relative bg-light" class="ratio ratio-1x1">
           <img
             src="${thumbnailUrl}"
@@ -161,10 +215,10 @@ export function renderMediaGrid() {
           <div class="position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center justify-content-center media-overlay">
             <div class="media-actions d-flex gap-2 opacity-0">
               <button
-                onclick="event.stopPropagation(); window.copyMediaUrl('${escapeJs(media.secure_url)}', event);"
+                onclick="event.stopPropagation(); window.copyMediaUrl('${escapeJs(media.public_id)}', event);"
                 class="btn btn-light rounded shadow"
-                title="Copy URL to clipboard"
-                aria-label="Copy URL"
+                title="Copy filename to clipboard"
+                aria-label="Copy filename"
               >
                 <i class="fas fa-copy"></i>
               </button>
@@ -180,13 +234,14 @@ export function renderMediaGrid() {
           </div>
         </div>
         <div class="p-3">
-          <p class="small fw-medium text-dark text-truncate mb-1" title="${escapeHtml(filename)}">
+          <p class="fw-medium text-dark text-truncate mb-1" style="font-size: 0.8rem;" title="${escapeHtml(filename)}">
             ${escapeHtml(filename)}
           </p>
-          <div class="d-flex align-items-center justify-content-between small text-muted">
-            <span>${media.width} × ${media.height}</span>
-            <span>${sizeKB} KB</span>
+          <div class="text-muted" style="font-size: 0.75rem;">
+            <div>${media.width} × ${media.height}</div>
+            <div>${sizeKB} KB</div>
           </div>
+        </div>
         </div>
       </div>
     `;
@@ -299,23 +354,26 @@ export function filterMedia() {
 export const debouncedFilterMedia = debounce(filterMedia, 300);
 
 /**
- * Copies a media URL to clipboard
+ * Copies a media filename to clipboard
  *
- * Uses the Clipboard API to copy the URL and shows a contextual tooltip
- * near the clicked button instead of a top toast notification.
+ * Uses the Clipboard API to copy just the filename (without folder path) and shows
+ * a contextual tooltip near the clicked button instead of a top toast notification.
+ * The URL is built from config in the frontend.
  *
- * @param {string} url - URL to copy to clipboard
+ * @param {string} publicId - Cloudinary public_id (e.g., "sun-nation/image.jpg")
  * @param {Event} event - Click event from the button
  *
  * @returns {Promise<void>}
  *
  * @example
  * import { copyMediaUrl } from './modules/media.js';
- * await copyMediaUrl('https://res.cloudinary.com/.../image.jpg', event);
+ * await copyMediaUrl('sun-nation/image.jpg', event);
  */
-export async function copyMediaUrl(url, event) {
+export async function copyMediaUrl(publicId, event) {
   try {
-    await navigator.clipboard.writeText(url);
+    // Extract just the filename (remove folder path)
+    const filename = publicId.split('/').pop();
+    await navigator.clipboard.writeText(filename);
 
     // Show contextual tooltip near the button
     const button = event?.currentTarget || event?.target;
@@ -323,10 +381,10 @@ export async function copyMediaUrl(url, event) {
       showCopyTooltip(button);
     } else {
       // Fallback to toast if no button reference
-      showSuccess('Image URL copied to clipboard!');
+      showSuccess('Filename copied to clipboard!');
     }
   } catch (error) {
-    showError('Failed to copy URL: ' + error.message);
+    showError('Failed to copy filename: ' + error.message);
   }
 }
 

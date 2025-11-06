@@ -6,8 +6,7 @@ categories:
   - Events
 tags: []
 featured_image: cotswold-inn
-featured: true
-last_modified_at: 2025-11-06 21:00:27
+last_modified_at: 2025-11-06 21:01:51
 ---
 
 Sun Nation will be performing at [The Cotswold Inn](https://www.facebook.com/thecotswoldinn) in Cheltenham, on Saturday 17th May from 9:00pm. The Cotswold Inn 17 Portland Street Cheltenham GL52 2NZ

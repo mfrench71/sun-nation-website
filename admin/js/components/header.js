@@ -20,7 +20,7 @@ export function renderHeader() {
           <div class="ms-auto d-flex align-items-center gap-3">
             <a href="/" class="btn btn-link text-primary text-decoration-none d-flex align-items-center gap-2" target="_blank" rel="noopener">
               <i class="fas fa-external-link-alt small"></i>
-              <span>Matt French</span>
+              <span id="visit-site-name">Visit Site</span>
             </a>
             <button onclick="netlifyIdentity.logout()" class="btn btn-link text-secondary text-decoration-none d-flex align-items-center gap-2">
               <i class="fas fa-sign-out-alt"></i>

@@ -22,12 +22,12 @@ h1, h2, h3, h4, h5, h6,
   {% endif %}
 
   {% if site.google_fonts.heading_uppercase %}
-/* Apply uppercase to headings */
-h1, h2, h3, h4, h5, h6,
+/* Apply uppercase to titles only (not all headings) */
 .site-title,
 .page-title,
 .post-title,
-.page-heading {
+.page-heading,
+.post-card-title {
   text-transform: uppercase !important;
 }
   {% endif %}

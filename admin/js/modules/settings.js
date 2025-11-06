@@ -322,10 +322,9 @@ export function updateSiteImagePreview(imageValue) {
   if (imageValue) {
     let imageUrl = imageValue;
     if (!imageValue.startsWith('http')) {
-      // Use Cloudinary URL
+      // Use Cloudinary URL - imageValue is the full public_id
       const cloudinaryBase = 'https://res.cloudinary.com/dtjvegysb/image/upload';
-      const folder = localStorage.getItem('cloudinary_default_folder') || 'sun-nation';
-      imageUrl = `${cloudinaryBase}/c_fill,w_300,h_200,g_auto,q_auto/${folder}/${imageValue}`;
+      imageUrl = `${cloudinaryBase}/c_fill,w_300,h_200,g_auto,q_auto/${imageValue}`;
     }
     previewImg.src = imageUrl;
     preview.classList.remove('d-none');
@@ -354,15 +353,13 @@ export async function selectSiteImage() {
   const { openImageChooser } = await import('./image-chooser.js');
 
   // Open the image chooser with callback
-  openImageChooser((imageUrl) => {
-    // Extract just the filename from the URL
-    const filename = imageUrl.split('/').pop();
-
-    // Set the value
+  openImageChooser((publicId) => {
+    // publicId is the full Cloudinary public_id (e.g., "sun-nation/image")
+    // Set the value to the full public_id
     const siteImageInput = document.getElementById('setting-site_image');
     if (siteImageInput) {
-      siteImageInput.value = filename;
-      updateSiteImagePreview(filename);
+      siteImageInput.value = publicId;
+      updateSiteImagePreview(publicId);
     }
   }, false); // false = single select mode
 }

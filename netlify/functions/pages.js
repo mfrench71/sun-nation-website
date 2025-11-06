@@ -15,6 +15,21 @@
 
 const https = require('https');
 
+// Validation utilities
+function validateFilename(filename) {
+  if (!filename || typeof filename !== 'string') return false;
+  if (filename.includes('..') || filename.includes('/') || filename.includes('\\')) return false;
+  if (filename.includes('\0')) return false;
+  const validPattern = /^[a-zA-Z0-9_-]+\.md$/;
+  return validPattern.test(filename);
+}
+
+function validateSha(sha) {
+  if (!sha || typeof sha !== 'string') return false;
+  const validPattern = /^[a-f0-9]{40}$/i;
+  return validPattern.test(sha);
+}
+
 // CORS Configuration
 const ALLOWED_ORIGINS = [
   'https://sun-nation.co.uk',
@@ -356,6 +371,7 @@ exports.handler = async (event, context) => {
 
       const { path, frontmatter, body, sha } = JSON.parse(event.body);
 
+      // Validate required fields
       if (!path || !frontmatter || body === undefined || !sha) {
         return {
           statusCode: 400,
@@ -363,6 +379,30 @@ exports.handler = async (event, context) => {
           body: JSON.stringify({
             error: 'Missing required fields',
             message: 'path, frontmatter, body, and sha are required'
+          })
+        };
+      }
+
+      // Validate filename to prevent path traversal
+      if (!validateFilename(path)) {
+        return {
+          statusCode: 400,
+          headers,
+          body: JSON.stringify({
+            error: 'Invalid filename',
+            message: 'Filename must be alphanumeric with dashes/underscores and end with .md'
+          })
+        };
+      }
+
+      // Validate SHA format
+      if (!validateSha(sha)) {
+        return {
+          statusCode: 400,
+          headers,
+          body: JSON.stringify({
+            error: 'Invalid SHA',
+            message: 'SHA must be a valid 40-character hexadecimal hash'
           })
         };
       }
@@ -414,6 +454,7 @@ exports.handler = async (event, context) => {
 
       const { filename, frontmatter, body } = JSON.parse(event.body);
 
+      // Validate required fields
       if (!filename || !frontmatter || body === undefined) {
         return {
           statusCode: 400,
@@ -421,6 +462,18 @@ exports.handler = async (event, context) => {
           body: JSON.stringify({
             error: 'Missing required fields',
             message: 'filename, frontmatter, and body are required'
+          })
+        };
+      }
+
+      // Validate filename to prevent path traversal
+      if (!validateFilename(filename)) {
+        return {
+          statusCode: 400,
+          headers,
+          body: JSON.stringify({
+            error: 'Invalid filename',
+            message: 'Filename must be alphanumeric with dashes/underscores and end with .md'
           })
         };
       }
@@ -478,6 +531,7 @@ exports.handler = async (event, context) => {
 
       const { path, sha } = JSON.parse(event.body);
 
+      // Validate required fields
       if (!path || !sha) {
         return {
           statusCode: 400,
@@ -485,6 +539,30 @@ exports.handler = async (event, context) => {
           body: JSON.stringify({
             error: 'Missing required fields',
             message: 'path and sha are required'
+          })
+        };
+      }
+
+      // Validate filename to prevent path traversal
+      if (!validateFilename(path)) {
+        return {
+          statusCode: 400,
+          headers,
+          body: JSON.stringify({
+            error: 'Invalid filename',
+            message: 'Filename must be alphanumeric with dashes/underscores and end with .md'
+          })
+        };
+      }
+
+      // Validate SHA format
+      if (!validateSha(sha)) {
+        return {
+          statusCode: 400,
+          headers,
+          body: JSON.stringify({
+            error: 'Invalid SHA',
+            message: 'SHA must be a valid 40-character hexadecimal hash'
           })
         };
       }

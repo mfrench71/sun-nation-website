@@ -44,14 +44,21 @@ function handlePreflight(origin, allowedMethods) {
   };
 }
 
-// Cloudinary configuration
-const CLOUDINARY_CLOUD_NAME = process.env.CLOUDINARY_CLOUD_NAME || 'circleseven';
-const CLOUDINARY_API_KEY = process.env.CLOUDINARY_API_KEY || '732138267195618';
+// Cloudinary configuration - all values must be set via environment variables
+const CLOUDINARY_CLOUD_NAME = process.env.CLOUDINARY_CLOUD_NAME;
+const CLOUDINARY_API_KEY = process.env.CLOUDINARY_API_KEY;
 const CLOUDINARY_API_SECRET = process.env.CLOUDINARY_API_SECRET;
 
-// Check for required environment variables
-if (!CLOUDINARY_API_SECRET) {
-  console.error('CLOUDINARY_API_SECRET environment variable is not set');
+// Validate required environment variables
+function validateCloudinaryConfig() {
+  const missing = [];
+  if (!CLOUDINARY_CLOUD_NAME) missing.push('CLOUDINARY_CLOUD_NAME');
+  if (!CLOUDINARY_API_KEY) missing.push('CLOUDINARY_API_KEY');
+  if (!CLOUDINARY_API_SECRET) missing.push('CLOUDINARY_API_SECRET');
+
+  if (missing.length > 0) {
+    throw new Error(`Missing required environment variables: ${missing.join(', ')}`);
+  }
 }
 
 /**
@@ -102,17 +109,8 @@ exports.handler = async (event, context) => {
   }
 
   try {
-    // Check if API secret is configured
-    if (!CLOUDINARY_API_SECRET) {
-      return {
-        statusCode: 500,
-        headers,
-        body: JSON.stringify({
-          error: 'Configuration error',
-          message: 'CLOUDINARY_API_SECRET environment variable is not set. Please add it to Netlify environment variables.'
-        })
-      };
-    }
+    // Validate all required Cloudinary configuration
+    validateCloudinaryConfig();
 
     // Fetch resources from Cloudinary Admin API
     const resources = await fetchCloudinaryResources();

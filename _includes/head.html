@@ -69,15 +69,37 @@
   {% if site.google_fonts.enabled %}
   <!-- Google Fonts -->
   {% assign fonts_to_load = "" %}
+  {% assign system_fonts = "Impact,Arial,Helvetica,Times,Times New Roman,Courier,Courier New,Verdana,Georgia,Palatino,Garamond,Bookman,Comic Sans MS,Trebuchet MS,Arial Black,Tahoma" | split: "," %}
+
   {% if site.google_fonts.body_font and site.google_fonts.body_font != "" %}
-    {% assign body_font_encoded = site.google_fonts.body_font | replace: " ", "+" %}
-    {% assign fonts_to_load = fonts_to_load | append: "family=" | append: body_font_encoded | append: ":ital,wght@0,400;0,700;1,400;1,700" %}
+    {% assign is_system_font = false %}
+    {% for sys_font in system_fonts %}
+      {% if site.google_fonts.body_font == sys_font %}
+        {% assign is_system_font = true %}
+        {% break %}
+      {% endif %}
+    {% endfor %}
+    {% unless is_system_font %}
+      {% assign body_font_encoded = site.google_fonts.body_font | replace: " ", "+" %}
+      {% assign fonts_to_load = fonts_to_load | append: "family=" | append: body_font_encoded | append: ":ital,wght@0,400;0,700;1,400;1,700" %}
+    {% endunless %}
   {% endif %}
+
   {% if site.google_fonts.heading_font and site.google_fonts.heading_font != "" %}
-    {% if fonts_to_load != "" %}{% assign fonts_to_load = fonts_to_load | append: "&" %}{% endif %}
-    {% assign heading_font_encoded = site.google_fonts.heading_font | replace: " ", "+" %}
-    {% assign fonts_to_load = fonts_to_load | append: "family=" | append: heading_font_encoded | append: ":wght@400;700" %}
+    {% assign is_system_font = false %}
+    {% for sys_font in system_fonts %}
+      {% if site.google_fonts.heading_font == sys_font %}
+        {% assign is_system_font = true %}
+        {% break %}
+      {% endif %}
+    {% endfor %}
+    {% unless is_system_font %}
+      {% if fonts_to_load != "" %}{% assign fonts_to_load = fonts_to_load | append: "&" %}{% endif %}
+      {% assign heading_font_encoded = site.google_fonts.heading_font | replace: " ", "+" %}
+      {% assign fonts_to_load = fonts_to_load | append: "family=" | append: heading_font_encoded | append: ":wght@400;700" %}
+    {% endunless %}
   {% endif %}
+
   {% if fonts_to_load != "" %}
   <link href="https://fonts.googleapis.com/css2?{{ fonts_to_load }}&display=swap" rel="stylesheet">
   {% endif %}

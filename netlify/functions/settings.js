@@ -17,7 +17,35 @@
 
 const https = require('https');
 const yaml = require('js-yaml');
-const { getCorsHeaders, handlePreflight } = require('./cors-config');
+
+// CORS Configuration
+const ALLOWED_ORIGINS = [
+  'https://sun-nation.co.uk',
+  'https://www.sun-nation.co.uk',
+  'http://localhost:4000',
+  'http://127.0.0.1:4000',
+  'http://localhost:8888',
+  'http://127.0.0.1:8888'
+];
+
+function getCorsHeaders(origin, allowedMethods = ['GET', 'OPTIONS']) {
+  const allowedOrigin = ALLOWED_ORIGINS.includes(origin) ? origin : ALLOWED_ORIGINS[0];
+  return {
+    'Access-Control-Allow-Origin': allowedOrigin,
+    'Access-Control-Allow-Headers': 'Content-Type, Authorization',
+    'Access-Control-Allow-Methods': allowedMethods.join(', '),
+    'Content-Type': 'application/json',
+    'Vary': 'Origin'
+  };
+}
+
+function handlePreflight(origin, allowedMethods) {
+  return {
+    statusCode: 200,
+    headers: getCorsHeaders(origin, allowedMethods),
+    body: ''
+  };
+}
 
 // GitHub API configuration
 const GITHUB_OWNER = 'mfrench71';

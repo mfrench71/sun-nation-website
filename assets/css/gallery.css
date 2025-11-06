@@ -312,6 +312,12 @@ body.glightbox-open {
   animation: shimmer 1.5s infinite;
 }
 
+/* Exclude post card images from shimmer (prevents showing through transparent PNGs) */
+.post-card-image img[loading="lazy"] {
+  background: none;
+  animation: none;
+}
+
 @keyframes shimmer {
   0% {
     background-position: 200% 0;

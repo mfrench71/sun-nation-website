@@ -57,6 +57,7 @@ baseurl: ''
 google_fonts:
   enabled: true
   body_font: Roboto Condensed
-  heading_font: Bebas Neue
+  heading_font: Impact
+  heading_uppercase: true
 cloudinary_default_folder: sun-nation
 instagram_username: sun_nation

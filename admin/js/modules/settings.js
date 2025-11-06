@@ -459,9 +459,7 @@ export async function saveSettings(event) {
 
     // Handle checkboxes (they won't be in formData if unchecked)
     const showDescCheckbox = document.getElementById('setting-show_site_description');
-    const showImageCheckbox = document.getElementById('setting-show_site_image');
     if (showDescCheckbox) settings.show_site_description = showDescCheckbox.checked;
-    if (showImageCheckbox) settings.show_site_image = showImageCheckbox.checked;
 
     const response = await fetch(`${window.API_BASE}/settings`, {
       method: 'PUT',

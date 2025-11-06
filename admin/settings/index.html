@@ -342,10 +342,21 @@
                         ></textarea>
                       </div>
 
-                      <!-- Site Image -->
+                      <!-- Display Toggles -->
+                      <div class="col-md-6">
+                        <div class="form-check form-switch">
+                          <input class="form-check-input" type="checkbox" id="setting-show_site_description" name="show_site_description">
+                          <label class="form-check-label" for="setting-show_site_description">
+                            Show Site Description
+                          </label>
+                        </div>
+                        <div class="form-text">Display site description on home page</div>
+                      </div>
+
+                      <!-- Site Description Image -->
                       <div class="col-12">
                         <label for="setting-site_image" class="form-label">
-                          Site Image
+                          Site Description Image
                         </label>
                         <div class="input-group">
                           <input
@@ -364,7 +375,7 @@
                             <i class="fas fa-image"></i> Browse
                           </button>
                         </div>
-                        <div class="form-text">Optional image for site/home page display</div>
+                        <div class="form-text">Optional image for site description display</div>
                         <div id="site-image-preview" class="d-none mt-2">
                           <div class="image-preview-wrapper position-relative d-inline-block">
                             <button
@@ -388,27 +399,6 @@
                             </button>
                           </div>
                         </div>
-                      </div>
-
-                      <!-- Display Toggles -->
-                      <div class="col-md-6">
-                        <div class="form-check form-switch">
-                          <input class="form-check-input" type="checkbox" id="setting-show_site_description" name="show_site_description">
-                          <label class="form-check-label" for="setting-show_site_description">
-                            Show Site Description
-                          </label>
-                        </div>
-                        <div class="form-text">Display site description on home page</div>
-                      </div>
-
-                      <div class="col-md-6">
-                        <div class="form-check form-switch">
-                          <input class="form-check-input" type="checkbox" id="setting-show_site_image" name="show_site_image">
-                          <label class="form-check-label" for="setting-show_site_image">
-                            Show Site Image
-                          </label>
-                        </div>
-                        <div class="form-text">Display site image on home page</div>
                       </div>
 
                       <!-- Cloudinary Default Folder -->

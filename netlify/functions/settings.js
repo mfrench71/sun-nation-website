@@ -46,8 +46,7 @@ const EDITABLE_FIELDS = [
   'google_fonts',
   'cloudinary_default_folder',
   'site_image',
-  'show_site_description',
-  'show_site_image'
+  'show_site_description'
 ];
 
 /**
@@ -211,10 +210,17 @@ exports.handler = async (event, context) => {
       });
 
       // Convert back to YAML, preserving structure
+      // Use literal style (|-) for description to preserve markdown formatting
       const yamlContent = yaml.dump(config, {
         lineWidth: -1,
         noRefs: true,
-        sortKeys: false
+        sortKeys: false,
+        styles: {
+          '!!str': 'literal'
+        },
+        forceQuotes: false,
+        // Force literal block style for multi-line strings
+        flowLevel: -1
       });
 
       // Update file via GitHub API

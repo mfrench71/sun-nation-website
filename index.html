@@ -1,13 +1,36 @@
 ---
-layout: default-sidebar
+layout: home
 ---
 
-<div class="home">
+<!-- Site Description Section (only on first page) -->
+{% if paginator.page == 1 and site.show_site_description %}
+  <section class="site-description-section">
+    {% if site.site_image %}
+      <!-- Two-column layout with image -->
+      <div class="site-description-with-image">
+        <div class="site-description-image">
+          <img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/{{ site.cloudinary_default_folder }}/{{ site.site_image }}"
+               alt="{{ site.title | escape }}"
+               loading="eager">
+        </div>
+        <div class="site-description-text">
+          {{ site.description | markdownify }}
+        </div>
+      </div>
+    {% else %}
+      <!-- Single column layout without image -->
+      <div class="site-description-text-only">
+        {{ site.description | markdownify }}
+      </div>
+    {% endif %}
+  </section>
+{% endif %}
+
+<div class="wrapper">
+  <div class="home">
+
   <div class="post-grid">
     {% for post in paginator.posts %}
-      {% if paginator.page == 1 and forloop.index > 12 %}
-        {% continue %}
-      {% endif %}
       <article class="post-card{% if post.featured %} featured{% endif %}">
         <!-- Card Image -->
         <div class="post-card-image">
@@ -105,5 +128,6 @@ layout: default-sidebar
   </nav>
   {% endif %}
 
-  
+
+  </div>
 </div>

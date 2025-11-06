@@ -14,3 +14,8 @@
 .page-content {
   padding: 30px 0 0 0;
 }
+
+/* Remove top padding only when site description section is present */
+.page-content:has(.site-description-section) {
+  padding-top: 0;
+}

@@ -29,6 +29,9 @@
 import { showError, showSuccess } from '../ui/notifications.js';
 import logger from '../core/logger.js';
 
+// Markdown editor instance
+let descriptionEditor = null;
+
 /**
  * Default admin application settings
  * @constant {Object}
@@ -176,9 +179,37 @@ export async function loadSettings() {
     Object.keys(settings).forEach(key => {
       const input = document.getElementById(`setting-${key}`);
       if (input) {
-        input.value = settings[key] || '';
+        if (input.type === 'checkbox') {
+          input.checked = settings[key] === true || settings[key] === 'true';
+        } else {
+          input.value = settings[key] || '';
+        }
       }
     });
+
+    // Initialize markdown editor for description
+    if (!descriptionEditor) {
+      const descriptionTextarea = document.getElementById('setting-description');
+      if (descriptionTextarea) {
+        descriptionEditor = new EasyMDE({
+          element: descriptionTextarea,
+          spellChecker: false,
+          toolbar: ["bold", "italic", "heading", "|", "quote", "unordered-list", "ordered-list", "|", "link", "|", "preview", "guide"],
+          status: false,
+          minHeight: "150px"
+        });
+      }
+    }
+
+    // Set description value in markdown editor
+    if (descriptionEditor && settings.description) {
+      descriptionEditor.value(settings.description);
+    }
+
+    // Update site image preview
+    if (settings.site_image) {
+      updateSiteImagePreview(settings.site_image);
+    }
 
     // Update admin title and welcome message with site title
     if (settings.title) {
@@ -186,6 +217,9 @@ export async function loadSettings() {
       localStorage.setItem('site_title', settings.title);
       updateTitleElements(settings.title);
     }
+
+    // Initialize site image preview listener
+    initSiteImagePreview();
 
     // Load Cloudinary folders after settings are loaded
     await loadCloudinaryFolders();
@@ -268,6 +302,43 @@ export async function loadCloudinaryFolders() {
  * // Attach to form submit
  * document.getElementById('settings-form').addEventListener('submit', saveSettings);
  */
+/**
+ * Update site image preview
+ * @param {string} imageValue - Image filename or URL
+ */
+export function updateSiteImagePreview(imageValue) {
+  const preview = document.getElementById('site-image-preview');
+  const previewImg = document.getElementById('site-image-preview-img');
+
+  if (!preview || !previewImg) return;
+
+  if (imageValue) {
+    let imageUrl = imageValue;
+    if (!imageValue.startsWith('http')) {
+      // Use Cloudinary URL
+      const cloudinaryBase = 'https://res.cloudinary.com/dtjvegysb/image/upload';
+      const folder = localStorage.getItem('cloudinary_default_folder') || 'sun-nation';
+      imageUrl = `${cloudinaryBase}/c_fill,w_300,h_200,g_auto,q_auto/${folder}/${imageValue}`;
+    }
+    previewImg.src = imageUrl;
+    preview.classList.remove('d-none');
+  } else {
+    preview.classList.add('d-none');
+  }
+}
+
+/**
+ * Initialize site image preview listener
+ */
+export function initSiteImagePreview() {
+  const siteImageInput = document.getElementById('setting-site_image');
+  if (siteImageInput) {
+    siteImageInput.addEventListener('input', (e) => {
+      updateSiteImagePreview(e.target.value);
+    });
+  }
+}
+
 export async function saveSettings(event) {
   event.preventDefault();
 
@@ -288,6 +359,17 @@ export async function saveSettings(event) {
         settings[key] = value;
       }
     });
+
+    // Get description from markdown editor
+    if (descriptionEditor) {
+      settings.description = descriptionEditor.value();
+    }
+
+    // Handle checkboxes (they won't be in formData if unchecked)
+    const showDescCheckbox = document.getElementById('setting-show_site_description');
+    const showImageCheckbox = document.getElementById('setting-show_site_image');
+    if (showDescCheckbox) settings.show_site_description = showDescCheckbox.checked;
+    if (showImageCheckbox) settings.show_site_image = showImageCheckbox.checked;
 
     const response = await fetch(`${window.API_BASE}/settings`, {
       method: 'PUT',

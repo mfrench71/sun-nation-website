@@ -5,31 +5,31 @@
 import { showError, showSuccess } from '../ui/notifications.js';
 import logger from '../core/logger.js';
 
-// Curated list of popular Google Fonts
+// Curated list of popular Google Fonts (alphabetically sorted)
 const GOOGLE_FONTS = [
   'Bebas Neue',
-  'Roboto Condensed',
-  'Open Sans',
-  'Roboto',
-  'Lato',
-  'Montserrat',
-  'Oswald',
-  'Source Sans Pro',
-  'Raleway',
-  'PT Sans',
-  'Merriweather',
-  'Nunito',
-  'Poppins',
-  'Ubuntu',
-  'Playfair Display',
-  'Rubik',
-  'Work Sans',
-  'Inter',
   'Impact',
-  'Noto Sans',
-  'Mukta',
+  'Inter',
+  'Lato',
   'Libre Baskerville',
-  'PT Serif'
+  'Merriweather',
+  'Montserrat',
+  'Mukta',
+  'Noto Sans',
+  'Nunito',
+  'Open Sans',
+  'Oswald',
+  'Playfair Display',
+  'Poppins',
+  'PT Sans',
+  'PT Serif',
+  'Raleway',
+  'Roboto',
+  'Roboto Condensed',
+  'Rubik',
+  'Source Sans Pro',
+  'Ubuntu',
+  'Work Sans'
 ];
 
 let currentSettings = {};

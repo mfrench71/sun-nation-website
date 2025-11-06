@@ -347,42 +347,24 @@ export function initSiteImagePreview() {
 }
 
 /**
- * Open Cloudinary media library to select site image
+ * Open image chooser modal to select site image
  */
-export function selectSiteImage() {
-  const folder = localStorage.getItem('cloudinary_default_folder') || 'sun-nation';
+export async function selectSiteImage() {
+  // Dynamically import the image chooser module
+  const { openImageChooser } = await import('./image-chooser.js');
 
-  // Initialize Cloudinary Media Library Widget
-  const mediaLibrary = cloudinary.createMediaLibrary(
-    {
-      cloud_name: 'dtjvegysb',
-      api_key: '926733642115473',
-      multiple: false,
-      max_files: 1,
-      folder: { path: folder, resource_type: 'image' },
-      insert_caption: 'Select'
-    },
-    {
-      insertHandler: function(data) {
-        if (data.assets && data.assets.length > 0) {
-          const asset = data.assets[0];
-          // Extract just the filename from the public_id
-          const filename = asset.public_id.split('/').pop();
-          const extension = asset.format;
-          const fullFilename = `${filename}.${extension}`;
+  // Open the image chooser with callback
+  openImageChooser((imageUrl) => {
+    // Extract just the filename from the URL
+    const filename = imageUrl.split('/').pop();
 
-          // Set the value
-          const siteImageInput = document.getElementById('setting-site_image');
-          if (siteImageInput) {
-            siteImageInput.value = fullFilename;
-            updateSiteImagePreview(fullFilename);
-          }
-        }
-      }
+    // Set the value
+    const siteImageInput = document.getElementById('setting-site_image');
+    if (siteImageInput) {
+      siteImageInput.value = filename;
+      updateSiteImagePreview(filename);
     }
-  );
-
-  mediaLibrary.show();
+  }, false); // false = single select mode
 }
 
 export async function saveSettings(event) {

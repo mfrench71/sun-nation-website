@@ -11,8 +11,6 @@
 }
 
 .post-two-column-sidebar {
-  position: sticky;
-  top: 80px;
   align-self: start;
 }
 

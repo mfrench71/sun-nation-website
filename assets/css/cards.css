@@ -101,26 +101,34 @@
 /* Events - Bright orange */
 .badge-events {
   background: #c5641c;
-  color: #fff;
+  color: #fff !important;
 }
 
 /* Set List - Lighter orange/amber */
 .badge-set-list {
   background: #d4752a;
-  color: #fff;
+  color: #fff !important;
 }
 
 /* The Lineup - Dark brown with orange accent */
 .badge-the-lineup {
   background: #2a2520;
-  color: #c5641c;
+  color: #c5641c !important;
   border: 1px solid #c5641c;
 }
 
 /* Default badge - orange theme */
 .category-badge:not([class*="badge-"]) {
   background: #c5641c;
-  color: #fff;
+  color: #fff !important;
+}
+
+/* Ensure badge links are always the badge color, not default link color */
+a.category-badge,
+a.category-badge:visited,
+a.category-badge:hover,
+a.category-badge:active {
+  color: inherit;
 }
 
 /* Post Title */

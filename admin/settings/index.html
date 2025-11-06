@@ -366,7 +366,27 @@
                         </div>
                         <div class="form-text">Optional image for site/home page display</div>
                         <div id="site-image-preview" class="d-none mt-2">
-                          <img id="site-image-preview-img" src="" alt="Site image preview" class="rounded border" style="max-width: 300px; max-height: 200px; object-fit: cover;" />
+                          <div class="image-preview-wrapper position-relative d-inline-block">
+                            <button
+                              type="button"
+                              onclick="if(window.openSiteImageModal) window.openSiteImageModal();"
+                              class="border-0 bg-transparent p-0 position-relative"
+                              style="cursor: pointer;"
+                            >
+                              <img id="site-image-preview-img" src="" alt="Site image preview" class="rounded border image-preview-thumbnail" />
+                              <div class="position-absolute top-50 start-50 translate-middle image-preview-magnify-overlay">
+                                <i class="fas fa-search image-preview-magnify-icon"></i>
+                              </div>
+                            </button>
+                            <button
+                              type="button"
+                              onclick="document.getElementById('setting-site_image').value=''; if(window.updateSiteImagePreview) window.updateSiteImagePreview(''); event.stopPropagation();"
+                              class="btn btn-sm position-absolute image-preview-remove-btn"
+                              title="Remove image"
+                            >
+                              <i class="fas fa-times image-preview-remove-icon"></i>
+                            </button>
+                          </div>
                         </div>
                       </div>
 
@@ -489,6 +509,26 @@
     </div>
   </div>
 
+  <!-- Site Image Preview Modal -->
+  <div class="modal fade" id="siteImagePreviewModal" tabindex="-1" aria-labelledby="siteImagePreviewModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-xl">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="siteImagePreviewModalLabel">Site Image Preview</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body text-center p-0">
+          <div id="site-image-modal-loading" class="text-center py-5">
+            <div class="spinner-border text-primary" role="status">
+              <span class="visually-hidden">Loading...</span>
+            </div>
+          </div>
+          <img id="site-image-modal-img" src="" alt="Site image" class="img-fluid d-none modal-image-preview" />
+        </div>
+      </div>
+    </div>
+  </div>
+
   <!-- Bootstrap JS -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
@@ -518,7 +558,9 @@
       loadAdminSettings,
       saveAdminSettings,
       resetAdminSettings,
-      selectSiteImage
+      selectSiteImage,
+      updateSiteImagePreview,
+      openSiteImageModal
     } from '/admin/js/modules/settings.js?v=1761218399';
     import {
       openImageChooser,
@@ -552,6 +594,8 @@
     window.saveAdminSettings = saveAdminSettings;
     window.resetAdminSettings = resetAdminSettings;
     window.selectSiteImage = selectSiteImage;
+    window.updateSiteImagePreview = updateSiteImagePreview;
+    window.openSiteImageModal = openSiteImageModal;
     window.openImageChooser = openImageChooser;
     window.changeChooserPage = changeChooserPage;
     window.filterChooserMedia = filterChooserMedia;

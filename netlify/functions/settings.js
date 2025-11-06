@@ -44,7 +44,10 @@ const EDITABLE_FIELDS = [
   'timezone',
   'lang',
   'google_fonts',
-  'cloudinary_default_folder'
+  'cloudinary_default_folder',
+  'site_image',
+  'show_site_description',
+  'show_site_image'
 ];
 
 /**

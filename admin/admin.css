@@ -34,6 +34,11 @@
   height: 49px;
   background-color: white;
   border-bottom: 1px solid #e5e7eb;
+  font-size: 0.875rem;
+}
+
+#main-header .btn-link {
+  font-size: 0.875rem;
 }
 
 #admin-sidebar {
@@ -383,6 +388,9 @@ table .btn-link {
   border: 2px solid #d1d5db;
   background: white;
   transition: border-color 0.2s ease, transform 0.2s ease;
+  aspect-ratio: 1 / 1;
+  height: auto;
+  display: block;
 }
 
 .chooser-image-btn:hover {

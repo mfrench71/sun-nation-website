@@ -38,7 +38,7 @@
 <body class="bg-light">
   <div id="app">
     <!-- Auth Gate -->
-    <div id="auth-gate" class="min-vh-100 d-flex align-items-center justify-content-center">
+    <div id="auth-gate" class="d-none min-vh-100 d-flex align-items-center justify-content-center">
       <div class="card shadow p-4 auth-gate-card">
         <h1 class="h3 fw-bold mb-3">Admin Login Required</h1>
         <p class="text-muted mb-3">Please log in to access the post editor.</p>
@@ -184,24 +184,13 @@
                   </div>
 
                   <!-- Pagination -->
-                  <div id="chooser-pagination" class="d-none p-3 border-top d-flex justify-content-between align-items-center">
-                    <button
-                      id="chooser-prev"
-                      onclick="window.changeChooserPage(-1)"
-                      class="btn btn-outline-secondary"
-                      disabled
-                    >
-                      Previous
+                  <div class="p-3 border-top d-flex justify-content-between align-items-center">
+                    <button type="button" class="btn btn-sm btn-outline-secondary" onclick="window.changeChooserPage(-1)" id="chooser-prev">
+                      <i class="fas fa-chevron-left"></i> Previous
                     </button>
-                    <span class="small text-body-secondary">
-                      Page <span id="chooser-current-page">1</span> of <span id="chooser-total-pages">1</span>
-                    </span>
-                    <button
-                      id="chooser-next"
-                      onclick="window.changeChooserPage(1)"
-                      class="btn btn-outline-secondary"
-                    >
-                      Next
+                    <span id="chooser-page-info" class="small text-muted">Page 1</span>
+                    <button type="button" class="btn btn-sm btn-outline-secondary" onclick="window.changeChooserPage(1)" id="chooser-next">
+                      Next <i class="fas fa-chevron-right"></i>
                     </button>
                   </div>
                 </div>

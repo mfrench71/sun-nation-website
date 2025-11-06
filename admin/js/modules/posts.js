@@ -1657,6 +1657,7 @@ export function openGalleryChooserForMarkdown(editor) {
  * Updates the featured image preview
  *
  * Shows or hides the image preview based on whether a valid image URL is entered.
+ * Automatically prepends the cloudinary default folder from site config.
  *
  * @example
  * import { updateImagePreview } from './modules/posts.js';
@@ -1672,8 +1673,10 @@ export function updateImagePreview() {
     let fullImageUrl = imageUrl;
 
     if (!imageUrl.startsWith('http://') && !imageUrl.startsWith('https://')) {
-      // It's a Cloudinary public_id (already includes folder path), construct full URL
-      fullImageUrl = `https://res.cloudinary.com/dtjvegysb/image/upload/q_auto,f_auto/${imageUrl}`;
+      // Get default folder from site config and prepend it to the filename
+      const folder = window.siteConfig?.cloudinary_default_folder || '';
+      const folderPath = folder ? `${folder}/` : '';
+      fullImageUrl = `https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/${folderPath}${imageUrl}`;
     }
 
     // Show preview immediately
@@ -1709,19 +1712,11 @@ export function openImageModal() {
     // Construct full Cloudinary URL if it's a partial path
     let fullImageUrl = imageUrl;
 
-    // Get default folder from site config
-    const folder = window.siteConfig?.cloudinary_default_folder || '';
-    const folderPath = folder ? `${folder}/` : '';
-
     if (!imageUrl.startsWith('http://') && !imageUrl.startsWith('https://')) {
-      // It's a partial path, construct full URL with folder
+      // Get default folder from site config and prepend it to the filename
+      const folder = window.siteConfig?.cloudinary_default_folder || '';
+      const folderPath = folder ? `${folder}/` : '';
       fullImageUrl = `https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/${folderPath}${imageUrl}`;
-    } else if (folderPath && imageUrl.includes('res.cloudinary.com/circleseven/image/upload/') && !imageUrl.includes(`/${folder}/`)) {
-      // It's a full Cloudinary URL but missing the folder, inject it
-      fullImageUrl = imageUrl.replace(
-        /\/image\/upload\/([^/]+\/)?/,
-        `/image/upload/$1${folderPath}`
-      );
     }
 
     // Reset image state

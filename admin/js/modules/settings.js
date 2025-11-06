@@ -322,9 +322,11 @@ export function updateSiteImagePreview(imageValue) {
   if (imageValue) {
     let imageUrl = imageValue;
     if (!imageValue.startsWith('http')) {
-      // Use Cloudinary URL - imageValue is the full public_id
-      const cloudinaryBase = 'https://res.cloudinary.com/dtjvegysb/image/upload';
-      imageUrl = `${cloudinaryBase}/c_fill,w_300,h_200,g_auto,q_auto/${imageValue}`;
+      // Get default folder from site config and prepend it to the filename
+      const folder = window.siteConfig?.cloudinary_default_folder || '';
+      const folderPath = folder ? `${folder}/` : '';
+      const cloudinaryBase = 'https://res.cloudinary.com/circleseven/image/upload';
+      imageUrl = `${cloudinaryBase}/c_fill,w_300,h_200,g_auto,q_auto/${folderPath}${imageValue}`;
     }
     previewImg.src = imageUrl;
     preview.classList.remove('d-none');
@@ -348,20 +350,85 @@ export function initSiteImagePreview() {
 /**
  * Open image chooser modal to select site image
  */
-export async function selectSiteImage() {
-  // Dynamically import the image chooser module
-  const { openImageChooser } = await import('./image-chooser.js');
+export function selectSiteImage() {
+  // Use the globally exposed openImageChooser to avoid duplicate module loading
+  if (!window.openImageChooser) {
+    console.error('openImageChooser not found on window object');
+    return;
+  }
 
   // Open the image chooser with callback
-  openImageChooser((publicId) => {
-    // publicId is the full Cloudinary public_id (e.g., "sun-nation/image")
-    // Set the value to the full public_id
+  window.openImageChooser((filename) => {
+    // filename is just the image filename (e.g., "image.jpg")
+    // The preview function will prepend the default folder automatically
     const siteImageInput = document.getElementById('setting-site_image');
     if (siteImageInput) {
-      siteImageInput.value = publicId;
-      updateSiteImagePreview(publicId);
+      siteImageInput.value = filename;
+      updateSiteImagePreview(filename);
     }
   }, false); // false = single select mode
+}
+
+/**
+ * Opens a full-size site image modal
+ */
+export function openSiteImageModal() {
+  const imageValue = document.getElementById('setting-site_image').value.trim();
+  const modalElement = document.getElementById('siteImagePreviewModal');
+  const modalImg = document.getElementById('site-image-modal-img');
+  const modalLoading = document.getElementById('site-image-modal-loading');
+
+  if (imageValue) {
+    // Construct full Cloudinary URL if it's a partial path
+    let fullImageUrl = imageValue;
+
+    if (!imageValue.startsWith('http://') && !imageValue.startsWith('https://')) {
+      // Get default folder from site config and prepend it to the filename
+      const folder = window.siteConfig?.cloudinary_default_folder || '';
+      const folderPath = folder ? `${folder}/` : '';
+      fullImageUrl = `https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/${folderPath}${imageValue}`;
+    }
+
+    // Reset image state
+    if (modalImg) {
+      modalImg.classList.add('d-none');
+      modalImg.src = '';
+    }
+
+    // Show loading spinner
+    if (modalLoading) {
+      modalLoading.classList.remove('d-none');
+    }
+
+    // Load the image
+    if (modalImg) {
+      modalImg.onload = function() {
+        // Hide loading spinner
+        if (modalLoading) {
+          modalLoading.classList.add('d-none');
+        }
+        // Show image
+        modalImg.classList.remove('d-none');
+      };
+
+      modalImg.onerror = function() {
+        // Hide loading spinner on error
+        if (modalLoading) {
+          modalLoading.classList.add('d-none');
+        }
+        // Could show an error message here
+      };
+
+      // Start loading the image
+      modalImg.src = fullImageUrl;
+    }
+
+    // Show the modal
+    if (modalElement) {
+      const modal = new bootstrap.Modal(modalElement);
+      modal.show();
+    }
+  }
 }
 
 export async function saveSettings(event) {

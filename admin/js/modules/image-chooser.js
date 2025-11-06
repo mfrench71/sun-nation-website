@@ -151,15 +151,27 @@ function renderChooserGrid() {
   if (filtered.length === 0) {
     if (grid) grid.innerHTML = '';
     if (emptyEl) emptyEl.classList.remove('d-none');
-    const paginationEl = document.getElementById('chooser-pagination');
-    if (paginationEl) paginationEl.classList.add('d-none');
     // Hide loading spinner
     const loadingEl = document.getElementById('chooser-loading');
     if (loadingEl) loadingEl.classList.add('d-none');
+    // Hide pagination buttons when no results
+    const prevBtn = document.getElementById('chooser-prev');
+    const nextBtn = document.getElementById('chooser-next');
+    const pageInfoEl = document.getElementById('chooser-page-info');
+    if (prevBtn) prevBtn.style.visibility = 'hidden';
+    if (nextBtn) nextBtn.style.visibility = 'hidden';
+    if (pageInfoEl) pageInfoEl.style.visibility = 'hidden';
     return;
   }
 
   if (emptyEl) emptyEl.classList.add('d-none');
+  // Show pagination buttons when there are results
+  const prevBtn = document.getElementById('chooser-prev');
+  const nextBtn = document.getElementById('chooser-next');
+  const pageInfoEl = document.getElementById('chooser-page-info');
+  if (prevBtn) prevBtn.style.visibility = 'visible';
+  if (nextBtn) nextBtn.style.visibility = 'visible';
+  if (pageInfoEl) pageInfoEl.style.visibility = 'visible';
 
   // Helper function to escape strings for JavaScript context (onclick attributes)
   const escapeJs = (str) => String(str).replace(/\\/g, '\\\\').replace(/'/g, "\\'").replace(/"/g, '\\"').replace(/\n/g, '\\n').replace(/\r/g, '\\r');
@@ -204,11 +216,11 @@ function renderChooserGrid() {
           </div>
         `;
       } else {
-        // Single-select mode: Original behavior
+        // Single-select mode: Pass public_id directly instead of extracting from URL
         return `
           <div class="col">
             <button
-              onclick="window.selectChooserImage('${escapeJs(media.secure_url)}');"
+              onclick="window.selectChooserImage('${escapeJs(media.public_id)}');"
               class="chooser-image-btn position-relative bg-light rounded overflow-hidden border border-2 w-100 p-0"
               title="${escapeHtml(filename)}"
             >
@@ -283,24 +295,18 @@ function populateFolderDropdown() {
  * @private
  */
 function updateChooserPagination(totalPages) {
-  const paginationEl = document.getElementById('chooser-pagination');
   const prevBtn = document.getElementById('chooser-prev');
   const nextBtn = document.getElementById('chooser-next');
-  const currentPageEl = document.getElementById('chooser-current-page');
-  const totalPagesEl = document.getElementById('chooser-total-pages');
+  const pageInfoEl = document.getElementById('chooser-page-info');
 
-  if (!paginationEl) return;
-
-  if (totalPages <= 1) {
-    paginationEl.classList.add('d-none');
-    return;
-  }
-
-  paginationEl.classList.remove('d-none');
-  if (currentPageEl) currentPageEl.textContent = chooserPage;
-  if (totalPagesEl) totalPagesEl.textContent = totalPages;
+  // Update pagination buttons
   if (prevBtn) prevBtn.disabled = chooserPage === 1;
   if (nextBtn) nextBtn.disabled = chooserPage === totalPages;
+
+  // Update page info text
+  if (pageInfoEl) {
+    pageInfoEl.textContent = `Page ${chooserPage} of ${totalPages}`;
+  }
 }
 
 /**
@@ -324,24 +330,20 @@ export function filterChooserMedia() {
 /**
  * Selects an image from the chooser
  *
- * Calls the callback with the image public_id (filename) extracted from the Cloudinary URL.
+ * Calls the callback with just the image filename (without folder path).
  * This ensures consistent storage format and enables responsive image optimization.
  *
- * @param {string} url - Full Cloudinary image URL
+ * @param {string} publicId - Cloudinary public_id (e.g., "sun-nation/image.jpg")
  *
  * @example
- * // Input: https://res.cloudinary.com/circleseven/image/upload/v123/path/image.jpg
- * // Output: path/image
+ * // Input: sun-nation/image.jpg
+ * // Callback receives: image.jpg
  */
-export function selectChooserImage(url) {
+export function selectChooserImage(publicId) {
   if (chooserCallback) {
-    // Extract public_id from Cloudinary URL (removes version, transformations, extension)
-    // Matches: /upload/(optional v123/)path/to/image(.ext)
-    const publicIdMatch = url.match(/\/upload\/(?:v\d+\/)?(.+?)(?:\.\w+)?$/);
-    const publicId = publicIdMatch ? publicIdMatch[1] : url;
-
-    // Return just the public_id for consistent storage format
-    chooserCallback(publicId);
+    // Extract just the filename (remove folder path)
+    const filename = publicId.split('/').pop();
+    chooserCallback(filename);
   }
 
   // Close modal using Bootstrap

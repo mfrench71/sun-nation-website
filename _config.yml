@@ -62,5 +62,5 @@ google_fonts:
 cloudinary_default_folder: sun-nation
 instagram_username: sun_nation
 site_image: sn-wall-variation
-show_site_description: false
-show_site_image: false
+show_site_description: true
+show_site_image: true

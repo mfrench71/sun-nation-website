@@ -54,9 +54,10 @@ async function loadFontSettings() {
   if (!response.ok) throw new Error('Failed to load settings');
 
   const data = await response.json();
-  currentSettings = data.google_fonts || { enabled: false, body_font: '', heading_font: '' };
+  currentSettings = data.google_fonts || { enabled: false, body_font: '', heading_font: '', heading_uppercase: false };
 
   document.getElementById('google-fonts-enabled').checked = currentSettings.enabled;
+  document.getElementById('heading-uppercase').checked = currentSettings.heading_uppercase || false;
   toggleFontSettings();
 }
 
@@ -118,12 +119,14 @@ export async function saveFonts() {
     const enabled = document.getElementById('google-fonts-enabled').checked;
     const bodyFont = document.getElementById('body-font').value;
     const headingFont = document.getElementById('heading-font').value;
+    const headingUppercase = document.getElementById('heading-uppercase').checked;
 
     const settings = {
       google_fonts: {
         enabled,
         body_font: bodyFont,
-        heading_font: headingFont
+        heading_font: headingFont,
+        heading_uppercase: headingUppercase
       }
     };
 

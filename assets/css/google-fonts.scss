@@ -20,4 +20,15 @@ h1, h2, h3, h4, h5, h6,
   font-family: "{{ site.google_fonts.heading_font }}", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif !important;
 }
   {% endif %}
+
+  {% if site.google_fonts.heading_uppercase %}
+/* Apply uppercase to headings */
+h1, h2, h3, h4, h5, h6,
+.site-title,
+.page-title,
+.post-title,
+.page-heading {
+  text-transform: uppercase !important;
+}
+  {% endif %}
 {% endif %}

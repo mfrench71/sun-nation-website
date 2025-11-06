@@ -77,111 +77,50 @@
 /* Category Badge */
 .category-badge {
   display: inline-block;
-  padding: 4px 12px;
-  border-radius: 12px;
+  padding: 6px 14px;
+  border-radius: 16px;
   font-size: 11px;
-  font-weight: 600;
+  font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.08em;
   margin-bottom: 12px;
   width: fit-content;
   text-decoration: none;
-  transition: all 0.2s;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
 }
 
 .category-badge:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  text-decoration: none;
 }
 
-/* Category Badge Colors */
-.badge-digital-art-and-technology {
-  background: #e3f2fd;
-  color: #1565c0;
+/* Sun Nation Category Badge Colors */
+
+/* Events - Bright orange */
+.badge-events {
+  background: #c5641c;
+  color: #fff;
 }
 
-.badge-projects {
-  background: #f3e5f5;
-  color: #6a1b9a;
+/* Set List - Lighter orange/amber */
+.badge-set-list {
+  background: #d4752a;
+  color: #fff;
 }
 
-.badge-photography {
-  background: #e8f5e9;
-  color: #2e7d32;
+/* The Lineup - Dark brown with orange accent */
+.badge-the-lineup {
+  background: #2a2520;
+  color: #c5641c;
+  border: 1px solid #c5641c;
 }
 
-.badge-motion-graphics {
-  background: #fff3e0;
-  color: #e65100;
-}
-
-.badge-retro-computing {
-  background: #fce4ec;
-  color: #c2185b;
-}
-
-/* Course code badges - Match Jekyll slugified format with hyphens */
-/* DAT400 series - Year 1 */
-[class*="badge-dat401"],
-[class*="badge-dat402"],
-[class*="badge-dat403"],
-[class*="badge-dat404"],
-[class*="badge-dat405"],
-[class*="badge-dat406"] {
-  background: #e3f2fd;
-  color: #1565c0;
-}
-
-/* DAT500 series - Year 2 */
-[class*="badge-dat501"],
-[class*="badge-dat502"],
-[class*="badge-dat503"],
-[class*="badge-dat504"],
-[class*="badge-dat505"],
-[class*="badge-dat506"],
-[class*="badge-dat507"],
-[class*="badge-dat508"],
-[class*="badge-dat509"],
-[class*="badge-dat510"],
-[class*="badge-dat511"],
-[class*="badge-dat512"] {
-  background: #e1f5fe;
-  color: #0277bd;
-}
-
-/* DAT600 series - Year 3 */
-[class*="badge-dat601"],
-[class*="badge-dat602"],
-[class*="badge-dat603"],
-[class*="badge-dat604"],
-[class*="badge-dat605"],
-[class*="badge-dat606"],
-[class*="badge-dat607"],
-[class*="badge-dat608"],
-[class*="badge-dat609"],
-[class*="badge-dat610"],
-[class*="badge-dat611"],
-[class*="badge-dat612"],
-[class*="badge-dat613"] {
-  background: #e0f2f1;
-  color: #00695c;
-}
-
-/* INDE600 series - Independent Study */
-[class*="badge-inde601"],
-[class*="badge-inde602"],
-[class*="badge-inde603"],
-[class*="badge-inde604"],
-[class*="badge-inde605"],
-[class*="badge-inde606"] {
-  background: #f3e5f5;
-  color: #6a1b9a;
-}
-
-/* Default badge - must have visible contrast */
+/* Default badge - orange theme */
 .category-badge:not([class*="badge-"]) {
-  background: #e3f2fd;
-  color: #1565c0;
+  background: #c5641c;
+  color: #fff;
 }
 
 /* Post Title */

@@ -19,6 +19,9 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/easymde/dist/easymde.min.css">
   <script src="https://cdn.jsdelivr.net/npm/easymde/dist/easymde.min.js"></script>
 
+  <!-- Cloudinary Media Library Widget -->
+  <script src="https://media-library.cloudinary.com/global/all.js"></script>
+
   <!-- Netlify Identity Widget -->
   <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
 </head>
@@ -347,13 +350,23 @@
                         <label for="setting-site_image" class="form-label">
                           Site Image
                         </label>
-                        <input
-                          type="text"
-                          id="setting-site_image"
-                          name="site_image"
-                          placeholder="image-filename.jpg or https://url..."
-                          class="form-control"
-                        />
+                        <div class="input-group">
+                          <input
+                            type="text"
+                            id="setting-site_image"
+                            name="site_image"
+                            placeholder="image-filename.jpg or https://url..."
+                            class="form-control"
+                          />
+                          <button
+                            type="button"
+                            onclick="selectSiteImage()"
+                            class="btn btn-primary"
+                            title="Browse Cloudinary Media Library"
+                          >
+                            <i class="fas fa-image"></i> Browse
+                          </button>
+                        </div>
                         <div class="form-text">Optional image for site/home page display</div>
                         <div id="site-image-preview" class="d-none mt-2">
                           <img id="site-image-preview-img" src="" alt="Site image preview" class="rounded border" style="max-width: 300px; max-height: 200px; object-fit: cover;" />
@@ -448,7 +461,8 @@
       saveSettings,
       loadAdminSettings,
       saveAdminSettings,
-      resetAdminSettings
+      resetAdminSettings,
+      selectSiteImage
     } from '/admin/js/modules/settings.js?v=1761218399';
     import {
       loadDeploymentHistory,
@@ -475,6 +489,7 @@
     window.loadAdminSettings = loadAdminSettings;
     window.saveAdminSettings = saveAdminSettings;
     window.resetAdminSettings = resetAdminSettings;
+    window.selectSiteImage = selectSiteImage;
     window.loadDeploymentHistory = loadDeploymentHistory;
     window.restoreActiveDeployments = restoreActiveDeployments;
     window.trackDeployment = trackDeployment;

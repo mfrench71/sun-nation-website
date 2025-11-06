@@ -198,11 +198,18 @@ export async function loadSettings() {
           status: false,
           minHeight: "150px"
         });
-      }
-    }
 
-    // Set description value in markdown editor
-    if (descriptionEditor && settings.description) {
+        // Set initial value after a brief delay to ensure editor is ready
+        if (settings.description) {
+          setTimeout(() => {
+            if (descriptionEditor) {
+              descriptionEditor.value(settings.description);
+            }
+          }, 100);
+        }
+      }
+    } else if (settings.description) {
+      // Editor already exists, just update value
       descriptionEditor.value(settings.description);
     }
 
@@ -337,6 +344,45 @@ export function initSiteImagePreview() {
       updateSiteImagePreview(e.target.value);
     });
   }
+}
+
+/**
+ * Open Cloudinary media library to select site image
+ */
+export function selectSiteImage() {
+  const folder = localStorage.getItem('cloudinary_default_folder') || 'sun-nation';
+
+  // Initialize Cloudinary Media Library Widget
+  const mediaLibrary = cloudinary.createMediaLibrary(
+    {
+      cloud_name: 'dtjvegysb',
+      api_key: '926733642115473',
+      multiple: false,
+      max_files: 1,
+      folder: { path: folder, resource_type: 'image' },
+      insert_caption: 'Select'
+    },
+    {
+      insertHandler: function(data) {
+        if (data.assets && data.assets.length > 0) {
+          const asset = data.assets[0];
+          // Extract just the filename from the public_id
+          const filename = asset.public_id.split('/').pop();
+          const extension = asset.format;
+          const fullFilename = `${filename}.${extension}`;
+
+          // Set the value
+          const siteImageInput = document.getElementById('setting-site_image');
+          if (siteImageInput) {
+            siteImageInput.value = fullFilename;
+            updateSiteImagePreview(fullFilename);
+          }
+        }
+      }
+    }
+  );
+
+  mediaLibrary.show();
 }
 
 export async function saveSettings(event) {

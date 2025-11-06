@@ -14,6 +14,8 @@
  */
 
 const https = require('https');
+const { getCorsHeaders, handlePreflight } = require('./cors-config');
+const { validateFilename, validateSha, validateRequiredFields } = require('./validation');
 
 // GitHub API configuration
 const GITHUB_OWNER = 'mfrench71';
@@ -232,17 +234,13 @@ function buildFrontmatter(frontmatter) {
  * // Body: { path: '2025-10-21-my-post.md', sha: '...' }
  */
 exports.handler = async (event, context) => {
-  // CORS headers
-  const headers = {
-    'Access-Control-Allow-Origin': '*',
-    'Access-Control-Allow-Headers': 'Content-Type, Authorization',
-    'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
-    'Content-Type': 'application/json'
-  };
+  // Get origin from request
+  const origin = event.headers.origin || event.headers.Origin;
+  const headers = getCorsHeaders(origin, ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS']);
 
   // Handle preflight
   if (event.httpMethod === 'OPTIONS') {
-    return { statusCode: 200, headers, body: '' };
+    return handlePreflight(origin, ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS']);
   }
 
   try {
@@ -328,13 +326,39 @@ exports.handler = async (event, context) => {
 
       const { path, frontmatter, body, sha } = JSON.parse(event.body);
 
-      if (!path || !frontmatter || body === undefined || !sha) {
+      // Validate required fields
+      const validation = validateRequiredFields({ path, frontmatter, body, sha }, ['path', 'frontmatter', 'body', 'sha']);
+      if (!validation.valid) {
         return {
           statusCode: 400,
           headers,
           body: JSON.stringify({
             error: 'Missing required fields',
-            message: 'path, frontmatter, body, and sha are required'
+            message: `Required fields missing: ${validation.missing.join(', ')}`
+          })
+        };
+      }
+
+      // Validate filename for security
+      if (!validateFilename(path)) {
+        return {
+          statusCode: 400,
+          headers,
+          body: JSON.stringify({
+            error: 'Invalid filename',
+            message: 'Filename must be alphanumeric with dashes/underscores and end with .md'
+          })
+        };
+      }
+
+      // Validate SHA
+      if (!validateSha(sha)) {
+        return {
+          statusCode: 400,
+          headers,
+          body: JSON.stringify({
+            error: 'Invalid SHA',
+            message: 'SHA must be a valid 40-character hex string'
           })
         };
       }
@@ -386,13 +410,27 @@ exports.handler = async (event, context) => {
 
       const { filename, frontmatter, body } = JSON.parse(event.body);
 
-      if (!filename || !frontmatter || body === undefined) {
+      // Validate required fields
+      const validation = validateRequiredFields({ filename, frontmatter, body }, ['filename', 'frontmatter', 'body']);
+      if (!validation.valid) {
         return {
           statusCode: 400,
           headers,
           body: JSON.stringify({
             error: 'Missing required fields',
-            message: 'filename, frontmatter, and body are required'
+            message: `Required fields missing: ${validation.missing.join(', ')}`
+          })
+        };
+      }
+
+      // Validate filename for security
+      if (!validateFilename(filename)) {
+        return {
+          statusCode: 400,
+          headers,
+          body: JSON.stringify({
+            error: 'Invalid filename',
+            message: 'Filename must be alphanumeric with dashes/underscores and end with .md'
           })
         };
       }
@@ -450,13 +488,39 @@ exports.handler = async (event, context) => {
 
       const { path, sha } = JSON.parse(event.body);
 
-      if (!path || !sha) {
+      // Validate required fields
+      const validation = validateRequiredFields({ path, sha }, ['path', 'sha']);
+      if (!validation.valid) {
         return {
           statusCode: 400,
           headers,
           body: JSON.stringify({
             error: 'Missing required fields',
-            message: 'path and sha are required'
+            message: `Required fields missing: ${validation.missing.join(', ')}`
+          })
+        };
+      }
+
+      // Validate filename for security
+      if (!validateFilename(path)) {
+        return {
+          statusCode: 400,
+          headers,
+          body: JSON.stringify({
+            error: 'Invalid filename',
+            message: 'Filename must be alphanumeric with dashes/underscores and end with .md'
+          })
+        };
+      }
+
+      // Validate SHA
+      if (!validateSha(sha)) {
+        return {
+          statusCode: 400,
+          headers,
+          body: JSON.stringify({
+            error: 'Invalid SHA',
+            message: 'SHA must be a valid 40-character hex string'
           })
         };
       }

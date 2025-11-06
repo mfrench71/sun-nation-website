@@ -21,6 +21,7 @@
  */
 
 const https = require('https');
+const { getCorsHeaders, handlePreflight } = require('./cors-config');
 
 // GitHub API configuration
 const GITHUB_OWNER = 'mfrench71';
@@ -128,17 +129,13 @@ function githubRequest(path, options = {}) {
  * // Returns: { success: true, message: "Post permanently deleted" }
  */
 exports.handler = async (event, context) => {
-  // CORS headers
-  const headers = {
-    'Access-Control-Allow-Origin': '*',
-    'Access-Control-Allow-Headers': 'Content-Type, Authorization',
-    'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
-    'Content-Type': 'application/json'
-  };
+  // Get origin from request
+  const origin = event.headers.origin || event.headers.Origin;
+  const headers = getCorsHeaders(origin, ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS']);
 
   // Handle preflight
   if (event.httpMethod === 'OPTIONS') {
-    return { statusCode: 200, headers, body: '' };
+    return handlePreflight(origin, ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS']);
   }
 
   try {

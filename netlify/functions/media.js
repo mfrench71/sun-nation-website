@@ -14,6 +14,7 @@
  */
 
 const https = require('https');
+const { getCorsHeaders, handlePreflight } = require('./cors-config');
 
 // Cloudinary configuration
 const CLOUDINARY_CLOUD_NAME = process.env.CLOUDINARY_CLOUD_NAME || 'circleseven';
@@ -54,17 +55,13 @@ if (!CLOUDINARY_API_SECRET) {
  * // }
  */
 exports.handler = async (event, context) => {
-  // Set CORS headers
-  const headers = {
-    'Access-Control-Allow-Origin': '*',
-    'Access-Control-Allow-Headers': 'Content-Type',
-    'Access-Control-Allow-Methods': 'GET, OPTIONS',
-    'Content-Type': 'application/json'
-  };
+  // Get origin from request
+  const origin = event.headers.origin || event.headers.Origin;
+  const headers = getCorsHeaders(origin, ['GET', 'OPTIONS']);
 
   // Handle preflight
   if (event.httpMethod === 'OPTIONS') {
-    return { statusCode: 200, headers, body: '' };
+    return handlePreflight(origin, ['GET', 'OPTIONS']);
   }
 
   // Only allow GET requests

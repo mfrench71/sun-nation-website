@@ -7,6 +7,7 @@
  */
 
 const https = require('https');
+const { getCorsHeaders, handlePreflight } = require('./cors-config');
 
 // GitHub API configuration
 const GITHUB_OWNER = 'mfrench71';
@@ -106,10 +107,20 @@ async function getRecentFiles(folder, type) {
  * Main handler function
  */
 exports.handler = async (event, context) => {
+  // Get origin from request
+  const origin = event.headers.origin || event.headers.Origin;
+  const headers = getCorsHeaders(origin, ['GET', 'OPTIONS']);
+
+  // Handle preflight
+  if (event.httpMethod === 'OPTIONS') {
+    return handlePreflight(origin, ['GET', 'OPTIONS']);
+  }
+
   // Only allow GET requests
   if (event.httpMethod !== 'GET') {
     return {
       statusCode: 405,
+      headers,
       body: JSON.stringify({ error: 'Method not allowed' })
     };
   }
@@ -131,7 +142,7 @@ exports.handler = async (event, context) => {
     return {
       statusCode: 200,
       headers: {
-        'Content-Type': 'application/json',
+        ...headers,
         'Cache-Control': 'no-cache, no-store, must-revalidate'
       },
       body: JSON.stringify(recentFiles)
@@ -140,6 +151,7 @@ exports.handler = async (event, context) => {
     console.error('Error fetching recently published:', error);
     return {
       statusCode: 500,
+      headers,
       body: JSON.stringify({ error: 'Failed to fetch recently published content' })
     };
   }

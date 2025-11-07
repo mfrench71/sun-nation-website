@@ -30,6 +30,7 @@ import { escapeHtml, debounce } from '../core/utils.js';
 import { showError, showSuccess } from '../ui/notifications.js';
 import { generateGalleryHTML } from './image-chooser.js';
 import { initLinkEditor, openLinkEditor, searchContent as linkEditorSearchContent } from './link-editor.js';
+import { openEmbedEditor } from './embed-editor.js';
 import logger from '../core/logger.js';
 
 // Cache configuration
@@ -526,6 +527,14 @@ export function initPageMarkdownEditor() {
           className: 'fa fa-link',
           title: 'Insert/Edit Link',
           default: true
+        },
+        {
+          name: 'embed',
+          action: (editor) => {
+            openEmbedEditor(editor);
+          },
+          className: 'fa fa-video',
+          title: 'Insert Embed (YouTube, Vimeo, etc.)'
         },
         'image',
         {

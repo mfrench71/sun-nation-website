@@ -11,6 +11,9 @@
   document.addEventListener('DOMContentLoaded', function() {
     makeSketchfabResponsive();
     processLeafletMaps();
+    loadTwitterEmbeds();
+    loadInstagramEmbeds();
+    loadTikTokEmbeds();
   });
 
   /**
@@ -118,6 +121,67 @@
     } catch (error) {
       mapElement.innerHTML = '<div class="wordpress-embed-placeholder">Map could not be loaded</div>';
     }
+  }
+
+  /**
+   * Load Twitter embed script if Twitter embeds are present
+   */
+  function loadTwitterEmbeds() {
+    const twitterEmbeds = document.querySelectorAll('.twitter-embed');
+    if (twitterEmbeds.length === 0) return;
+
+    // Check if script is already loaded
+    if (window.twttr) {
+      window.twttr.widgets.load();
+      return;
+    }
+
+    // Load Twitter widget script
+    const script = document.createElement('script');
+    script.src = 'https://platform.twitter.com/widgets.js';
+    script.async = true;
+    script.charset = 'utf-8';
+    document.head.appendChild(script);
+  }
+
+  /**
+   * Load Instagram embed script if Instagram embeds are present
+   */
+  function loadInstagramEmbeds() {
+    const instagramEmbeds = document.querySelectorAll('.instagram-embed');
+    if (instagramEmbeds.length === 0) return;
+
+    // Check if script is already loaded
+    if (window.instgrm) {
+      window.instgrm.Embeds.process();
+      return;
+    }
+
+    // Load Instagram embed script
+    const script = document.createElement('script');
+    script.src = 'https://www.instagram.com/embed.js';
+    script.async = true;
+    document.head.appendChild(script);
+  }
+
+  /**
+   * Load TikTok embed script if TikTok embeds are present
+   */
+  function loadTikTokEmbeds() {
+    const tiktokEmbeds = document.querySelectorAll('.tiktok-embed');
+    if (tiktokEmbeds.length === 0) return;
+
+    // Check if script is already loaded
+    if (window.tiktokEmbed) {
+      return;
+    }
+
+    // Load TikTok embed script
+    const script = document.createElement('script');
+    script.src = 'https://www.tiktok.com/embed.js';
+    script.async = true;
+    document.head.appendChild(script);
+    window.tiktokEmbed = true;
   }
 
 })();

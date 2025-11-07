@@ -201,6 +201,42 @@ figure.wp-block-embed.is-type-video {
   color: #999;
 }
 
+/* Twitter/X embeds */
+.twitter-embed {
+  margin: 20px auto;
+  max-width: 550px;
+}
+
+.twitter-tweet {
+  margin: 0 auto !important;
+}
+
+/* Instagram embeds */
+.instagram-embed {
+  margin: 20px auto;
+  max-width: 540px;
+}
+
+.instagram-media {
+  margin: 0 auto !important;
+  min-width: 326px;
+  max-width: 540px;
+  width: calc(100% - 2px);
+}
+
+/* TikTok embeds */
+.tiktok-embed {
+  margin: 20px auto;
+  max-width: 605px;
+  min-width: 325px;
+  display: flex;
+  justify-content: center;
+}
+
+.tiktok-embed blockquote {
+  margin: 0 auto;
+}
+
 /* Fix for inline aspect-ratio CSS from WordPress */
 .wp-block-embed__wrapper[style*="aspect-ratio"] {
   position: relative;

@@ -41,7 +41,7 @@ layout: base
     </div>
 
     <div class="post-content e-content" itemprop="articleBody">
-      {{ content | inject_cloudinary_folder | auto_gallery }}
+      {{ content | inject_cloudinary_folder | auto_embed | auto_gallery }}
     </div>
 
     <div class="post-meta-footer">

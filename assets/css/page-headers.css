@@ -40,11 +40,6 @@
   margin-bottom: 20px;
 }
 
-/* Breadcrumb spacing for post pages only */
-.post-header .breadcrumb-nav {
-  margin-bottom: 20px;
-}
-
 .page-header-dark .breadcrumbs a {
   color: #c5641c;
 }

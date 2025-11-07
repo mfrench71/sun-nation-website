@@ -1,0 +1,199 @@
+/* ============================================
+   RELATED POSTS CAROUSEL - SWIPER.JS STYLES
+   Carousel-specific styling for related posts
+   ============================================ */
+
+/* Swiper Container */
+.related-posts-swiper {
+  width: 100%;
+  position: relative;
+  padding: 0 60px; /* Space for navigation arrows on desktop */
+}
+
+/* Swiper Wrapper - maintains grid-like behavior */
+.related-posts-swiper .swiper-wrapper {
+  display: flex;
+  align-items: stretch;
+}
+
+/* Swiper Slides - each slide is a post card */
+.related-posts-swiper .swiper-slide {
+  height: auto;
+  display: flex;
+}
+
+/* Ensure post cards fill the slide */
+.related-posts-swiper .swiper-slide .post-card {
+  width: 100%;
+  height: 100%;
+}
+
+/* ============================================
+   NAVIGATION ARROWS
+   ============================================ */
+
+.related-posts-swiper .swiper-button-prev,
+.related-posts-swiper .swiper-button-next {
+  width: 48px;
+  height: 48px;
+  background: #2a2520;
+  border: 2px solid #c5641c;
+  border-radius: 50%;
+  color: #c5641c;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+/* Custom arrow icons - override Swiper defaults */
+.related-posts-swiper .swiper-button-prev::after,
+.related-posts-swiper .swiper-button-next::after {
+  font-size: 20px;
+  font-weight: 900;
+}
+
+/* Hover state */
+.related-posts-swiper .swiper-button-prev:hover,
+.related-posts-swiper .swiper-button-next:hover {
+  background: #c5641c;
+  color: white;
+  border-color: #c5641c;
+  transform: scale(1.1);
+  box-shadow: 0 6px 12px rgba(197, 100, 28, 0.5);
+}
+
+/* Disabled state (at start/end) */
+.related-posts-swiper .swiper-button-prev.swiper-button-disabled,
+.related-posts-swiper .swiper-button-next.swiper-button-disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+/* Position arrows */
+.related-posts-swiper .swiper-button-prev {
+  left: 0;
+}
+
+.related-posts-swiper .swiper-button-next {
+  right: 0;
+}
+
+/* ============================================
+   RESPONSIVE ADJUSTMENTS
+   ============================================ */
+
+/* Tablet and below - overlay arrows on slides */
+@media (max-width: 900px) {
+  .related-posts-swiper {
+    padding: 0 20px; /* Less padding for smaller screens */
+  }
+
+  .related-posts-swiper .swiper-button-prev,
+  .related-posts-swiper .swiper-button-next {
+    width: 40px;
+    height: 40px;
+  }
+
+  .related-posts-swiper .swiper-button-prev::after,
+  .related-posts-swiper .swiper-button-next::after {
+    font-size: 18px;
+  }
+
+  .related-posts-swiper .swiper-button-prev {
+    left: 10px;
+  }
+
+  .related-posts-swiper .swiper-button-next {
+    right: 10px;
+  }
+}
+
+/* Mobile - smaller arrows, more overlay */
+@media (max-width: 600px) {
+  .related-posts-swiper {
+    padding: 0 10px;
+  }
+
+  .related-posts-swiper .swiper-button-prev,
+  .related-posts-swiper .swiper-button-next {
+    width: 36px;
+    height: 36px;
+    background: rgba(42, 37, 32, 0.95);
+  }
+
+  .related-posts-swiper .swiper-button-prev::after,
+  .related-posts-swiper .swiper-button-next::after {
+    font-size: 16px;
+  }
+
+  .related-posts-swiper .swiper-button-prev {
+    left: 5px;
+  }
+
+  .related-posts-swiper .swiper-button-next {
+    right: 5px;
+  }
+}
+
+/* Very small devices - minimal arrows */
+@media (max-width: 375px) {
+  .related-posts-swiper .swiper-button-prev,
+  .related-posts-swiper .swiper-button-next {
+    width: 32px;
+    height: 32px;
+  }
+
+  .related-posts-swiper .swiper-button-prev::after,
+  .related-posts-swiper .swiper-button-next::after {
+    font-size: 14px;
+  }
+}
+
+/* ============================================
+   PRESERVE EXISTING CARD BEHAVIOR
+   ============================================ */
+
+/* Ensure hover effects still work in carousel */
+.related-posts-swiper .swiper-slide .post-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 24px rgba(197, 100, 28, 0.3);
+  border-color: #c5641c;
+}
+
+.related-posts-swiper .swiper-slide .post-card:hover .post-card-image img {
+  transform: scale(1.05);
+}
+
+/* Ensure edit links are accessible */
+.related-posts-swiper .swiper-slide .edit-card-link {
+  position: absolute;
+  z-index: 10;
+}
+
+/* ============================================
+   ACCESSIBILITY & PERFORMANCE
+   ============================================ */
+
+/* Focus states for keyboard navigation */
+.related-posts-swiper .swiper-button-prev:focus,
+.related-posts-swiper .swiper-button-next:focus {
+  outline: 2px solid #c5641c;
+  outline-offset: 2px;
+}
+
+/* Smooth transitions */
+.related-posts-swiper .swiper-slide {
+  transition: opacity 0.3s ease;
+}
+
+/* Loading state - if carousel is initializing */
+.related-posts-swiper:not(.swiper-initialized) {
+  overflow-x: auto;
+  scrollbar-width: thin;
+  scrollbar-color: #c5641c #2a2520;
+}
+
+/* Hide scrollbar on initialization */
+.related-posts-swiper.swiper-initialized {
+  overflow: hidden;
+}

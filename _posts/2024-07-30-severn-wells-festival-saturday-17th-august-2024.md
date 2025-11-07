@@ -1,5 +1,5 @@
 ---
-layout: post-two-column
+layout: post-adaptive
 title: Severn Wells Festival - Saturday 17th August 2024
 date: 2024-07-30T09:34:00.000Z
 categories:

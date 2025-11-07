@@ -1,5 +1,5 @@
 ---
-layout: post-two-column
+layout: post-adaptive
 title: "Drunken Monkey Rock Festival - Tower Stage - Saturday 5th August 2023"
 date: 2023-04-25T08:26:13.000Z
 categories:

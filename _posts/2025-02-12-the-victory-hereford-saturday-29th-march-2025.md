@@ -1,5 +1,5 @@
 ---
-layout: post-two-column
+layout: post-adaptive
 title: The Victory, Hereford - Saturday 29th March 2025
 date: 2025-02-12T17:06:00.000Z
 categories:

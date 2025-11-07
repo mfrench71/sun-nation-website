@@ -1,5 +1,5 @@
 ---
-layout: post-two-column
+layout: post-adaptive
 title: "Superstition - Stevie Wonder"
 date: 2023-02-27T08:53:08.000Z
 categories:

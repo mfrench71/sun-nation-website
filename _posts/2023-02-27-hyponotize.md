@@ -1,5 +1,5 @@
 ---
-layout: post-two-column
+layout: post-adaptive
 title: "Hyponotize - Audioslave"
 date: 2023-02-27T14:20:05.000Z
 categories:

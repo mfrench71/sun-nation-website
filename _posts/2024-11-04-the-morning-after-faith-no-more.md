@@ -1,5 +1,5 @@
 ---
-layout: post-two-column
+layout: post-adaptive
 title: The Morning After - Faith No More
 date: 2024-11-04T21:17:00.000Z
 categories:

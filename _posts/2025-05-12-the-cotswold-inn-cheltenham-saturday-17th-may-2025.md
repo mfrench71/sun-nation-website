@@ -1,5 +1,5 @@
 ---
-layout: post-two-column
+layout: post-adaptive
 title: The Cotswold Inn, Cheltenham - Saturday 17th May 2025
 date: 2025-05-12T18:44:00.000Z
 categories:

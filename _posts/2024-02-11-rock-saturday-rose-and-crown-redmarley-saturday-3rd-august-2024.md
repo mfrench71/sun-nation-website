@@ -1,5 +1,5 @@
 ---
-layout: post-two-column
+layout: post-adaptive
 title: "Rock Saturday, Rose and Crown, Redmarley - Saturday 3rd August 2024"
 date: 2024-02-11T16:29:32.000Z
 categories:

@@ -1,5 +1,5 @@
 ---
-layout: post-two-column
+layout: post-adaptive
 title: "Feel Good Inc. - Gorillaz"
 date: 2023-02-24T11:36:12.000Z
 categories:

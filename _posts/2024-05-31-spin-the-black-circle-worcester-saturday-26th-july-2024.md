@@ -1,5 +1,5 @@
 ---
-layout: post-two-column
+layout: post-adaptive
 title: Spin The Black Circle, Worcester - Friday 26th July 2024.
 date: 2024-05-31T13:59:00.000Z
 categories:

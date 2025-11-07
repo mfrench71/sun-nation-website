@@ -1,5 +1,5 @@
 ---
-layout: post-two-column
+layout: post-adaptive
 title: Drunken Monkey Rock Festival - Tower Stage - Friday 2nd August 2024
 date: 2024-07-30T09:20:00.000Z
 categories:

@@ -1,5 +1,5 @@
 ---
-layout: post-two-column
+layout: post-adaptive
 title: Cafe Rene, Gloucester - Friday 21st February 2025
 date: 2024-11-05T21:07:00.000Z
 categories:

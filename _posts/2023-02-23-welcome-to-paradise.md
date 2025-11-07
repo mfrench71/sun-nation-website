@@ -1,5 +1,5 @@
 ---
-layout: post-two-column
+layout: post-adaptive
 title: Welcome To Paradise - Green Day
 date: 2023-02-23T15:44:00.000Z
 categories:

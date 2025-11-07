@@ -1,5 +1,5 @@
 ---
-layout: post-two-column
+layout: post-adaptive
 title: "Society - Eddie Vedder"
 date: 2024-02-11T16:52:47.000Z
 categories:

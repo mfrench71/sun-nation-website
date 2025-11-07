@@ -1,5 +1,5 @@
 ---
-layout: post-two-column
+layout: post-adaptive
 title: "Red Lion Inn, Malvern - Saturday 4th May 2024"
 date: 2024-02-11T16:20:48.000Z
 categories:

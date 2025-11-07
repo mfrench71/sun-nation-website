@@ -1,5 +1,5 @@
 ---
-layout: post-two-column
+layout: post-adaptive
 title: "Southside - Fun Lovin' Criminals"
 date: 2023-02-27T16:09:32.000Z
 categories:

@@ -1,5 +1,5 @@
 ---
-layout: post-two-column
+layout: post-adaptive
 title: "Times Like These - Foo Fighters"
 date: 2023-02-23T21:46:44.000Z
 categories:

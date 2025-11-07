@@ -1,5 +1,5 @@
 ---
-layout: post-two-column
+layout: post-adaptive
 title: "Making Plans For Nigel - XTC"
 date: 2023-02-24T13:15:33.000Z
 categories:

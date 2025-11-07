@@ -1,5 +1,5 @@
 ---
-layout: post-two-column
+layout: post-adaptive
 title: "Killing In The Name - Rage Against The Machine"
 date: 2023-02-24T11:48:29.000Z
 categories:

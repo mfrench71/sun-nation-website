@@ -1,5 +1,5 @@
 ---
-layout: post-two-column
+layout: post-adaptive
 title: Spin The Black Circle, Worcester - Saturday 25th January 2025
 date: 2024-11-05T21:01:00.000Z
 categories:

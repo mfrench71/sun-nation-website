@@ -35,6 +35,10 @@
 }
 
 /* Ensure text is readable on dark background */
+.page-header-dark .breadcrumb-nav {
+  margin-bottom: 20px;
+}
+
 .page-header-dark .breadcrumbs {
   color: #c8c6c3;
   margin-bottom: 20px;

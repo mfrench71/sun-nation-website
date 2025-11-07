@@ -221,28 +221,6 @@
   border-color: #a0501a;
 }
 
-/* Widget Styles */
-.widget {
-  margin-bottom: 30px;
-  padding: 20px;
-  background: #2a2826;
-  border-radius: 8px;
-}
-
-.widget-title {
-  font-size: 18px;
-  margin: 0 0 15px 0;
-  padding-bottom: 10px;
-  border-bottom: 2px solid #3a3836;
-  color: #e8e6e3;
-}
-
-.tag-cloud-widget .tag-cloud {
-  margin: 0;
-  padding: 0;
-  background: transparent;
-}
-
 /* Mobile Responsive */
 @media (max-width: 768px) {
   .tag-cloud {
@@ -257,13 +235,5 @@
 
   .page-title {
     font-size: 26px;
-  }
-
-  .widget {
-    padding: 15px;
-  }
-
-  .widget-title {
-    font-size: 16px;
   }
 }

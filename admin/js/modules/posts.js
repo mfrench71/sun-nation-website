@@ -501,11 +501,7 @@ export function changePage(delta) {
   window.currentPage += delta;
 
   renderPostsList();
-
-  const postsListView = document.getElementById('posts-list-view');
-  if (postsListView) {
-    postsListView.scrollIntoView({ behavior: 'smooth', block: 'start' });
-  }
+  document.getElementById('posts-list-view').scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
 
 /**

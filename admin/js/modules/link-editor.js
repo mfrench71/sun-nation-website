@@ -88,6 +88,8 @@ function populateContentItems() {
 
   // Sort by date (most recent first)
   contentItems.sort((a, b) => (b.date || 0) - (a.date || 0));
+
+  logger.log('Link editor content items populated:', contentItems.length);
 }
 
 /**

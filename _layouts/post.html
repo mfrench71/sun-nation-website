@@ -115,10 +115,8 @@ layout: base
   <aside class="related-posts">
     <div class="wrapper">
       <h2>Related Posts</h2>
-      <div class="swiper related-posts-swiper">
-        <div class="swiper-wrapper">
+      <div class="post-grid">
       {%- for post in related_posts limit:site.related_posts_count -%}
-        <div class="swiper-slide">
       <article class="post-card">
         <!-- Card Image -->
         <div class="post-card-image">
@@ -175,11 +173,7 @@ layout: base
           </div>
         </div>
       </article>
-        </div>
       {%- endfor -%}
-        </div>
-        <div class="swiper-button-prev"></div>
-        <div class="swiper-button-next"></div>
       </div>
     </div> {%- comment -%} Close wrapper {%- endcomment -%}
   </aside>

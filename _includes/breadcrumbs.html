@@ -19,6 +19,11 @@ Displays visual breadcrumb trail for posts and pages
       </a>
       <meta itemprop="position" content="2" />
     </li>
+    <li class="breadcrumb-separator" aria-hidden="true">/</li>
+    <li class="breadcrumb-item active" aria-current="page" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+      <span itemprop="name">{{ page.title }}</span>
+      <meta itemprop="position" content="3" />
+    </li>
   </ol>
 </nav>
 {%- endif -%}

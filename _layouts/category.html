@@ -4,23 +4,20 @@ layout: base
 
 <div class="category-archive">
   {%- comment -%} Full-width header - outside wrapper {%- endcomment -%}
-  <div class="page-header-dark">
+  <header class="post-header page-header-dark">
     <div class="wrapper">
       {%- comment -%} Show breadcrumb navigation {%- endcomment -%}
       {% include category-breadcrumbs.html category=page.category %}
 
-      <h1 class="page-heading">
-        <i class="fas fa-folder category-icon"></i>
+      <h1 class="post-title">
         {{ page.title }}
       </h1>
 
       {% if page.description %}
         <p class="category-description">{{ page.description }}</p>
       {% endif %}
-
-      <p class="post-count-info">{{ site.categories[page.category] | size }} posts in this category</p>
     </div>
-  </div>
+  </header>
 
   {%- comment -%} Content wrapper for uniform spacing {%- endcomment -%}
   <div class="wrapper">

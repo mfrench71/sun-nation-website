@@ -19,3 +19,8 @@
 .page-content:has(.site-description-section) {
   padding-top: 0;
 }
+
+/* Remove bottom padding on post pages */
+.page-content:has(> article.post) {
+  padding-bottom: 0;
+}

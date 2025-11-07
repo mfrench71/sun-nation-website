@@ -48,6 +48,9 @@
   <link rel="preload" href="{{ "/assets/css/google-fonts.css" | relative_url }}" as="style" onload="this.onload=null;this.rel='stylesheet'">
   <link rel="preload" href="{{ "/assets/css/page-headers.css" | relative_url }}" as="style" onload="this.onload=null;this.rel='stylesheet'">
   <link rel="preload" href="{{ "/assets/css/post-two-column.css" | relative_url }}" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  {%- if page.layout == "post-adaptive" -%}
+  <link rel="preload" href="{{ "/assets/css/post-adaptive.css" | relative_url }}" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  {%- endif -%}
   <link rel="preload" href="{{ "/assets/css/site-description.css" | relative_url }}" as="style" onload="this.onload=null;this.rel='stylesheet'">
 
   <!-- Fallback for browsers without JS -->
@@ -67,6 +70,9 @@
     <link rel="stylesheet" href="{{ "/assets/css/google-fonts.css" | relative_url }}">
     <link rel="stylesheet" href="{{ "/assets/css/page-headers.css" | relative_url }}">
     <link rel="stylesheet" href="{{ "/assets/css/post-two-column.css" | relative_url }}">
+    {%- if page.layout == "post-adaptive" -%}
+    <link rel="stylesheet" href="{{ "/assets/css/post-adaptive.css" | relative_url }}">
+    {%- endif -%}
     <link rel="stylesheet" href="{{ "/assets/css/site-description.css" | relative_url }}">
   </noscript>
 
@@ -136,6 +142,9 @@
   <script src="{{ "/assets/js/lazy-cards.js" | relative_url }}" defer></script>
   <script src="{{ "/assets/js/gallery-fix.js" | relative_url }}" defer></script>
   <script src="{{ "/assets/js/embeds.js" | relative_url }}" defer></script>
+  {%- if page.layout == "post-adaptive" -%}
+  <script src="{{ "/assets/js/embed-thumbnails.js" | relative_url }}" defer></script>
+  {%- endif -%}
   <script src="{{ "/assets/js/menu.js" | relative_url }}" defer></script>
   <script src="{{ "/assets/js/lightbox.js" | relative_url }}" defer></script>
   <script src="{{ "/assets/js/back-to-top.js" | relative_url }}" defer></script>

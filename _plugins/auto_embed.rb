@@ -147,8 +147,9 @@ module Jekyll
     # Embed template generators
 
     def create_youtube_embed(video_id)
+      thumbnail_url = "https://img.youtube.com/vi/#{video_id}/maxresdefault.jpg"
       <<~HTML
-        <div class="embed-container youtube-embed">
+        <div class="embed-container youtube-embed" data-embed-type="youtube" data-video-id="#{video_id}" data-thumbnail="#{thumbnail_url}">
           <iframe src="https://www.youtube-nocookie.com/embed/#{video_id}"
                   frameborder="0"
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
@@ -159,8 +160,10 @@ module Jekyll
     end
 
     def create_vimeo_embed(video_id)
+      # Vimeo thumbnails require API call, using placeholder for now
+      thumbnail_url = "https://vumbnail.com/#{video_id}.jpg"
       <<~HTML
-        <div class="embed-container vimeo-embed">
+        <div class="embed-container vimeo-embed" data-embed-type="vimeo" data-video-id="#{video_id}" data-thumbnail="#{thumbnail_url}">
           <iframe src="https://player.vimeo.com/video/#{video_id}?dnt=1"
                   frameborder="0"
                   allow="autoplay; fullscreen; picture-in-picture"
@@ -173,8 +176,10 @@ module Jekyll
     def create_twitter_embed(tweet_url)
       # Twitter embeds require JavaScript from Twitter's widget.js
       # We'll create a placeholder that gets enhanced by embeds.js
+      # Using Twitter logo as thumbnail placeholder
+      thumbnail_url = "/assets/images/twitter-placeholder.svg"
       <<~HTML
-        <div class="twitter-embed" data-tweet-url="#{tweet_url}">
+        <div class="twitter-embed" data-embed-type="twitter" data-tweet-url="#{tweet_url}" data-thumbnail="#{thumbnail_url}">
           <blockquote class="twitter-tweet">
             <a href="#{tweet_url}">View tweet</a>
           </blockquote>
@@ -185,8 +190,10 @@ module Jekyll
     def create_instagram_embed(post_url)
       # Instagram embeds require JavaScript from Instagram's embed.js
       # We'll create a placeholder that gets enhanced by embeds.js
+      # Using Instagram logo as thumbnail placeholder
+      thumbnail_url = "/assets/images/instagram-placeholder.svg"
       <<~HTML
-        <div class="instagram-embed" data-instagram-url="#{post_url}">
+        <div class="instagram-embed" data-embed-type="instagram" data-instagram-url="#{post_url}" data-thumbnail="#{thumbnail_url}">
           <blockquote class="instagram-media" data-instgrm-permalink="#{post_url}">
             <a href="#{post_url}">View this post on Instagram</a>
           </blockquote>
@@ -197,8 +204,10 @@ module Jekyll
     def create_tiktok_embed(tiktok_url)
       # TikTok embeds require JavaScript from TikTok's embed.js
       # We'll create a placeholder that gets enhanced by embeds.js
+      # Using TikTok logo as thumbnail placeholder
+      thumbnail_url = "/assets/images/tiktok-placeholder.svg"
       <<~HTML
-        <div class="tiktok-embed" data-tiktok-url="#{tiktok_url}">
+        <div class="tiktok-embed" data-embed-type="tiktok" data-tiktok-url="#{tiktok_url}" data-thumbnail="#{thumbnail_url}">
           <blockquote class="tiktok-embed" cite="#{tiktok_url}">
             <a href="#{tiktok_url}">View this TikTok</a>
           </blockquote>

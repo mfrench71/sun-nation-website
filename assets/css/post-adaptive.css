@@ -1,0 +1,305 @@
+/* ============================================
+   Adaptive Post Layout - 3-column with embeds, 2-column fallback
+   ============================================ */
+
+/* Wrapper - use container query friendly approach */
+.post-adaptive .post-adaptive-wrapper {
+  max-width: 90%;
+  margin: 0 auto;
+}
+
+/* 3-Column Grid Layout (with embeds) */
+.post-adaptive-three-column {
+  display: grid;
+  grid-template-columns: 300px 1fr 300px;
+  gap: 40px;
+  align-items: start;
+}
+
+/* 2-Column Fallback Layout (no embeds) - centered with 800px max */
+.post-adaptive-two-column {
+  display: grid;
+  grid-template-columns: 300px 1fr;
+  gap: 32px;
+  max-width: 800px;
+  margin: 0 auto;
+  align-items: start;
+}
+
+/* Sidebar sections */
+.post-adaptive-sidebar {
+  /* Not sticky - just normal flow */
+}
+
+/* Featured Image Sidebar */
+.post-adaptive-image img {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Center Content Area */
+.post-adaptive-content {
+  min-width: 0; /* Prevent grid overflow */
+}
+
+/* Hide embeds in content when using 3-column layout */
+.post-adaptive-three-column .post-content .embed-container,
+.post-adaptive-three-column .post-content .twitter-embed,
+.post-adaptive-three-column .post-content .instagram-embed,
+.post-adaptive-three-column .post-content .tiktok-embed {
+  display: none;
+}
+
+/* Embed Thumbnails Sidebar */
+.post-adaptive-embeds {
+  background: var(--background-secondary, #f8f9fa);
+  border-radius: 8px;
+  padding: 20px;
+}
+
+.embed-thumbnails-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin: 0 0 16px 0;
+  color: var(--text-primary, #333);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.embed-thumbnails-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* Thumbnail Card */
+.embed-thumbnail-card {
+  position: relative;
+  background: white;
+  border-radius: 6px;
+  overflow: hidden;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.embed-thumbnail-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.embed-thumbnail-image {
+  position: relative;
+  width: 100%;
+  padding-top: 56.25%; /* 16:9 aspect ratio */
+  background-color: #000;
+  background-size: cover;
+  background-position: center;
+}
+
+/* Play button overlay for video thumbnails */
+.embed-thumbnail-image::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 48px;
+  height: 48px;
+  background-color: rgba(255, 255, 255, 0.9);
+  border-radius: 50%;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23FF5F1F'%3E%3Cpath d='M8 5v14l11-7z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: 52% center;
+  background-size: 60%;
+  transition: transform 0.2s ease;
+}
+
+.embed-thumbnail-card:hover .embed-thumbnail-image::after {
+  transform: translate(-50%, -50%) scale(1.1);
+}
+
+.embed-thumbnail-platform {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  padding: 4px 8px;
+  background: rgba(0, 0, 0, 0.75);
+  color: white;
+  font-size: 0.75rem;
+  font-weight: 600;
+  border-radius: 4px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.embed-thumbnail-platform.youtube { background: #FF0000; }
+.embed-thumbnail-platform.vimeo { background: #1AB7EA; }
+.embed-thumbnail-platform.twitter { background: #1DA1F2; }
+.embed-thumbnail-platform.instagram { background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%); }
+.embed-thumbnail-platform.tiktok { background: #000000; }
+
+/* Embed Modal */
+.embed-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 10000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.embed-modal-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.85);
+  cursor: pointer;
+}
+
+.embed-modal-content {
+  position: relative;
+  width: 90%;
+  max-width: 1200px;
+  max-height: 90vh;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  z-index: 10001;
+  overflow: hidden;
+}
+
+.embed-modal-close {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  width: 40px;
+  height: 40px;
+  background: rgba(0, 0, 0, 0.5);
+  border: none;
+  border-radius: 50%;
+  color: white;
+  font-size: 28px;
+  line-height: 1;
+  cursor: pointer;
+  z-index: 10002;
+  transition: background 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.embed-modal-close:hover {
+  background: rgba(0, 0, 0, 0.75);
+}
+
+.embed-modal-body {
+  padding: 20px;
+}
+
+.embed-modal-body .embed-container {
+  margin: 0;
+}
+
+.embed-modal-body iframe {
+  width: 100%;
+  height: 70vh;
+  max-height: 800px;
+}
+
+/* For social media embeds in modal */
+.embed-modal-body .twitter-embed,
+.embed-modal-body .instagram-embed,
+.embed-modal-body .tiktok-embed {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* ============================================
+   Responsive Breakpoints
+   ============================================ */
+
+/* Tablet: 900px - reduce sidebar widths */
+@media (max-width: 1200px) {
+  .post-adaptive-three-column {
+    grid-template-columns: 250px 1fr 250px;
+    gap: 32px;
+  }
+
+  .post-adaptive-two-column {
+    grid-template-columns: 250px 1fr;
+    gap: 28px;
+    max-width: 750px;
+  }
+}
+
+/* Mobile: Stack all columns vertically */
+@media (max-width: 900px) {
+  .post-adaptive-three-column,
+  .post-adaptive-two-column {
+    grid-template-columns: 1fr;
+    gap: 24px;
+    max-width: 100%;
+  }
+
+  /* Show embeds in content on mobile */
+  .post-adaptive-three-column .post-content .embed-container,
+  .post-adaptive-three-column .post-content .twitter-embed,
+  .post-adaptive-three-column .post-content .instagram-embed,
+  .post-adaptive-three-column .post-content .tiktok-embed {
+    display: block;
+  }
+
+  /* Hide thumbnail sidebar on mobile */
+  .post-adaptive-embeds {
+    display: none;
+  }
+
+  .post-adaptive-sidebar {
+    position: static;
+  }
+
+  /* On mobile, grid order: image, content, embeds */
+  .post-adaptive-image {
+    order: 1;
+  }
+
+  .post-adaptive-content {
+    order: 2;
+  }
+
+  .post-adaptive-embeds {
+    order: 3;
+  }
+}
+
+/* Small mobile: Adjust modal */
+@media (max-width: 600px) {
+  .embed-modal-content {
+    width: 95%;
+    max-height: 95vh;
+  }
+
+  .embed-modal-body {
+    padding: 12px;
+  }
+
+  .embed-modal-body iframe {
+    height: 60vh;
+  }
+
+  .embed-modal-close {
+    top: 8px;
+    right: 8px;
+    width: 36px;
+    height: 36px;
+    font-size: 24px;
+  }
+}

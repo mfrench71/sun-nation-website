@@ -921,6 +921,12 @@ export function setupPostFormChangeListeners() {
   if (featuredCheckbox) {
     featuredCheckbox.addEventListener('change', markPostDirty);
   }
+
+  // Add change listener for layout selector
+  const layoutSelect = document.getElementById('post-layout');
+  if (layoutSelect) {
+    layoutSelect.addEventListener('change', markPostDirty);
+  }
 }
 
 /**

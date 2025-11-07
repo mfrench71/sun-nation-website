@@ -26,6 +26,14 @@ module Jekyll
     def process_youtube(content)
       # Match YouTube URLs that are standalone (not already in markdown links or HTML)
       # Supports: youtube.com/watch?v=ID, youtu.be/ID, youtube.com/embed/ID
+
+      # First, handle URLs in paragraph tags
+      content = content.gsub(%r{<p>(https?://(?:www\.)?(?:youtube\.com/watch\?v=|youtu\.be/)([a-zA-Z0-9_-]{11})(?:[?&][^\s<]*)?)</p>}) do |match|
+        video_id = $2
+        create_youtube_embed(video_id)
+      end
+
+      # Then handle plain URLs not in HTML
       youtube_pattern = %r{
         (?<![\[("'>])                                     # Not preceded by markdown/HTML link syntax
         (?:https?://)?                                     # Optional protocol
@@ -44,6 +52,14 @@ module Jekyll
 
     def process_vimeo(content)
       # Match Vimeo URLs: vimeo.com/123456789
+
+      # First, handle URLs in paragraph tags
+      content = content.gsub(%r{<p>(https?://(?:www\.)?vimeo\.com/(\d+)(?:[?/][^\s<]*)?)</p>}) do |match|
+        video_id = $2
+        create_vimeo_embed(video_id)
+      end
+
+      # Then handle plain URLs not in HTML
       vimeo_pattern = %r{
         (?<![\[("'>])                                     # Not preceded by markdown/HTML link syntax
         (?:https?://)?                                     # Optional protocol
@@ -61,6 +77,14 @@ module Jekyll
 
     def process_twitter(content)
       # Match Twitter/X URLs: twitter.com/user/status/ID or x.com/user/status/ID
+
+      # First, handle URLs in paragraph tags
+      content = content.gsub(%r{<p>(https?://(?:www\.)?(?:twitter|x)\.com/\w+/status/\d+(?:[?][^\s<]*)?)</p>}) do |match|
+        tweet_url = $1
+        create_twitter_embed(tweet_url)
+      end
+
+      # Then handle plain URLs not in HTML
       twitter_pattern = %r{
         (?<![\[("'>])                                     # Not preceded by markdown/HTML link syntax
         (https?://(?:www\.)?(?:twitter|x)\.com/\w+/status/\d+)  # Full tweet URL
@@ -76,6 +100,14 @@ module Jekyll
 
     def process_instagram(content)
       # Match Instagram URLs: instagram.com/p/POST_ID/ or instagram.com/reel/REEL_ID/
+
+      # First, handle URLs in paragraph tags
+      content = content.gsub(%r{<p>(https?://(?:www\.)?instagram\.com/(?:p|reel)/[a-zA-Z0-9_-]+/(?:[?][^\s<]*)?)</p>}) do |match|
+        post_url = $1
+        create_instagram_embed(post_url)
+      end
+
+      # Then handle plain URLs not in HTML
       instagram_pattern = %r{
         (?<![\[("'>])                                     # Not preceded by markdown/HTML link syntax
         (https?://(?:www\.)?instagram\.com/(?:p|reel)/[a-zA-Z0-9_-]+/)  # Post or reel URL
@@ -91,6 +123,14 @@ module Jekyll
 
     def process_tiktok(content)
       # Match TikTok URLs: tiktok.com/@user/video/ID or vm.tiktok.com/ID
+
+      # First, handle URLs in paragraph tags
+      content = content.gsub(%r{<p>(https?://(?:www\.|vm\.)?tiktok\.com/(?:@[\w.-]+/video/\d+|[\w-]+)(?:[?][^\s<]*)?)</p>}) do |match|
+        tiktok_url = $1
+        create_tiktok_embed(tiktok_url)
+      end
+
+      # Then handle plain URLs not in HTML
       tiktok_pattern = %r{
         (?<![\[("'>])                                     # Not preceded by markdown/HTML link syntax
         (https?://(?:www\.|vm\.)?tiktok\.com/(?:@[\w.-]+/video/\d+|[\w-]+))  # TikTok URL

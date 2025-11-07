@@ -61,8 +61,14 @@
 .page-header-dark .post-title,
 .page-header-dark .page-title {
   color: #e8e6e3;
-  margin-top: 20px;
   margin-bottom: 16px;
+}
+
+/* Add top margin only when breadcrumbs are present */
+.page-header-dark .breadcrumb-nav + .page-heading,
+.page-header-dark .breadcrumb-nav ~ .post-title,
+.page-header-dark .breadcrumb-nav ~ .page-title {
+  margin-top: 20px;
 }
 
 .page-header-dark .category-icon,

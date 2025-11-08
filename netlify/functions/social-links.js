@@ -68,6 +68,9 @@ async function handleGet() {
       // In production, read from GitHub
       const url = `https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}/contents/${SOCIAL_FILE_PATH}?ref=${GITHUB_BRANCH}`;
 
+      console.log('Fetching from GitHub:', url);
+      console.log('GITHUB_TOKEN exists:', !!GITHUB_TOKEN);
+
       const response = await fetch(url, {
         headers: {
           'Authorization': `token ${GITHUB_TOKEN}`,
@@ -76,7 +79,9 @@ async function handleGet() {
       });
 
       if (!response.ok) {
-        throw new Error(`GitHub API error: ${response.status}`);
+        const errorText = await response.text();
+        console.error('GitHub API error response:', errorText);
+        throw new Error(`GitHub API error: ${response.status} - ${errorText}`);
       }
 
       const data = await response.json();
@@ -97,7 +102,14 @@ async function handleGet() {
     };
   } catch (error) {
     console.error('Error fetching social links:', error);
-    throw error;
+    return {
+      statusCode: 500,
+      headers,
+      body: JSON.stringify({
+        error: 'Failed to load social links',
+        details: error.message
+      })
+    };
   }
 }
 
@@ -164,8 +176,9 @@ async function handlePut(event) {
       });
 
       if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(`GitHub API error: ${response.status} - ${JSON.stringify(errorData)}`);
+        const errorText = await response.text();
+        console.error('GitHub API PUT error:', errorText);
+        throw new Error(`GitHub API error: ${response.status} - ${errorText}`);
       }
 
       const result = await response.json();
@@ -183,7 +196,14 @@ async function handlePut(event) {
     };
   } catch (error) {
     console.error('Error updating social links:', error);
-    throw error;
+    return {
+      statusCode: 500,
+      headers,
+      body: JSON.stringify({
+        error: 'Failed to update social links',
+        details: error.message
+      })
+    };
   }
 }
 

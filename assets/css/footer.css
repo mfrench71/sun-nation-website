@@ -56,9 +56,11 @@
 }
 
 .social-media-list li {
-  margin: 0;
+  margin: 0 !important;
+  padding: 0 !important;
   display: flex;
   align-items: center;
+  line-height: 1;
 }
 
 .social-media-list a {
@@ -76,10 +78,18 @@
   position: relative;
 }
 
+.social-media-list a:visited {
+  color: #a8a6a3;
+}
+
 .social-media-list a:hover {
   background: #c5641c;
   color: white;
   border-color: #c5641c;
+}
+
+.social-media-list a:active {
+  color: white;
 }
 
 .social-media-list svg {

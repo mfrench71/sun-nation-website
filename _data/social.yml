@@ -8,39 +8,45 @@ links:
     enabled: false
     order: 1
 
-  - platform: Twitter / X
-    slug: twitter
-    url: https://twitter.com/matthewfrench71
+  - platform: YouTube
+    slug: youtube
+    url: https://www.youtube.com/@sun-nation-band
     enabled: true
     order: 2
+
+  - platform: Facebook
+    slug: facebook
+    url: https://www.facebook.com/SunNationBand/
+    enabled: true
+    order: 3
+
+  - platform: TikTok
+    slug: tiktok
+    url: https://www.tiktok.com/@sun_nation_band
+    enabled: true
+    order: 4
+
+  - platform: Twitter / X
+    slug: twitter
+    url: https://twitter.com/sun_nation_band
+    enabled: true
+    order: 5
 
   - platform: LinkedIn
     slug: linkedin
     url: https://www.linkedin.com/in/matthew-french
-    enabled: true
-    order: 3
-
-  - platform: YouTube
-    slug: youtube
-    url: https://www.youtube.com/@matthewfrench71
-    enabled: true
-    order: 4
+    enabled: false
+    order: 6
 
   - platform: Vimeo
     slug: vimeo
     url: https://vimeo.com/user46482477
-    enabled: true
-    order: 5
+    enabled: false
+    order: 7
 
   - platform: Flickr
     slug: flickr
     url: https://www.flickr.com/photos/130138518@N02
-    enabled: true
-    order: 6
-
-  - platform: Facebook
-    slug: facebook
-    url: https://www.facebook.com/matthew.french.404
-    enabled: true
-    order: 7
+    enabled: false
+    order: 8
 

@@ -107,7 +107,7 @@
   background-position: center;
 }
 
-/* Play button overlay for video thumbnails */
+/* Play button overlay for video/embed thumbnails */
 .embed-thumbnail-image::after {
   content: '';
   position: absolute;
@@ -123,6 +123,13 @@
   background-position: 52% center;
   background-size: 60%;
   transition: transform 0.2s ease;
+}
+
+/* Magnifying glass overlay for image thumbnails */
+.embed-thumbnail-image[data-media-type="image"]::after {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23FF5F1F'%3E%3Cpath d='M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z'/%3E%3C/svg%3E");
+  background-position: center;
+  background-size: 55%;
 }
 
 .embed-thumbnail-card:hover .embed-thumbnail-image::after {
@@ -208,6 +215,40 @@
   background: rgba(0, 0, 0, 0.75);
 }
 
+/* Navigation Buttons */
+.modal-nav-button {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 50px;
+  height: 50px;
+  background: rgba(0, 0, 0, 0.5);
+  border: none;
+  border-radius: 50%;
+  color: white;
+  font-size: 40px;
+  line-height: 1;
+  cursor: pointer;
+  z-index: 10002;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-nav-button:hover {
+  background: rgba(0, 0, 0, 0.75);
+  transform: translateY(-50%) scale(1.1);
+}
+
+.modal-nav-prev {
+  left: 16px;
+}
+
+.modal-nav-next {
+  right: 16px;
+}
+
 .embed-modal-body {
   padding: 20px;
 }
@@ -228,6 +269,17 @@
 .embed-modal-body .tiktok-embed {
   max-width: 600px;
   margin: 0 auto;
+}
+
+/* Hide images on desktop initially (will be shown in sidebar by JS) */
+@media (min-width: 901px) {
+  .post-adaptive-three-column .post-content img:not(.post-author-avatar):not(.gravatar),
+  .post-adaptive-two-column .post-content img:not(.post-author-avatar):not(.gravatar),
+  .post-adaptive-three-column .post-content figure,
+  .post-adaptive-two-column .post-content figure,
+  .hide-on-desktop {
+    display: none !important;
+  }
 }
 
 /* ============================================
@@ -316,5 +368,19 @@
     width: 36px;
     height: 36px;
     font-size: 24px;
+  }
+
+  .modal-nav-button {
+    width: 40px;
+    height: 40px;
+    font-size: 32px;
+  }
+
+  .modal-nav-prev {
+    left: 8px;
+  }
+
+  .modal-nav-next {
+    right: 8px;
   }
 }

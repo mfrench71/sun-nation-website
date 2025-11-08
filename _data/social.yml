@@ -20,15 +20,15 @@ links:
     enabled: true
     order: 3
 
-  - platform: TikTok
-    slug: tiktok
-    url: https://www.tiktok.com/@sun_nation_band
-    enabled: true
-    order: 4
-
   - platform: Twitter / X
     slug: twitter
     url: https://twitter.com/sun_nation_band
+    enabled: true
+    order: 4
+
+  - platform: TikTok
+    slug: tiktok
+    url: https://www.tiktok.com/@sun_nation_band
     enabled: true
     order: 5
 

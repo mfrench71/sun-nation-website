@@ -3,6 +3,17 @@
    Touch-friendly, optimized for mobile devices
    ============================================ */
 
+/* Prevent horizontal overflow on mobile */
+html, body {
+  overflow-x: hidden;
+  width: 100%;
+  max-width: 100%;
+}
+
+body {
+  position: relative;
+}
+
 /* Mobile-First Base */
 * {
   -webkit-tap-highlight-color: rgba(42, 122, 226, 0.1);
@@ -78,8 +89,8 @@ body {
 /* Mobile Spacing */
 @media (max-width: 600px) {
   .wrapper {
-    padding-left: 16px;
-    padding-right: 16px;
+    padding-left: 16px !important;
+    padding-right: 16px !important;
   }
 
   .page-content {
@@ -238,11 +249,16 @@ img {
 
 /* Landscape Mobile Adjustments */
 @media (max-width: 900px) and (orientation: landscape) {
+  .wrapper {
+    padding-left: 16px !important;
+    padding-right: 16px !important;
+  }
+
   .post-grid {
     grid-template-columns: repeat(2, 1fr);
     gap: 24px;
-    margin-left: 24px;
-    margin-right: 24px;
+    margin-left: 0;
+    margin-right: 0;
   }
 
   .post-card.featured {
@@ -254,13 +270,13 @@ img {
 @media (min-width: 601px) and (max-width: 900px) and (orientation: portrait) {
   .post-grid {
     gap: 24px;
-    margin-left: 20px;
-    margin-right: 20px;
+    margin-left: 0;
+    margin-right: 0;
   }
 
   .wrapper {
-    padding-left: 20px;
-    padding-right: 20px;
+    padding-left: 16px !important;
+    padding-right: 16px !important;
   }
 }
 

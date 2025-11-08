@@ -2,6 +2,12 @@
    Adaptive Post Layout - 3-column with embeds, 2-column fallback
    ============================================ */
 
+/* Ensure box-sizing for all post-adaptive elements */
+.post-adaptive,
+.post-adaptive * {
+  box-sizing: border-box;
+}
+
 /* Wrapper - use container query friendly approach */
 .post-adaptive .post-adaptive-wrapper {
   max-width: 90%;
@@ -14,6 +20,7 @@
   grid-template-columns: 300px 1fr 300px;
   gap: 40px;
   align-items: start;
+  box-sizing: border-box;
 }
 
 /* 2-Column Fallback Layout (no embeds) - centered with 800px max */
@@ -24,6 +31,7 @@
   max-width: 800px;
   margin: 0 auto;
   align-items: start;
+  box-sizing: border-box;
 }
 
 /* Sidebar sections */
@@ -242,11 +250,18 @@
 
 /* Mobile: Stack all columns vertically */
 @media (max-width: 900px) {
+  .post-adaptive .post-adaptive-wrapper {
+    max-width: 100% !important;
+    width: 100% !important;
+    /* Let wrapper class handle padding from style.scss */
+  }
+
   .post-adaptive-three-column,
   .post-adaptive-two-column {
     grid-template-columns: 1fr;
     gap: 24px;
     max-width: 100%;
+    width: 100%;
   }
 
   /* Show embeds in content on mobile */

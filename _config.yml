@@ -60,7 +60,6 @@ google_fonts:
   heading_font: Impact
   heading_uppercase: true
 cloudinary_default_folder: sun-nation
-instagram_username: sun_nation
 site_image: sn-wall-variation
 show_site_description: true
 show_site_image: true

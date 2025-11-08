@@ -21,8 +21,8 @@
 /* Responsive adjustments */
 @media (max-width: 768px) {
   .post-featured-image-wrapper {
-    margin: 1rem -20px; /* Extend to screen edges on mobile */
-    border-radius: 0;
+    margin: 0 0 1.5rem 0; /* Keep normal margins on mobile */
+    border-radius: 8px;
   }
 
   .post-featured-image {
@@ -34,7 +34,7 @@
 
 @media (max-width: 480px) {
   .post-featured-image-wrapper {
-    margin: 1rem -16px;
+    margin: 0 0 1.5rem 0;
   }
 
   .post-featured-image {

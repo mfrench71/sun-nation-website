@@ -5,10 +5,10 @@ links:
   - platform: GitHub
     slug: github
     url: https://github.com/mfrench71
-    enabled: true
+    enabled: false
     order: 1
 
-  - platform: Twitter
+  - platform: Twitter / X
     slug: twitter
     url: https://twitter.com/matthewfrench71
     enabled: true
@@ -43,3 +43,4 @@ links:
     url: https://www.facebook.com/matthew.french.404
     enabled: true
     order: 7
+

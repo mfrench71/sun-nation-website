@@ -6,55 +6,55 @@
 import { showSuccess, showError } from '../ui/notifications.js';
 import { trackDeployment } from './deployments.js';
 
-// Available social platforms with their SVG icons
+// Available social platforms with their Font Awesome icons
 const AVAILABLE_PLATFORMS = {
   github: {
     name: 'GitHub',
-    icon: `<svg class="svg-icon"><use xlink:href="#github-icon"></use></svg>`
+    icon: `<i class="fab fa-github"></i>`
   },
   twitter: {
     name: 'Twitter / X',
-    icon: `<svg class="svg-icon"><use xlink:href="#twitter-icon"></use></svg>`
+    icon: `<i class="fab fa-x-twitter"></i>`
   },
   linkedin: {
     name: 'LinkedIn',
-    icon: `<svg class="svg-icon"><use xlink:href="#linkedin-icon"></use></svg>`
+    icon: `<i class="fab fa-linkedin"></i>`
   },
   facebook: {
     name: 'Facebook',
-    icon: `<svg class="svg-icon"><use xlink:href="#facebook-icon"></use></svg>`
+    icon: `<i class="fab fa-facebook"></i>`
   },
   youtube: {
     name: 'YouTube',
-    icon: `<svg class="svg-icon"><use xlink:href="#youtube-icon"></use></svg>`
+    icon: `<i class="fab fa-youtube"></i>`
   },
   vimeo: {
     name: 'Vimeo',
-    icon: `<svg class="svg-icon"><use xlink:href="#vimeo-icon"></use></svg>`
+    icon: `<i class="fab fa-vimeo"></i>`
   },
   flickr: {
     name: 'Flickr',
-    icon: `<svg class="svg-icon"><use xlink:href="#flickr-icon"></use></svg>`
+    icon: `<i class="fab fa-flickr"></i>`
   },
   instagram: {
     name: 'Instagram',
-    icon: `<svg class="svg-icon"><use xlink:href="#instagram-icon"></use></svg>`
+    icon: `<i class="fab fa-instagram"></i>`
   },
   tiktok: {
     name: 'TikTok',
-    icon: `<svg class="svg-icon"><use xlink:href="#tiktok-icon"></use></svg>`
+    icon: `<i class="fab fa-tiktok"></i>`
   },
   threads: {
     name: 'Threads',
-    icon: `<svg class="svg-icon"><use xlink:href="#threads-icon"></use></svg>`
+    icon: `<i class="fab fa-threads"></i>`
   },
   bluesky: {
     name: 'Bluesky',
-    icon: `<svg class="svg-icon"><use xlink:href="#bluesky-icon"></use></svg>`
+    icon: `<i class="fas fa-cloud"></i>`
   },
   mastodon: {
     name: 'Mastodon',
-    icon: `<svg class="svg-icon"><use xlink:href="#mastodon-icon"></use></svg>`
+    icon: `<i class="fab fa-mastodon"></i>`
   }
 };
 
@@ -173,22 +173,22 @@ function renderSocialLinks() {
   listEl.innerHTML = sortedLinks.map(link => `
     <div class="social-link-item card mb-2" data-slug="${link.slug}">
       <div class="card-body p-3">
-        <div class="d-flex align-items-center gap-3">
+        <div class="d-flex align-items-center gap-2 flex-wrap">
           <!-- Drag Handle -->
-          <div class="drag-handle text-muted" style="cursor: move;">
+          <div class="drag-handle text-muted" style="cursor: move; flex-shrink: 0;">
             <i class="fas fa-grip-vertical"></i>
           </div>
 
           <!-- Platform Icon & Name -->
-          <div class="social-platform-info d-flex align-items-center gap-2" style="min-width: 140px;">
+          <div class="social-platform-info d-flex align-items-center gap-2" style="flex: 0 0 auto; min-width: 120px;">
             <span class="social-platform-icon">
               ${getPlatformIcon(link.slug)}
             </span>
-            <strong>${link.platform}</strong>
+            <strong class="text-nowrap">${link.platform}</strong>
           </div>
 
           <!-- URL Input -->
-          <div class="flex-grow-1">
+          <div style="flex: 1 1 300px; min-width: 200px;">
             <input
               type="url"
               class="form-control form-control-sm social-url-input"
@@ -199,7 +199,7 @@ function renderSocialLinks() {
           </div>
 
           <!-- Enable Toggle -->
-          <div class="form-check form-switch mb-0">
+          <div class="form-check form-switch mb-0" style="flex-shrink: 0;">
             <input
               class="form-check-input social-enabled-toggle"
               type="checkbox"
@@ -213,6 +213,7 @@ function renderSocialLinks() {
             type="button"
             class="btn btn-sm btn-outline-danger remove-social-link-btn"
             title="Remove"
+            style="flex-shrink: 0;"
           >
             <i class="fas fa-trash"></i>
           </button>
@@ -409,21 +410,21 @@ function addPlatform(slug, url) {
   newItem.dataset.slug = slug;
   newItem.innerHTML = `
     <div class="card-body p-3">
-      <div class="d-flex align-items-center gap-3">
-        <div class="drag-handle text-muted" style="cursor: move;">
+      <div class="d-flex align-items-center gap-2 flex-wrap">
+        <div class="drag-handle text-muted" style="cursor: move; flex-shrink: 0;">
           <i class="fas fa-grip-vertical"></i>
         </div>
-        <div class="social-platform-info d-flex align-items-center gap-2" style="min-width: 140px;">
+        <div class="social-platform-info d-flex align-items-center gap-2" style="flex: 0 0 auto; min-width: 120px;">
           <span class="social-platform-icon">${platform.icon}</span>
-          <strong>${platform.name}</strong>
+          <strong class="text-nowrap">${platform.name}</strong>
         </div>
-        <div class="flex-grow-1">
+        <div style="flex: 1 1 300px; min-width: 200px;">
           <input type="url" class="form-control form-control-sm social-url-input" value="${url}" required />
         </div>
-        <div class="form-check form-switch mb-0">
+        <div class="form-check form-switch mb-0" style="flex-shrink: 0;">
           <input class="form-check-input social-enabled-toggle" type="checkbox" checked />
         </div>
-        <button type="button" class="btn btn-sm btn-outline-danger remove-social-link-btn" title="Remove">
+        <button type="button" class="btn btn-sm btn-outline-danger remove-social-link-btn" title="Remove" style="flex-shrink: 0;">
           <i class="fas fa-trash"></i>
         </button>
       </div>

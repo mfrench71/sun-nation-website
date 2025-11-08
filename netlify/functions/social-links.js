@@ -6,10 +6,15 @@
  * PUT  - Update social links
  */
 
+const fs = require('fs');
+const path = require('path');
+
 const GITHUB_TOKEN = process.env.GITHUB_TOKEN;
 const GITHUB_OWNER = process.env.GITHUB_OWNER || 'mfrench71';
 const GITHUB_REPO = process.env.GITHUB_REPO || 'sun-nation-website';
+const GITHUB_BRANCH = process.env.GITHUB_BRANCH || 'main';
 const SOCIAL_FILE_PATH = '_data/social.yml';
+const IS_LOCAL = process.env.NETLIFY_DEV === 'true' || !process.env.NETLIFY;
 
 const headers = {
   'Access-Control-Allow-Origin': '*',
@@ -52,21 +57,32 @@ exports.handler = async (event, context) => {
 
 async function handleGet() {
   try {
-    const url = `https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}/contents/${SOCIAL_FILE_PATH}`;
+    let content, sha;
 
-    const response = await fetch(url, {
-      headers: {
-        'Authorization': `token ${GITHUB_TOKEN}`,
-        'Accept': 'application/vnd.github.v3+json'
+    // In local development, read from file system
+    if (IS_LOCAL) {
+      const filePath = path.join(process.cwd(), SOCIAL_FILE_PATH);
+      content = fs.readFileSync(filePath, 'utf8');
+      sha = 'local-dev'; // Dummy SHA for local dev
+    } else {
+      // In production, read from GitHub
+      const url = `https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}/contents/${SOCIAL_FILE_PATH}?ref=${GITHUB_BRANCH}`;
+
+      const response = await fetch(url, {
+        headers: {
+          'Authorization': `token ${GITHUB_TOKEN}`,
+          'Accept': 'application/vnd.github.v3+json'
+        }
+      });
+
+      if (!response.ok) {
+        throw new Error(`GitHub API error: ${response.status}`);
       }
-    });
 
-    if (!response.ok) {
-      throw new Error(`GitHub API error: ${response.status}`);
+      const data = await response.json();
+      content = Buffer.from(data.content, 'base64').toString('utf8');
+      sha = data.sha;
     }
-
-    const data = await response.json();
-    const content = Buffer.from(data.content, 'base64').toString('utf8');
 
     // Parse YAML manually (simple parser for this specific structure)
     const links = parseSimpleYAML(content);
@@ -76,7 +92,7 @@ async function handleGet() {
       headers,
       body: JSON.stringify({
         links,
-        sha: data.sha
+        sha
       })
     };
   } catch (error) {
@@ -122,29 +138,39 @@ async function handlePut(event) {
     // Generate YAML content
     const yamlContent = generateYAML(links);
 
-    // Update file on GitHub
-    const url = `https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}/contents/${SOCIAL_FILE_PATH}`;
+    let commitSha = 'local-dev';
 
-    const response = await fetch(url, {
-      method: 'PUT',
-      headers: {
-        'Authorization': `token ${GITHUB_TOKEN}`,
-        'Accept': 'application/vnd.github.v3+json',
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        message: 'Update social media links via admin\n\n🤖 Generated with [Claude Code](https://claude.com/claude-code)\n\nCo-Authored-By: Claude <noreply@anthropic.com>',
-        content: Buffer.from(yamlContent).toString('base64'),
-        sha: sha
-      })
-    });
+    // In local development, write to file system
+    if (IS_LOCAL) {
+      const filePath = path.join(process.cwd(), SOCIAL_FILE_PATH);
+      fs.writeFileSync(filePath, yamlContent, 'utf8');
+    } else {
+      // In production, update file on GitHub
+      const url = `https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}/contents/${SOCIAL_FILE_PATH}`;
 
-    if (!response.ok) {
-      const errorData = await response.json();
-      throw new Error(`GitHub API error: ${response.status} - ${JSON.stringify(errorData)}`);
+      const response = await fetch(url, {
+        method: 'PUT',
+        headers: {
+          'Authorization': `token ${GITHUB_TOKEN}`,
+          'Accept': 'application/vnd.github.v3+json',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          message: 'Update social media links via admin\n\n🤖 Generated with [Claude Code](https://claude.com/claude-code)\n\nCo-Authored-By: Claude <noreply@anthropic.com>',
+          content: Buffer.from(yamlContent).toString('base64'),
+          sha: sha,
+          branch: GITHUB_BRANCH
+        })
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(`GitHub API error: ${response.status} - ${JSON.stringify(errorData)}`);
+      }
+
+      const result = await response.json();
+      commitSha = result.commit.sha;
     }
-
-    const result = await response.json();
 
     return {
       statusCode: 200,
@@ -152,7 +178,7 @@ async function handlePut(event) {
       body: JSON.stringify({
         success: true,
         message: 'Social links updated successfully',
-        commitSha: result.commit.sha
+        commitSha
       })
     };
   } catch (error) {

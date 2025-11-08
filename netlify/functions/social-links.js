@@ -14,7 +14,7 @@ const GITHUB_OWNER = process.env.GITHUB_OWNER || 'mfrench71';
 const GITHUB_REPO = process.env.GITHUB_REPO || 'sun-nation-website';
 const GITHUB_BRANCH = process.env.GITHUB_BRANCH || 'main';
 const SOCIAL_FILE_PATH = '_data/social.yml';
-const IS_LOCAL = process.env.NETLIFY_DEV === 'true' || !process.env.NETLIFY;
+const IS_LOCAL = process.env.NETLIFY_DEV === 'true';
 
 const headers = {
   'Access-Control-Allow-Origin': '*',

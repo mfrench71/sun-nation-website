@@ -116,11 +116,6 @@ function updateTitleElements(title) {
   if (visitSiteName) {
     visitSiteName.textContent = title;
   }
-
-  const welcomeTitle = document.getElementById('dashboard-welcome-title');
-  if (welcomeTitle) {
-    welcomeTitle.textContent = `Welcome to ${title} Admin`;
-  }
 }
 
 /**

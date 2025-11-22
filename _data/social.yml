@@ -2,10 +2,10 @@
 # Managed via Admin > Appearance > Social Media Links
 
 links:
-  - platform: GitHub
-    slug: github
-    url: https://github.com/mfrench71
-    enabled: false
+  - platform: Instagram
+    slug: instagram
+    url: https://www.instagram.com/sun_nation_band/
+    enabled: true
     order: 1
 
   - platform: YouTube
@@ -31,22 +31,4 @@ links:
     url: https://www.tiktok.com/@sun_nation_band
     enabled: true
     order: 5
-
-  - platform: LinkedIn
-    slug: linkedin
-    url: https://www.linkedin.com/in/matthew-french
-    enabled: false
-    order: 6
-
-  - platform: Vimeo
-    slug: vimeo
-    url: https://vimeo.com/user46482477
-    enabled: false
-    order: 7
-
-  - platform: Flickr
-    slug: flickr
-    url: https://www.flickr.com/photos/130138518@N02
-    enabled: false
-    order: 8
 
